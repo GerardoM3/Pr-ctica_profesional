@@ -1,0 +1,7 @@
+Barra de navegación - Rocío
+Formulario (inicio de sesion) - Yuleydi
+Tarjetas de presentación - Monroy
+
+Tabla: Datos generales
+Campos: Nombre del contribuyente, Dirección del
+contribuyente, DUI, Teléfono celular
