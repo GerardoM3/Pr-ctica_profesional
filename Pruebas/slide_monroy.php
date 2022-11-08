@@ -14,14 +14,31 @@
 		.card-1, .card-2,.card-3, .card-4, .card-5, .card-6, .card-7, .card-8{
 			display: inline-block;
 			width: 500px;
-			padding: 1rem;
+			padding: 2rem;
 			margin: 1rem;
 			border: solid black;
 			border-width: 3px;
 			border-radius: 25px;
 		}
 
+		.card-1{
+			display: inline-flex;
+			align-items:center;
+		}
+		.icon{
+			width: 18%;
+			height: 100%;
+			float:left;
+			display:flex;
+			align-items:center;
+		}
 		
+		.card-1 .title-card, .card-1 .content-card{
+			width:78%;
+			height: 100%;
+			display: inline-block;
+			float: right;
+		}
 
 
 	</style>
@@ -32,16 +49,24 @@
 	<div class="content-main">
 		<div class="card-content">
 			<div class="card-1">
-				<div class="title-card">
-					<h2 class="h2-title">Tarjeta 1</h2>
+				<div class="icon">
+					<center>
+						<p class="p">Esta sección es un ícono</p>
+						<img src="" alt="">
+					</center>
 				</div>
-				<div class="content-card">
-					<p class="p">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<div class="title-content-card">
+					<div class="title-card">
+						<h2 class="h2-title">Tarjeta 1</h2>
+					</div>
+					<div class="content-card">
+						<p class="p">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					</div>
 				</div>
 			</div>
 			<div class="card-2">
