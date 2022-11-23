@@ -7,37 +7,53 @@
 
 
 	<style type="text/css">
+		body{
+			background-color: red;
+		}
 		.content-main{
 			margin: 5em;
+			background-color: orange;
 		}
 
 		.card-1, .card-2,.card-3, .card-4, .card-5, .card-6, .card-7, .card-8{
 			display: inline-block;
-			width: 500px;
+			width: 450px;
 			padding: 2rem;
 			margin: 1rem;
 			border: solid black;
 			border-width: 3px;
 			border-radius: 25px;
+			background-color: transparent;
+			transition: box-shadow .2s;
 		}
 
 		.card-1{
 			display: inline-flex;
 			align-items:center;
+
 		}
 		.icon{
+			margin-right: 1rem;
 			width: 18%;
 			height: 100%;
 			float:left;
 			display:flex;
 			align-items:center;
+			background-color: greenyellow;
 		}
 		
-		.card-1 .title-card, .card-1 .content-card{
+		.title-content-card{
+			margin-left: 1rem;
 			width:78%;
 			height: 100%;
 			display: inline-block;
 			float: right;
+			background-color: green;
+		}
+		.card-1:hover, .card-2:hover, .card-3:hover, .card-4:hover, .card-5:hover,.card-6:hover, .card-7:hover, .card-8:hover{
+			background-color: transparent;
+			box-shadow: 3px 3px 20px 0px black;
+			cursor: pointer;
 		}
 
 
