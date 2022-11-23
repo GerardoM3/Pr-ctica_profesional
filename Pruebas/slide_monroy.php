@@ -7,9 +7,7 @@
 
 
 	<style type="text/css">
-		body{
-			background-color: red;
-		}
+		
 		.content-main{
 			margin: 5em;
 			background-color: orange;
