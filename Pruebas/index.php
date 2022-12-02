@@ -8,8 +8,9 @@
 <body>
 	<div>
 		<center><h1>Resultados</h1></center>
-		<?php include 'slide_monroy.php';?>
 		<?php include 'barra_rocy.php';?>
+		<?php include 'slide_monroy.php';?>
+		
 	</div>
 </body>
 </html>
