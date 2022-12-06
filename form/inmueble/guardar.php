@@ -13,7 +13,7 @@
 
 .center {
   text-align: center;
-  border: 6px solid purple;
+  border: 1px solid black;
 }
 
 input[type=text], select, textarea {
@@ -43,21 +43,23 @@ input[type=submit]:hover {
   background-color: #45a049;
 }
 
-.container {
+.container-middle{
+  width: 70%;
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
+  margin: auto;
 }
 
 .col-25 {
   float: left;
-  width: 25%;
+  width: 25vh;
   margin-top: 6px;
 }
 
 .col-75 {
   float: left;
-  width: 75%;
+  width: 100vh;
   margin-top: 6px;
 }
 
@@ -71,7 +73,7 @@ input[type=submit]:hover {
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type=submit] {
     width: 100%;
-    margin-top: 0;
+    margin-top: 1rem;
   }
 }
 </style>
@@ -80,7 +82,7 @@ input[type=submit]:hover {
 
 <h2 class="center">Formulario De Inmuebles</h2>
 
-<div class="container">
+<div class="container-middle">
   <form action="/action_page.php">
   <div class="row">
     <div class="col-25">
