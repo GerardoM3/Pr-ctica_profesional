@@ -89,7 +89,7 @@ input[type=submit]:hover {
       <label for="fname">Nombres</label>
     </div>
     <div class="col-75">
-      <input type="text" id="Nombres" name="nombres" placeholder="Nombres..">
+      <input type="text" id="nombre_contribuyente" name="nombre_contribuyente" placeholder="Nombres..">
     </div>
   </div>
   <div class="row">
@@ -97,7 +97,7 @@ input[type=submit]:hover {
       <label for="lname">Apellidos</label>
     </div>
     <div class="col-75">
-      <input type="text" id="Apellidos" name="apellidos" placeholder="Apellidos..">
+      <input type="text" id="apellido_contribuyente" name="apellido_contribuyente" placeholder="Apellidos..">
     </div>
   </div>
   <div class="row">
@@ -105,7 +105,7 @@ input[type=submit]:hover {
     <label for="fname">Direccion</label>
     </div>
     <div class="col-75">
-      <input type="text" id="Direccion" name="direccion" placeholder="Direccion..">
+      <input type="text" id="direccion_contribuyente" name="direccion_contribuyente" placeholder="Direccion..">
     </div>
   </div>
   <div class="row">
@@ -113,7 +113,7 @@ input[type=submit]:hover {
     <label for="fname">DUI</label>
     </div>
     <div class="col-75">
-      <input type="text" id="DUI" name="dui" placeholder="DUI..">
+      <input type="text" id="dui_contribuyente" name="dui_contribuyente" placeholder="DUI..">
     </div>
   </div>
   <div class="row">
@@ -121,7 +121,7 @@ input[type=submit]:hover {
     <label for="fname">NIT</label>
     </div>
     <div class="col-75">
-      <input type="text" id="NIT" name="nit" placeholder="NIT..">
+      <input type="text" id="nit_contribuyente" name="nit_contribuyente" placeholder="NIT..">
     </div>
   </div>
   <div class="row">
@@ -129,7 +129,7 @@ input[type=submit]:hover {
     <label for="fname">Telefono</label>
     </div>
     <div class="col-75">
-      <input type="text" id="Telefono" name="telefono" placeholder="Telefono..">
+      <input type="text" id="telefono_contribuyente" name="telefono_contribuyente" placeholder="Telefono..">
     </div>
   </div>
   <div class="row">
