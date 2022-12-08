@@ -31,11 +31,10 @@ class PersonaController{
         $alm = new Persona();
         
         $alm->idpersona = $_REQUEST['idpersona'];
-        $alm->nombres = $_REQUEST['Nombres'];
-        $alm->cedula = $_REQUEST['Cedula'];
-        $alm->fecha_nmto = $_REQUEST['FechaNacimiento'];
-        $alm->direccion = $_REQUEST['direccion'];
-        $alm->email = $_REQUEST['correo'];
+        $alm->norte_logitud = $_REQUEST['Norte_log'];
+        $alm->este_logitud = $_REQUEST['Este_log'];
+        $alm->oeste_logitud = $_REQUEST['Oeste_log'];
+        $alm->sur_logitud = $_REQUEST['Sur_log'];
 
         // SI ID PERSONA ES MAYOR QUE CERO (0) INDICA QUE ES UNA ACTUALIZACIÓN DE ESA TUPLA EN LA TABLA PERSONA, SINO SIGNIFICA QUE ES UN NUEVO REGISTRO
 
