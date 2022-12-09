@@ -1,5 +1,5 @@
 <?php
-class Persona
+class Contribuyente
 //modificar..
 {
 	private $pdo;
@@ -30,7 +30,7 @@ class Persona
 		{
 			$result = array();
 
-			$stm = $this->pdo->prepare("SELECT * FROM persona");
+			$stm = $this->pdo->prepare("SELECT * FROM contribuyente");
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -46,7 +46,7 @@ class Persona
 		try 
 		{
 			$stm = $this->pdo
-			          ->prepare("SELECT * FROM persona WHERE idpersona = ?");
+			          ->prepare("SELECT * FROM contribuyente WHERE idpersona = ?");
 			          
 
 			$stm->execute(array($idpersona));
@@ -62,7 +62,7 @@ class Persona
 		try 
 		{
 			$stm = $this->pdo
-			            ->prepare("DELETE FROM persona WHERE idpersona = ?");			          
+			            ->prepare("DELETE FROM contribuyente WHERE idpersona = ?");			          
 
 			$stm->execute(array($idpersona));
 		} catch (Exception $e) 
@@ -75,7 +75,7 @@ class Persona
 	{
 		try 
 		{
-			$sql = "UPDATE persona SET 
+			$sql = "UPDATE contribuyente SET 
 						nombre_contribuyente          = ?, 
 						apellido_contribuyente        = ?,
                         direccion_contribuyente        = ?,
@@ -106,7 +106,7 @@ class Persona
 	{
 		try 
 		{
-		$sql = "INSERT INTO `persona` (nombre_contribuyente,apellido_contribuyente,direccion_contribuyente,dui_contribuyente,nit_contribuyente,telefono_contribuyente) 
+		$sql = "INSERT INTO `contribuyente` (nombre_contribuyente,apellido_contribuyente,direccion_contribuyente,dui_contribuyente,nit_contribuyente,telefono_contribuyente) 
 		        VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		$this->pdo->prepare($sql)

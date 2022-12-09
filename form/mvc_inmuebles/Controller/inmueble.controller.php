@@ -1,34 +1,34 @@
 <?php
-require_once 'Model/persona.php';
+require_once 'Model/inmueble.php';
 
-class PersonaController{
+class InmuebleController{
     
     private $model;
     
     public function __CONSTRUCT(){
-        $this->model = new Persona();
+        $this->model = new Inmueble();
     }
     
     public function Index(){
         require_once 'View/header.php';
-        require_once 'View/persona.php';
+        require_once 'View/inmueble.php';
         require_once 'View/footer.php';
     }
     
     public function Crud(){
-        $alm = new Persona();
+        $alm = new Inmueble();
         
         if(isset($_REQUEST['idpersona'])){
             $alm = $this->model->getting($_REQUEST['idpersona']);
         }
         
         require_once 'View/header.php';
-        require_once 'View/persona-editar.php';
+        require_once 'View/inmueble-editar.php';
         require_once 'View/footer.php';
     }
     
     public function Guardar(){
-        $alm = new Persona();
+        $alm = new Inmueble();
         
         $alm->idpersona = $_REQUEST['idpersona'];
         $alm->norte_logitud = $_REQUEST['Norte_log'];

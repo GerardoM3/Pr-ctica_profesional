@@ -1,42 +1,40 @@
 <?php
-require_once 'Model/persona.php';
-//modificar 
-class PersonaController{
+require_once 'Model/inmueble.php';
+
+class InmuebleController{
     
     private $model;
     
     public function __CONSTRUCT(){
-        $this->model = new Persona();
+        $this->model = new Inmueble();
     }
     
     public function Index(){
         require_once 'View/header.php';
-        require_once 'View/persona.php';
+        require_once 'View/inmueble.php';
         require_once 'View/footer.php';
     }
     
     public function Crud(){
-        $alm = new Persona();
+        $alm = new Inmueble();
         
         if(isset($_REQUEST['idpersona'])){
             $alm = $this->model->getting($_REQUEST['idpersona']);
         }
         
         require_once 'View/header.php';
-        require_once 'View/persona-editar.php';
+        require_once 'View/inmueble-editar.php';
         require_once 'View/footer.php';
     }
     
     public function Guardar(){
-        $alm = new Persona();
+        $alm = new Inmueble();
         
         $alm->idpersona = $_REQUEST['idpersona'];
-        $alm->nombre_contribuyente = $_REQUEST['nombre_contribuyente'];
-        $alm->apellido_contribuyente = $_REQUEST['apellido_contribuyente'];
-        $alm->direccion_contribuyente = $_REQUEST['direccion_contribuyente'];
-        $alm->dui_contribuyente = $_REQUEST['dui_contribuyente'];
-        $alm->telefono_contribuyente = $_REQUEST['telefono_contribuyente'];
-        $alm->nit_contribuyente = $_REQUEST['nit_contribuyente'];
+        $alm->norte_logitud = $_REQUEST['Norte_log'];
+        $alm->este_logitud = $_REQUEST['Este_log'];
+        $alm->oeste_logitud = $_REQUEST['Oeste_log'];
+        $alm->sur_logitud = $_REQUEST['Sur_log'];
 
         // SI ID PERSONA ES MAYOR QUE CERO (0) INDICA QUE ES UNA ACTUALIZACIÓN DE ESA TUPLA EN LA TABLA PERSONA, SINO SIGNIFICA QUE ES UN NUEVO REGISTRO
 
