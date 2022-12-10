@@ -30,7 +30,7 @@ class Servicio_Alcaldia
 		try {
 			$result = array();
 
-			$stm = $this->pdo->prepare("SELECT * FROM meta_servicio_alcaldia");
+			$stm = $this->pdo->prepare("SELECT * FROM meta_servicios_alcaldia");
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -53,7 +53,7 @@ class Servicio_Alcaldia
 	public function Eliminar($cod1, $cod2, $cod3, $cod4){
 		try {
 			$stm = $this->pdo->prepare("DELETE FROM meta_servicio_alcaldia WHERE cod1=? AND cod2=? AND cod3=? AND cod4=?");
-			$stm = execute(array(($cod1, $cod2, $cod3, $cod4));
+			$stm = execute(array($cod1, $cod2, $cod3, $cod4));
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}

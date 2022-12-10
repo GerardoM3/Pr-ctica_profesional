@@ -11,8 +11,8 @@ class ServicioController{
 	}
 
 	public function Index_Servicios(){
-		require_once 'View/haeder.php';
-		require_once 'View/';
+		require_once 'View/header.php';
+		require_once 'View/servicio_alcaldia.php';
 		require_once 'View/header.php';
 	}
 
@@ -24,7 +24,7 @@ class ServicioController{
 		}
 
 		require_once 'View/header.php';
-		require_once 'View/';
+		require_once 'View/servicio_alcaldia_editar.php';
 		require_once 'View/footer.php';
 	}
 
