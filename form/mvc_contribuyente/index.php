@@ -1,6 +1,6 @@
 <?php
 require_once 'Model/conexion.php';
-$controller = 'persona';
+$controller = 'contribuyente';
 
 //terminar de modificar
 
