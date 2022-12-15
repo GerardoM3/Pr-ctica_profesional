@@ -92,22 +92,20 @@ class Inmueble
         try 
         {
             $sql = "UPDATE inmueble SET 
-                        nombres          = ?, 
-                        cedula        = ?,
-                        fecha_nmto        = ?,
-                        direccion            = ?, 
-                        email = ?
+                        norte_log     = ?,
+                        este_log        = ?,
+                        oeste_log            = ?, 
+                        sur_log = ?
                     WHERE id_inmueble = ?";
 
             $this->pdo->prepare($sql)
                  ->execute(
                     array(
-                        $data->nombres, 
-                        $data->cedula,
-                        $data->fecha_nmto,
-                        $data->direccion,
-                        $data->email,
-                        $data->idpersona
+                        $data->norte_log, 
+                        $data->este_log,
+                        $data->oeste_log,
+                        $data->sur_log,
+                        $data->id_inmueble,
                     )
                 );
         } catch (Exception $e) 
@@ -120,17 +118,16 @@ class Inmueble
     {
         try 
         {
-        $sql = "INSERT INTO `persona` (nombres,cedula,fecha_nmto,direccion,email) 
-                VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO `inmueble` (norte_log,este_log,oeste_log,sur_log) 
+                VALUES (?, ?, ?, ?)";
 
         $this->pdo->prepare($sql)
              ->execute(
                 array(
-                    $data->nombres, 
-                    $data->cedula,
-                    $data->fecha_nmto,
-                    $data->direccion,
-                    $data->email                    
+                    $data->norte_log, 
+                    $data->este_log,
+                    $data->oeste_log,
+                    $data->sur_log,                   
                 )
             );
         } catch (Exception $e) 
