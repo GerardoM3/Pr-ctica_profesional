@@ -55,6 +55,8 @@
                 <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->cod_municipio : 'Seleccione un municipio'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->municipio : 'Seleccione un municipio'; ?></option>
             <?php endforeach ?>
 
+            <option value="">Seleccione un municipio</option>
+
             <?php foreach ($this->model->Listar_Muni() as $r): ?>
                 <option name="cod_municipio" value="<?php echo $r->cod_municipio?>"><?php echo $r->municipio?></option>
             <?php endforeach ?>
@@ -69,6 +71,7 @@
                 <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rD->cod_departamento : 'Seleccione un departamento'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rD->departamento : 'Seleccione un departamento'; ?></option>
             <?php endforeach; ?>
 
+            <option value="">Seleccione un departamento</option>
             
             <?php foreach ($this->model->Listar_Departamentos() as $r): ?>
 

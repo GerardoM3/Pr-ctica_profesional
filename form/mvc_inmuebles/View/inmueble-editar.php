@@ -19,6 +19,38 @@
         <label>Dirección del inmueble</label>
         <input type="text" name="direccion_inmueble" value="<?php echo $alm->direccion_inmueble; ?>" class="form-control" placeholder="Ingrese la dirección del inmueble" data-validacion-tipo="requerido|min:7" />
     </div>
+
+    <div>
+        <label>Municipio</label>
+        <select name="cod_municipio" id="cod_municipio" style="display: block;">
+            <?php foreach ($this->model->Listar_Muni2($alm->id_inmueble) as $rM): ?>
+                <option value="<?php echo $alm->id_inmueble != null ? $rM->cod_municipio : 'Seleccione un municipio'; ?>"><?php echo $alm->id_inmueble != null ? $rM->municipio : 'Seleccione un municipio'; ?></option>
+            <?php endforeach ?>
+
+            <option value="">Seleccione un municipio</option>
+
+            <?php foreach ($this->model->Listar_Muni() as $r): ?>
+                <option name="cod_municipio" value="<?php echo $r->cod_municipio;?>"><?php echo $r->municipio;?></option>
+            <?php endforeach ?>
+        </select>
+    </div>
+
+    <div>
+        <label>Departamento</label>
+        <select name="cod_departamento" id="cod_departamento" style="display: block;">
+
+            <?php foreach ($this->model->Listar_Departamento($alm->id_inmueble) as $rD): ?>
+                <option value="<?php echo $alm->id_inmueble != null ? $rD->cod_departamento : 'Seleccione un departamento'; ?>"><?php echo $alm->id_inmueble != null ? $rD->departamento : 'Seleccione un departamento'; ?></option>
+            <?php endforeach; ?>
+
+            <option value="">Seleccione un departamento</option>
+            
+            <?php foreach ($this->model->Listar_Departamentos() as $r): ?>
+
+                <option value="<?php echo $r->cod_departamento;?>"><?php echo $r->departamento;?></option>
+            <?php endforeach ?>
+        </select>
+    </div>
     
     <div class="form-group">
         <label>Características del inmueble</label>

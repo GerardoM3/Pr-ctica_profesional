@@ -57,6 +57,62 @@ class Inmueble
         }
     }
 
+    public function Listar_Muni()
+    {
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT * FROM meta_municipio;");
+            $stm->execute();
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function Listar_Muni2($id_inmueble)
+    {
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT * FROM inmueble NATURAL JOIN meta_municipio WHERE id_inmueble = ?;");
+            $stm->execute(array($id_inmueble));
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function Listar_Departamentos()
+    {
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT * FROM meta_departamento;");
+            $stm->execute();
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function Listar_Departamento($id_inmueble)
+    {
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT * FROM inmueble NATURAL JOIN meta_departamento WHERE id_inmueble = ?;");
+            $stm->execute(array($id_inmueble));
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     public function getting($id_inmueble)
     {
         try 
@@ -92,19 +148,19 @@ class Inmueble
         try 
         {
             $sql = "UPDATE inmueble SET 
-                        norte_log     = ?,
-                        este_log        = ?,
-                        oeste_log            = ?, 
-                        sur_log = ?
+                        norte_longitud     = ?,
+                        este_longitud        = ?,
+                        oeste_longitud            = ?, 
+                        sur_longitud = ?
                     WHERE id_inmueble = ?";
 
             $this->pdo->prepare($sql)
                  ->execute(
                     array(
-                        $data->norte_log, 
-                        $data->este_log,
-                        $data->oeste_log,
-                        $data->sur_log,
+                        $data->norte_longitud, 
+                        $data->este_longitud,
+                        $data->oeste_longitud,
+                        $data->sur_longitud,
                         $data->id_inmueble,
                     )
                 );
@@ -118,16 +174,16 @@ class Inmueble
     {
         try 
         {
-        $sql = "INSERT INTO `inmueble` (norte_log,este_log,oeste_log,sur_log) 
+        $sql = "INSERT INTO `inmueble` (norte_longitud,este_longitud,oeste_longitud,sur_longitud) 
                 VALUES (?, ?, ?, ?)";
 
         $this->pdo->prepare($sql)
              ->execute(
                 array(
-                    $data->norte_log, 
-                    $data->este_log,
-                    $data->oeste_log,
-                    $data->sur_log,                   
+                    $data->norte_longitud, 
+                    $data->este_longitud,
+                    $data->oeste_longitud,
+                    $data->sur_longitud,                   
                 )
             );
         } catch (Exception $e) 
