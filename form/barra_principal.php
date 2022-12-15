@@ -27,7 +27,7 @@
 			padding: 6px;
 			display: inline-block;
 			margin:  2px;
-			background-color: Pink;
+			background-color: white;
 			
 		}
 		.option-block:hover .suboption-block{
