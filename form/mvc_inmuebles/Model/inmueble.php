@@ -1,61 +1,142 @@
 <?php
-require_once 'Model/inmueble.php';
+class Inmueble
+{
+    private $pdo;
+    
+    public $id_inmueble;
+    public $cod_departamento;
+    public $departamento;
+    public $cod_municipio;
+    public $municipio;
+    public $colonia_inmueble;
+    public $direccion_inmueble;
+    public $caracteristica_inmueble;
+    public $id_caracteristica;
+    public $descripcion_inmueble;
+    public $dimension_inmueble;
+    public $id_dimension;
+    public $norte_longitud;
+    public $este_longitud;
+    public $oeste_longitud;
+    public $sur_longitud;
+    public $correlativo;
+    public $id_contribuyente;
+    public $nombre_contribuyente;
+    public $apellido_contribuyente;
+    public $direccion_contribuyente;
+    public $dui_contribuyente;
+    public $nit_contribuyente;
+    public $telefono_contribuyente;
 
-class InmuebleController{
-    
-    private $model;
-    
-    public function __CONSTRUCT(){
-        $this->model = new Inmueble();
-    }
-    
-    public function Index(){
-        require_once 'View/header.php';
-        require_once 'View/inmueble.php';
-        require_once 'View/footer.php';
-    }
-    
-    public function Crud(){
-        $alm = new Inmueble();
-        
-        if(isset($_REQUEST['idpersona'])){
-            $alm = $this->model->getting($_REQUEST['idpersona']);
+    public function __CONSTRUCT()
+    {
+        try
+        {
+            $this->pdo = Conexion::StartUp();     
         }
-        
-        require_once 'View/header.php';
-        require_once 'View/inmueble-editar.php';
-        require_once 'View/footer.php';
-    }
-    
-    public function Guardar(){
-        $alm = new Inmueble();
-        
-        $alm->idpersona = $_REQUEST['idpersona'];
-        $alm->norte_logitud = $_REQUEST['Norte_log'];
-        $alm->este_logitud = $_REQUEST['Este_log'];
-        $alm->oeste_logitud = $_REQUEST['Oeste_log'];
-        $alm->sur_logitud = $_REQUEST['Sur_log'];
-
-        // SI ID PERSONA ES MAYOR QUE CERO (0) INDICA QUE ES UNA ACTUALIZACIÓN DE ESA TUPLA EN LA TABLA PERSONA, SINO SIGNIFICA QUE ES UN NUEVO REGISTRO
-
-        $alm->idpersona > 0 
-           ? $this->model->Actualizar($alm)
-           : $this->model->Registrar($alm);
-
-       //EL CÓDIGO ANTERIOR ES EQUIVALENTE A UTILIZAR CONDICIONALES IF, TAL COMO SE MUESTRA EN EL COMENTARIO A CONTINUACIÓN:
-
-        /*if ($alm->idpersona > 0 ) {
-            $this->model->Actualizar($alm);
+        catch(Exception $e)
+        {
+            die($e->getMessage());
         }
-        else{
-           $this->model->Registrar($alm); 
-        }*/
-        
-        header('Location: index.php');
     }
-    
-    public function Eliminar(){
-        $this->model->Eliminar($_REQUEST['idpersona']);
-        header('Location: index.php');
+
+    public function Listar()
+    {
+        try
+        {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT * FROM inmueble NATURAL JOIN meta_municipio NATURAL JOIN meta_departamento NATURAL JOIN meta_caracteristica_inmueble NATURAL JOIN meta_dimension_inmueble NATURAL JOIN contribuyente WHERE estado_inmueble = 1;");
+            $stm->execute();
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }
+
+    public function getting($id_inmueble)
+    {
+        try 
+        {
+            $stm = $this->pdo
+                      ->prepare("SELECT * FROM inmueble NATURAL JOIN meta_municipio NATURAL JOIN meta_departamento NATURAL JOIN meta_caracteristica_inmueble NATURAL JOIN meta_dimension_inmueble NATURAL JOIN contribuyente WHERE estado_inmueble = 1 AND WHERE id_inmueble = ?;");
+                      
+
+            $stm->execute(array($id_inmueble));
+            return $stm->fetch(PDO::FETCH_OBJ);
+        } catch (Exception $e) 
+        {
+            die($e->getMessage());
+        }
+    }
+
+    public function Eliminar($id_inmueble)
+    {
+        try 
+        {
+            $stm = $this->pdo
+                        ->prepare("CALL eliminar_inmueble(?);");                     
+
+            $stm->execute(array($id_inmueble));
+        } catch (Exception $e) 
+        {
+            die($e->getMessage());
+        }
+    }
+
+    public function Actualizar($data)
+    {
+        try 
+        {
+            $sql = "UPDATE inmueble SET 
+                        nombres          = ?, 
+                        cedula        = ?,
+                        fecha_nmto        = ?,
+                        direccion            = ?, 
+                        email = ?
+                    WHERE id_inmueble = ?";
+
+            $this->pdo->prepare($sql)
+                 ->execute(
+                    array(
+                        $data->nombres, 
+                        $data->cedula,
+                        $data->fecha_nmto,
+                        $data->direccion,
+                        $data->email,
+                        $data->idpersona
+                    )
+                );
+        } catch (Exception $e) 
+        {
+            die($e->getMessage());
+        }
+    }
+
+    public function Registrar($data)
+    {
+        try 
+        {
+        $sql = "INSERT INTO `persona` (nombres,cedula,fecha_nmto,direccion,email) 
+                VALUES (?, ?, ?, ?, ?)";
+
+        $this->pdo->prepare($sql)
+             ->execute(
+                array(
+                    $data->nombres, 
+                    $data->cedula,
+                    $data->fecha_nmto,
+                    $data->direccion,
+                    $data->email                    
+                )
+            );
+        } catch (Exception $e) 
+        {
+            die($e->getMessage());
+        }
     }
 }
+?>

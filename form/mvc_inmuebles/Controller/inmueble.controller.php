@@ -18,8 +18,8 @@ class InmuebleController{
     public function Crud(){
         $alm = new Inmueble();
         
-        if(isset($_REQUEST['idpersona'])){
-            $alm = $this->model->getting($_REQUEST['idpersona']);
+        if(isset($_REQUEST['id_inmueble'])){
+            $alm = $this->model->getting($_REQUEST['id_inmueble']);
         }
         
         require_once 'View/header.php';
@@ -30,15 +30,21 @@ class InmuebleController{
     public function Guardar(){
         $alm = new Inmueble();
         
-        $alm->idpersona = $_REQUEST['idpersona'];
-        $alm->norte_logitud = $_REQUEST['Norte_log'];
-        $alm->este_logitud = $_REQUEST['Este_log'];
-        $alm->oeste_logitud = $_REQUEST['Oeste_log'];
-        $alm->sur_logitud = $_REQUEST['Sur_log'];
+        $alm->id_inmueble = $_REQUEST['id_inmueble'];
+        $alm->id_contribuyente = $_REQUEST['id_contribuyente'];
+        $alm->colonia_inmueble = $_REQUEST['colonia_inmueble'];
+        $alm->cod_municipio = $_REQUEST['cod_municipio'];
+        $alm->cod_departamento = $_REQUEST['cod_departamento'];
+        $alm->direccion_inmueble = $_REQUEST['direccion_inmueble'];
+        $alm->descripcion_inmueble = $_REQUEST['descripcion_inmueble'];
+        $alm->norte_longitud = $_REQUEST['norte_longitud'];
+        $alm->este_longitud = $_REQUEST['este_longitud'];
+        $alm->oeste_longitud = $_REQUEST['oeste_longitud'];
+        $alm->sur_longitud = $_REQUEST['sur_longitud'];
 
         // SI ID PERSONA ES MAYOR QUE CERO (0) INDICA QUE ES UNA ACTUALIZACIÓN DE ESA TUPLA EN LA TABLA PERSONA, SINO SIGNIFICA QUE ES UN NUEVO REGISTRO
 
-        $alm->idpersona > 0 
+        $alm->id_inmueble > 0 
            ? $this->model->Actualizar($alm)
            : $this->model->Registrar($alm);
 
@@ -55,7 +61,7 @@ class InmuebleController{
     }
     
     public function Eliminar(){
-        $this->model->Eliminar($_REQUEST['idpersona']);
+        $this->model->Eliminar($_REQUEST['id_inmueble']);
         header('Location: index.php');
     }
 }

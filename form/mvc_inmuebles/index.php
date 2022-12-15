@@ -1,6 +1,6 @@
 <?php
 require_once 'Model/conexion.php';
-$controller = 'persona';
+$controller = 'inmueble';
 
 // Con esta sección hacemos el Controlador del Frontend
 if(!isset($_REQUEST['c']))

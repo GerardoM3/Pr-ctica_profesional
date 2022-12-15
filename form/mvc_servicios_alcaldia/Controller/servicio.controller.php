@@ -13,14 +13,14 @@ class ServicioController{
 	public function Index_Servicios(){
 		require_once 'View/header.php';
 		require_once 'View/servicio_alcaldia.php';
-		require_once 'View/header.php';
+		require_once 'View/footer.php';
 	}
 
 	public function Crud_Servicio(){
 		$alm = new Servicio_Alcaldia();
 
-		if (isset($_REQUEST['id_cods'])) {
-			$alm = $this->model->getting($_REQUEST['id_cods']);
+		if (isset($_REQUEST['cod1'], $_REQUEST['cod2'], $_REQUEST['cod3'], $_REQUEST['cod4'])) {
+			$alm = $this->model->getting($_REQUEST['cod1'], $_REQUEST['cod2'], $_REQUEST['cod3'], $_REQUEST['cod4']);
 		}
 
 		require_once 'View/header.php';
@@ -44,7 +44,7 @@ class ServicioController{
 		$alm->tipo_concepto = $_REQUEST['tipo_concepto'];
 		$alm->tipo_cobro = $_REQUEST['tipo_cobro'];
 
-		$alm->cod1 > 0 AND cod2 > 0 AND cod3 > 0 AND cod4 > 0 ? $this->model->Actualizar($alm) : $this->model->Registrar($alm);
+		$alm->cod1 > 0 AND $alm->cod2 > 0 AND $alm->cod3 > 0 AND $alm->cod4 > 0 ? $this->model->Actualizar($alm) : $this->model->Registrar($alm);
 
 		/*if(($alm->cod1 > 0) AND ($alm->cod2 > 0) AND ($alm->cod3 > 0) AND ($alm->cod4 > 0)){
 			$this->model->Actualizar($alm);

@@ -41,7 +41,7 @@ class Servicio_Alcaldia
 
 	public function getting($cod1, $cod2, $cod3, $cod4){
 		try {
-			$stm = $this->pdo->prepare("SELECT * FROM meta_servicio_alcaldia WHERE cod1 = ? AND cod2 = ? AND cod3 = ? AND cod4 = ?");
+			$stm = $this->pdo->prepare("SELECT * FROM meta_servicios_alcaldia WHERE cod1 = ? AND cod2 = ? AND cod3 = ? AND cod4 = ?");
 			$stm->execute(array($cod1, $cod2, $cod3, $cod4));
 
 			return $stm->fetch(PDO::FETCH_OBJ);
@@ -52,7 +52,7 @@ class Servicio_Alcaldia
 
 	public function Eliminar($cod1, $cod2, $cod3, $cod4){
 		try {
-			$stm = $this->pdo->prepare("DELETE FROM meta_servicio_alcaldia WHERE cod1=? AND cod2=? AND cod3=? AND cod4=?");
+			$stm = $this->pdo->prepare("CALL eliminar_servicio_alcaldia(?,?,?,?)");
 			$stm = execute(array($cod1, $cod2, $cod3, $cod4));
 		} catch (Exception $e) {
 			die($e->getMessage());
@@ -61,7 +61,7 @@ class Servicio_Alcaldia
 
 	public function Actualizar($data){
 		try {
-			$sql = "UPDATE meta_servicio_alcaldia SET cod1=?, cod2=?, cod3=?, cod4=?, descripcion_servicio=?, descripcion_servicio_abreviado=?, unidad_medida=?, tarifa_actual=?, tarifa_anterior=?, periodo_vigencia_tarifa=?, tipo_concepto=?, tipo_cobro=? WHERE cod1 = ? AND cod2 = ? AND cod3 = ? AND cod4 = ?";
+			$sql = "UPDATE meta_servicios_alcaldia SET cod1=?, cod2=?, cod3=?, cod4=?, descripcion_servicio=?, descripcion_servicio_abreviado=?, unidad_medida=?, tarifa_actual=?, tarifa_anterior=?, periodo_vigencia_tarifa=?, tipo_concepto=?, tipo_cobro=? WHERE estado_servicios = 1 AND cod1 = ? AND cod2 = ? AND cod3 = ? AND cod4 = ?";
 
 			$this->pdo->prepare($sql)->execute(
 				array(
@@ -85,7 +85,7 @@ class Servicio_Alcaldia
 
 	public function Registrar($data){
 		try {
-			$sql = "INSERT INTO meta_servicio_alcaldia (cod1, cod2, cod3, cod4, descripcion_servicio, descripcion_servicio_abreviado, unidad_medida, tarifa_actual, tarifa_anterior, periodo_vigencia_tarifa, tipo_concepto, tipo_cobro) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
+			$sql = "INSERT INTO meta_servicios_alcaldia (cod1, cod2, cod3, cod4, descripcion_servicio, descripcion_servicio_abreviado, unidad_medida, tarifa_actual, tarifa_anterior, periodo_vigencia_tarifa, tipo_concepto, tipo_cobro) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
 
 			$this->pdo->prepare($sql)->execute(
 				array(

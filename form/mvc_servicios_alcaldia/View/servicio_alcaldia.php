@@ -2,7 +2,7 @@
 
 
 <div class="well well-sm text-right">
-    <a class="btn btn-primary" href="?c=Persona&a=Crud">Agregar Servicio</a>
+    <a class="btn btn-primary" href="?c=Servicio&a=Crud_Servicio">Agregar Servicio</a>
 </div>
 
 <table class="table table-striped">
@@ -40,10 +40,10 @@
             <td><?php echo $r->tipo_concepto; ?></td>
             <td><?php echo $r->tipo_cobro; ?></td>
             <td>
-                <i class="glyphicon glyphicon-edit"><a href="?c=Servicio&a=Crud_Servicio&cod1=<?php echo $r->cod1; ?>&cod3=<?php echo $r->cod2; ?>&cod3=<?php echo $r->cod3; ?>&cod4=<?php echo $r->cod4; ?>"> Editar</a></i>
+                <i class="glyphicon glyphicon-edit"><a href="?c=Servicio&a=Crud_Servicio&cod1=<?php echo $r->cod1; ?>&cod2=<?php echo $r->cod2; ?>&cod3=<?php echo $r->cod3; ?>&cod4=<?php echo $r->cod4; ?>"> Editar</a></i>
             </td>
             <td>
-                <i class="glyphicon glyphicon-remove"><a href="?c=Servicio&a=Eliminar&cod1=<?php echo $r->cod1; ?>&cod3=<?php echo $r->cod2; ?>&cod3=<?php echo $r->cod3; ?>&cod4=<?php echo $r->cod4; ?>"> Eliminar</a></i>
+                <i class="glyphicon glyphicon-remove"><a href="?c=Servicio&a=Eliminar&cod1=<?php echo $r->cod1; ?>&cod2=<?php echo $r->cod2; ?>&cod3=<?php echo $r->cod3; ?>&cod4=<?php echo $r->cod4; ?>"> Eliminar</a></i>
             </td>
         </tr>
     <?php endforeach; ?>
