@@ -71,17 +71,17 @@
 	<div class="container-main">
 		<div class="container-nav">
 			<div class="option-block">
-				CONTRIBUYENTE
+				CONTRIBUYENTE.
 
 
 			</div>
     
             <div class="option-block">
-				INMUEBLES
+				INMUEBLES.
 			</div>
 			
 			<div class="option-block">
-				SERVIVIOS DE ALCALDIA
+				SERVIVIOS DE ALCALDIA.
 			</div>
 		</div>
 		
