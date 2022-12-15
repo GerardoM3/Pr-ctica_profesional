@@ -17,7 +17,7 @@
 		.container-nav{
 			margin: 1rem;
 			width: 75%;
-			background-color: white;
+			background-color: transparent;
 			float: right;
 			text-align: center;
 		}
@@ -27,7 +27,8 @@
 			padding: 6px;
 			display: inline-block;
 			margin:  2px;
-			background-color: white;
+			border-radius:10px;
+			background-color: lightblue;
 			
 		}
 		.option-block:hover .suboption-block{
