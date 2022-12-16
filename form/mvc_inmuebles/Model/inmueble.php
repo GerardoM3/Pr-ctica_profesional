@@ -8,7 +8,7 @@ class Inmueble
     public $departamento;
     public $cod_municipio;
     public $municipio;
-    public $colonia_inmueble;
+    public $comunidad_inmueble;
     public $direccion_inmueble;
     public $caracteristica_inmueble;
     public $id_caracteristica;
@@ -20,7 +20,6 @@ class Inmueble
     public $oeste_longitud;
     public $sur_longitud;
     public $correlativo;
-    public $id_contribuyente;
     public $nombre_contribuyente;
     public $apellido_contribuyente;
     public $direccion_contribuyente;
@@ -169,25 +168,55 @@ class Inmueble
             die($e->getMessage());
         }
     }
+    
 
     public function Registrar($data)
     {
         try 
         {
-        $sql = "INSERT INTO `inmueble` (norte_longitud,este_longitud,oeste_longitud,sur_longitud) 
-                VALUES (?, ?, ?, ?)";
+            $this->pdo->beginTransaction();
 
-        $this->pdo->prepare($sql)
-             ->execute(
+            $sql = "CALL insertar_caracteristica(?);";
+
+            $this->pdo->prepare($sql)->execute(
                 array(
-                    $data->norte_longitud, 
-                    $data->este_longitud,
-                    $data->oeste_longitud,
-                    $data->sur_longitud,                   
+                    $data->descripcion_inmueble
                 )
             );
+
+            $sql = "CALL insertar_dimension(?, ?, ?, ?);";
+
+            $this->pdo->prepare($sql)->execute(
+                array(
+                    $data->norte_longitud,
+                    $data->este_longitud,
+                    $data->oeste_longitud,
+                    $data->sur_longitud
+                )
+            );
+
+            $this->id_caracteristica = $this->pdo->prepare("SELECT id_caracteristica FROM meta_caracteristica_inmueble ORDER BY id_caracteristica DESC LIMIT 1;")->execute();
+
+            $this->id_dimension = $this->pdo->prepare("SELECT id_dimension FROM meta_dimension_inmueble ORDER BY id_dimension DESC LIMIT 1;")->execute();
+
+            $sql = "INSERT INTO `inmueble` (cod_departamento, cod_municipio, comunidad_inmueble, direccion_inmueble, correlativo,id_caracteristica, id_dimension) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            $this->pdo->prepare($sql)->execute(
+                    array(
+                        $data->cod_departamento, 
+                        $data->cod_municipio,
+                        $data->comunidad_inmueble,
+                        $data->direccion_inmueble,
+                        $data->correlativo,
+                        $data->id_caracteristica,
+                        $data->id_dimension
+                    )
+                );
+
+            $res1 = $this->pdo->commit();
         } catch (Exception $e) 
         {
+            $this->pdo->rollback();
             die($e->getMessage());
         }
     }

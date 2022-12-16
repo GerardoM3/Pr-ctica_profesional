@@ -1,9 +1,11 @@
+
 <?php
-require_once 'Model/conexion.php';
+require_once 'barra_principal.php';
+require_once 'mvc_servicios_alcaldia/Model/conexion.php';
 $controller = 'servicio';
 
 if (!isset($_REQUEST['c'])) {
-	require_once "Controller/$controller.controller.php";
+	require_once "mvc_servicios_alcaldia/Controller/$controller.controller.php";
 	$controller = ucwords($controller) . 'Controller';
 	$controller = new $controller;
 	$controller->Index_Servicios();
@@ -11,7 +13,7 @@ if (!isset($_REQUEST['c'])) {
 	$controller = strtolower($_REQUEST['c']);
 	$accion = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index_Servicios';
 
-	require_once "Controller/$controller.controller.php";
+	require_once "mvc_servicios_alcaldia/Controller/$controller.controller.php";
 	$controller = ucwords($controller) . 'Controller';
 	$controller = new $controller;
 

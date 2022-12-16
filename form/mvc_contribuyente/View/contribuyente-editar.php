@@ -40,7 +40,7 @@
 
     <div class="form-group">
         <label>Comunidad</label><h6 style="display: inline-block;position: relative;margin-left: 5px;">(barrio, colonia, caserío, cantón)</h6>
-        <input type="text" name="colonia_contribuyente" value="<?php echo $alm->colonia_contribuyente; ?>" class="form-control" placeholder="Ingrese comunidad (barrio, colonia, caserío, cantón)" data-validacion-tipo="requerido|min:3" />
+        <input type="text" name="comunidad_contribuyente" value="<?php echo $alm->comunidad_contribuyente; ?>" class="form-control" placeholder="Ingrese comunidad (barrio, colonia, caserío, cantón)" data-validacion-tipo="requerido|min:3" />
     </div>
     
     <div class="form-group">
@@ -48,36 +48,38 @@
         <input type="text" name="direccion_contribuyente" value="<?php echo $alm->direccion_contribuyente; ?>" class="form-control" placeholder="Ingrese su dirección" data-validacion-tipo="requerido|min:8" />
     </div>
 
-    <div>
-        <label>Municipio</label>
-        <select name="cod_municipio" id="cod_municipio" style="display: block;">
-            <?php foreach ($this->model->Listar_Muni2($alm->id_contribuyente, $alm->correlativo) as $rM): ?>
-                <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->cod_municipio : 'Seleccione un municipio'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->municipio : 'Seleccione un municipio'; ?></option>
-            <?php endforeach ?>
+    <div class="dropdown">
+        <div>
+            <label>Municipio</label>
+            <select name="cod_municipio" id="cod_municipio" style="display: block;">
+                <?php foreach ($this->model->Listar_Muni2($alm->id_contribuyente, $alm->correlativo) as $rM): ?>
+                    <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->cod_municipio : 'Seleccione un municipio'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->municipio : 'Seleccione un municipio'; ?></option>
+                <?php endforeach ?>
 
-            <option value="">Seleccione un municipio</option>
+                <option value="">Seleccione un municipio</option>
 
-            <?php foreach ($this->model->Listar_Muni() as $r): ?>
-                <option name="cod_municipio" value="<?php echo $r->cod_municipio?>"><?php echo $r->municipio?></option>
-            <?php endforeach ?>
-        </select>
-    </div>
+                <?php foreach ($this->model->Listar_Muni() as $r): ?>
+                    <option name="cod_municipio" value="<?php echo $r->cod_municipio?>"><?php echo $r->municipio?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
 
-    <div>
-        <label>Departamento</label>
-        <select name="cod_departamento" id="cod_departamento" style="display: block;">
+        <div>
+            <label>Departamento</label>
+            <select name="cod_departamento" id="cod_departamento" style="display: block;">
 
-            <?php foreach ($this->model->Listar_Departamento($alm->id_contribuyente, $alm->correlativo) as $rD): ?>
-                <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rD->cod_departamento : 'Seleccione un departamento'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rD->departamento : 'Seleccione un departamento'; ?></option>
-            <?php endforeach; ?>
+                <?php foreach ($this->model->Listar_Departamento($alm->id_contribuyente, $alm->correlativo) as $rD): ?>
+                    <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rD->cod_departamento : 'Seleccione un departamento'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rD->departamento : 'Seleccione un departamento'; ?></option>
+                <?php endforeach; ?>
 
-            <option value="">Seleccione un departamento</option>
-            
-            <?php foreach ($this->model->Listar_Departamentos() as $r): ?>
+                <option value="">Seleccione un departamento</option>
+                
+                <?php foreach ($this->model->Listar_Departamentos() as $r): ?>
 
-                <option value="<?php echo $r->cod_departamento?>"><?php echo $r->departamento?></option>
-            <?php endforeach ?>
-        </select>
+                    <option value="<?php echo $r->cod_departamento?>"><?php echo $r->departamento?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
     </div>
     
     

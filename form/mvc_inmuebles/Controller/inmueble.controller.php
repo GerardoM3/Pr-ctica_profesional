@@ -1,5 +1,5 @@
 <?php
-require_once 'Model/inmueble.php';
+require_once 'mvc_inmuebles/Model/inmueble.php';
 
 class InmuebleController{
     
@@ -10,9 +10,9 @@ class InmuebleController{
     }
     
     public function Index(){
-        require_once 'View/header.php';
-        require_once 'View/inmueble.php';
-        require_once 'View/footer.php';
+        require_once 'mvc_inmuebles/View/header.php';
+        require_once 'mvc_inmuebles/View/inmueble.php';
+        require_once 'mvc_inmuebles/View/footer.php';
     }
     
     public function Crud(){
@@ -22,17 +22,17 @@ class InmuebleController{
             $alm = $this->model->getting($_REQUEST['id_inmueble']);
         }
         
-        require_once 'View/header.php';
-        require_once 'View/inmueble-editar.php';
-        require_once 'View/footer.php';
+        require_once 'mvc_inmuebles/View/header.php';
+        require_once 'mvc_inmuebles/View/inmueble-editar.php';
+        require_once 'mvc_inmuebles/View/footer.php';
     }
     
     public function Guardar(){
         $alm = new Inmueble();
         
         $alm->id_inmueble = $_REQUEST['id_inmueble'];
-        $alm->id_contribuyente = $_REQUEST['id_contribuyente'];
-        $alm->colonia_inmueble = $_REQUEST['colonia_inmueble'];
+        $alm->correlativo = $_REQUEST['correlativo'];
+        $alm->comunidad_inmueble = $_REQUEST['comunidad_inmueble'];
         $alm->cod_municipio = $_REQUEST['cod_municipio'];
         $alm->cod_departamento = $_REQUEST['cod_departamento'];
         $alm->direccion_inmueble = $_REQUEST['direccion_inmueble'];
@@ -57,11 +57,11 @@ class InmuebleController{
            $this->model->Registrar($alm); 
         }*/
         
-        header('Location: index.php');
+        header('Location: inmuebles.php');
     }
     
     public function Eliminar(){
         $this->model->Eliminar($_REQUEST['id_inmueble']);
-        header('Location: index.php');
+        header('Location: inmuebles.php');
     }
 }

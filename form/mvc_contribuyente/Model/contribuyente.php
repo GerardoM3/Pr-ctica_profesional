@@ -13,7 +13,7 @@ class Contribuyente
     public $cod_municipio;
     public $municipio;
     public $departamento;
-    public $colonia_contribuyente;
+    public $comunidad_contribuyente;
     public $direccion_contribuyente;
     public $dui_contribuyente;
     public $nit_contribuyente;
@@ -38,7 +38,7 @@ class Contribuyente
 		{
 			$result = array();
 
-			$stm = $this->pdo->prepare("SELECT CONCAT(contribuyente.id_contribuyente, '-', contribuyente.correlativo) AS n_contribuyente, CONCAT(contribuyente.nombre_contribuyente, ' ', contribuyente.apellido_contribuyente) AS nombre_contribuyente, CONCAT(contribuyente.colonia_contribuyente, ' ', contribuyente.direccion_contribuyente) AS direccion_contribuyente, meta_municipio.municipio, meta_departamento.departamento, contribuyente.dui_contribuyente, contribuyente.nit_contribuyente, contribuyente.telefono_contribuyente FROM contribuyente INNER JOIN meta_municipio ON meta_municipio.cod_municipio = contribuyente.cod_municipio INNER JOIN meta_departamento ON meta_departamento.cod_departamento = contribuyente.cod_departamento WHERE contribuyente.estado_contribuyente = 1;");
+			$stm = $this->pdo->prepare("SELECT CONCAT(contribuyente.id_contribuyente, '-', contribuyente.correlativo) AS n_contribuyente, CONCAT(contribuyente.nombre_contribuyente, ' ', contribuyente.apellido_contribuyente) AS nombre_contribuyente, CONCAT(contribuyente.comunidad_contribuyente, ' ', contribuyente.direccion_contribuyente) AS direccion_contribuyente, meta_municipio.municipio, meta_departamento.departamento, contribuyente.dui_contribuyente, contribuyente.nit_contribuyente, contribuyente.telefono_contribuyente FROM contribuyente INNER JOIN meta_municipio ON meta_municipio.cod_municipio = contribuyente.cod_municipio INNER JOIN meta_departamento ON meta_departamento.cod_departamento = contribuyente.cod_departamento WHERE contribuyente.estado_contribuyente = 1;");
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -165,7 +165,7 @@ class Contribuyente
 						dui_contribuyente            = ?,
                         nit_contribuyente            = ?, 
 						telefono_contribuyente = ?,
-						colonia_contribuyente = ?
+						comunidad_contribuyente = ?
 				    WHERE id_contribuyente = ? AND correlativo = ?";
 
 			$this->pdo->prepare($sql)
@@ -179,7 +179,7 @@ class Contribuyente
                         $data->dui_contribuyente,
                         $data->nit_contribuyente,
                         $data->telefono_contribuyente,
-                        $data->colonia_contribuyente,
+                        $data->comunidad_contribuyente,
                         $data->id_contribuyente,
                         $data->correlativo
 					)
@@ -194,7 +194,7 @@ class Contribuyente
 	{
 		try 
 		{
-		$sql = "INSERT INTO `contribuyente` (nombre_contribuyente,apellido_contribuyente, cod_municipio, cod_departamento,direccion_contribuyente,dui_contribuyente,nit_contribuyente,telefono_contribuyente, colonia_contribuyente) 
+		$sql = "INSERT INTO `contribuyente` (nombre_contribuyente,apellido_contribuyente, cod_municipio, cod_departamento,direccion_contribuyente,dui_contribuyente,nit_contribuyente,telefono_contribuyente, comunidad_contribuyente) 
 		        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		$this->pdo->prepare($sql)
@@ -208,7 +208,7 @@ class Contribuyente
                     $data->dui_contribuyente,
                     $data->nit_contribuyente,
                     $data->telefono_contribuyente,
-                    $data->colonia_contribuyente                    
+                    $data->comunidad_contribuyente                    
                 )
 			);
 		} catch (Exception $e) 

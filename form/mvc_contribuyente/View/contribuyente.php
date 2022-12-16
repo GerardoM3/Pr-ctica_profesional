@@ -23,7 +23,7 @@
         <tr>
             <td><?php echo $r->id_contribuyente."-".$r->correlativo; ?></td>
             <td><?php echo $r->nombre_contribuyente. " " .$r->apellido_contribuyente; ?></td>
-            <td><?php echo $r->colonia_contribuyente.", ".$r->direccion_contribuyente.", ".$r->municipio.", ".$r->departamento; ?></td>
+            <td><?php echo $r->comunidad_contribuyente.", ".$r->direccion_contribuyente.", ".$r->municipio.", ".$r->departamento; ?></td>
             <td><?php echo $r->dui_contribuyente; ?></td>
             <td><?php echo $r->nit_contribuyente; ?></td>
             <td><?php echo $r->telefono_contribuyente; ?></td>

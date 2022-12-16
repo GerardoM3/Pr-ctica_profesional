@@ -1,5 +1,5 @@
 <?php
-require_once 'Model/contribuyente.php';
+require_once 'mvc_contribuyente/Model/contribuyente.php';
 //modificar 
 class ContribuyenteController{
     
@@ -10,9 +10,9 @@ class ContribuyenteController{
     }
     
     public function Index(){
-        require_once 'View/header.php';
-        require_once 'View/contribuyente.php';
-        require_once 'View/footer.php';
+        require_once 'mvc_contribuyente/View/header.php';
+        require_once 'mvc_contribuyente/View/contribuyente.php';
+        require_once 'mvc_contribuyente/View/footer.php';
     }
     
     public function Crud(){
@@ -22,9 +22,9 @@ class ContribuyenteController{
             $alm = $this->model->getting($_REQUEST['id_contribuyente'], $_REQUEST['correlativo']);
         }
         
-        require_once 'View/header.php';
-        require_once 'View/contribuyente-editar.php';
-        require_once 'View/footer.php';
+        require_once 'mvc_contribuyente/View/header.php';
+        require_once 'mvc_contribuyente/View/contribuyente-editar.php';
+        require_once 'mvc_contribuyente/View/footer.php';
     }
     
     public function Guardar(){
@@ -38,7 +38,7 @@ class ContribuyenteController{
         $alm->dui_contribuyente = $_REQUEST['dui_contribuyente'];
         $alm->telefono_contribuyente = $_REQUEST['telefono_contribuyente'];
         $alm->nit_contribuyente = $_REQUEST['nit_contribuyente'];
-        $alm->colonia_contribuyente = $_REQUEST['colonia_contribuyente'];
+        $alm->comunidad_contribuyente = $_REQUEST['comunidad_contribuyente'];
         $alm->cod_municipio = $_REQUEST['cod_municipio'];
         $alm->cod_departamento = $_REQUEST['cod_departamento'];
 
@@ -57,11 +57,11 @@ class ContribuyenteController{
            $this->model->Registrar($alm); 
         }*/
         
-        header('Location: index.php');
+        header('Location: contribuyente.php');
     }
     
     public function Eliminar(){
         $this->model->Eliminar($_REQUEST['id_contribuyente'], $_REQUEST['correlativo']);
-        header('Location: index.php');
+        header('Location: contribuyente.php');
     }
 }

@@ -1,13 +1,12 @@
 <?php
-require_once 'Model/conexion.php';
-$controller = 'contribuyente';
-
-//terminar de modificar
+require_once 'barra_principal.php';
+require_once 'mvc_inmuebles/Model/conexion.php';
+$controller = 'inmueble';
 
 // Con esta sección hacemos el Controlador del Frontend
 if(!isset($_REQUEST['c']))
 {
-    require_once "Controller/$controller.controller.php";
+    require_once "mvc_inmuebles/Controller/$controller.controller.php";
     $controller = ucwords($controller) . 'Controller';
     $controller = new $controller;
     $controller->Index();    
@@ -19,7 +18,7 @@ else
     $accion = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index';
     
     // Instanciamos el controlador
-    require_once "Controller/$controller.controller.php";
+    require_once "mvc_inmuebles/Controller/$controller.controller.php";
     $controller = ucwords($controller) . 'Controller';
     $controller = new $controller;
     

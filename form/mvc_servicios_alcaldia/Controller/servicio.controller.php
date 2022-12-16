@@ -1,5 +1,5 @@
 <?php
-require_once 'Model/servicio_alcaldia.php';
+require_once 'mvc_servicios_alcaldia/Model/servicio_alcaldia.php';
 
 class ServicioController{
 
@@ -11,9 +11,9 @@ class ServicioController{
 	}
 
 	public function Index_Servicios(){
-		require_once 'View/header.php';
-		require_once 'View/servicio_alcaldia.php';
-		require_once 'View/footer.php';
+		require_once 'mvc_servicios_alcaldia/View/header.php';
+		require_once 'mvc_servicios_alcaldia/View/servicio_alcaldia.php';
+		require_once 'mvc_servicios_alcaldia/View/footer.php';
 	}
 
 	public function Crud_Servicio(){
@@ -23,9 +23,9 @@ class ServicioController{
 			$alm = $this->model->getting($_REQUEST['cod1'], $_REQUEST['cod2'], $_REQUEST['cod3'], $_REQUEST['cod4']);
 		}
 
-		require_once 'View/header.php';
-		require_once 'View/servicio_alcaldia_editar.php';
-		require_once 'View/footer.php';
+		require_once 'mvc_servicios_alcaldia/View/header.php';
+		require_once 'mvc_servicios_alcaldia/View/servicio_alcaldia_editar.php';
+		require_once 'mvc_servicios_alcaldia/View/footer.php';
 	}
 
 	public function Guardar_Servicio(){
@@ -52,13 +52,13 @@ class ServicioController{
 			$this->model->Registrar($alm);
 		}*/
 
-		header('Location: index.php');
+		header('Location: servicios_alcaldia.php');
 
 	}
 
 	public function Eliminar(){
 		$this->model->Eliminar($_REQUEST['cod1'], $_REQUEST['cod2'], $_REQUEST['cod3'], $_REQUEST['cod4']);
-		header('Location: index.php');
+		header('Location: servicios_alcaldia.php');
 	}
 }
 ?>

@@ -8,10 +8,10 @@
 		/* Sección de contenedor principal */
 		.container-main{
 			width: 100%;
-			background-color: black;
+			background-color: transparent;
 			float: left;
 			display: inline-block;
-			position: absolute;
+			position: relative;
 		}
 		/* Sección de navegación principal */
 		.container-nav{
@@ -71,31 +71,97 @@
     <background-color: lightblue;>
 	<div class="container-main">
 		<div class="container-nav">
-			<div class="option-block">
+			<a href="contribuyente.php?c=Contribuyente" class="option-block">
 				CONTRIBUYENTE
-
-
-			</div>
+			</a>
     
-            <div class="option-block">
+            <a href="inmuebles.php?c=Inmueble" class="option-block">
 				INMUEBLES
-			</div>
-			
-			<div class="option-block">
+			</a>
+			<a href="servicios_alcaldia.php?c=Servicio" class="option-block">
 				SERVIVIOS DE ALCALDIA
-			</div>
+			</a>
 		</div>
 		
-	</div>
-    </background-color>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	
+	</div>	
 	
 </body>
 </html>
+
+<?php
+	
+	if(!isset($_REQUEST['c']) || $_REQUEST['c'] == "Contribuyente"){
+		require_once 'mvc_contribuyente/Model/conexion.php';
+		$controller = 'contribuyente';
+
+		//terminar de modificar
+
+		// Con esta sección hacemos el Controlador del Frontend
+		if(!isset($_REQUEST['c']))
+		{
+		    require_once "mvc_contribuyente/Controller/$controller.controller.php";
+		    $controller = ucwords($controller) . 'Controller';
+		    $controller = new $controller;
+		    $controller->Index();    
+		}
+		else
+		{
+		    // buscamos el controlador que queremos cargar
+		    $controller = strtolower($_REQUEST['c']);
+		    $accion = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index';
+		    
+		    // Instanciamos el controlador
+		    require_once "mvc_contribuyente/Controller/$controller.controller.php";
+		    $controller = ucwords($controller) . 'Controller';
+		    $controller = new $controller;
+		    
+		    // Función para llamar las acciones a ejecutar
+		    call_user_func( array( $controller, $accion ) );
+		}
+	}else if($_REQUEST['c'] == "Inmueble"){
+		require_once 'mvc_inmuebles/Model/conexion.php';
+		$controller = 'inmueble';
+
+		// Con esta sección hacemos el Controlador del Frontend
+		if(!isset($_REQUEST['c']))
+		{
+		    require_once "mvc_inmuebles/Controller/$controller.controller.php";
+		    $controller = ucwords($controller) . 'Controller';
+		    $controller = new $controller;
+		    $controller->Index();    
+		}
+		else
+		{
+		    // buscamos el controlador que queremos cargar
+		    $controller = strtolower($_REQUEST['c']);
+		    $accion = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index';
+		    
+		    // Instanciamos el controlador
+		    require_once "mvc_inmuebles/Controller/$controller.controller.php";
+		    $controller = ucwords($controller) . 'Controller';
+		    $controller = new $controller;
+		    
+		    // Función para llamar las acciones a ejecutar
+		    call_user_func( array( $controller, $accion ) );
+		}
+	}else if($_REQUEST['c'] == "Servicio"){
+		require_once 'mvc_servicios_alcaldia/Model/conexion.php';
+		$controller = 'servicio';
+
+		if (!isset($_REQUEST['c'])) {
+			require_once "mvc_servicios_alcaldia/Controller/$controller.controller.php";
+			$controller = ucwords($controller) . 'Controller';
+			$controller = new $controller;
+			$controller->Index_Servicios();
+		} else {
+			$controller = strtolower($_REQUEST['c']);
+			$accion = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index_Servicios';
+
+			require_once "mvc_servicios_alcaldia/Controller/$controller.controller.php";
+			$controller = ucwords($controller) . 'Controller';
+			$controller = new $controller;
+
+			call_user_func(array($controller, $accion));
+		}
+	}
+?>
