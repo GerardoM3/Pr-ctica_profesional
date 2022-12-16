@@ -1,6 +1,6 @@
 
 <?php
-require_once 'barra_principal.php';
+require_once 'index.php';
 require_once 'mvc_servicios_alcaldia/Model/conexion.php';
 $controller = 'servicio';
 

@@ -1,5 +1,5 @@
 <?php
-require_once 'barra_principal.php';
+require_once 'index.php';
 require_once 'mvc_inmuebles/Model/conexion.php';
 $controller = 'inmueble';
 
