@@ -9,7 +9,7 @@ class ContribuyenteController{
         $this->model = new Contribuyente();
     }
     
-    public function Index(){
+    public function Index_contribuyente(){
         require_once 'mvc_contribuyente/View/header.php';
         require_once 'mvc_contribuyente/View/contribuyente.php';
         require_once 'mvc_contribuyente/View/footer.php';
@@ -57,11 +57,11 @@ class ContribuyenteController{
            $this->model->Registrar($alm); 
         }*/
         
-        header('Location: contribuyente.php');
+        header('Location: contribuyente.php?c=Contribuyente');
     }
     
     public function Eliminar(){
         $this->model->Eliminar($_REQUEST['id_contribuyente'], $_REQUEST['correlativo']);
-        header('Location: contribuyente.php');
+        header('Location: contribuyente.php?c=Contribuyente');
     }
 }

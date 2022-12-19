@@ -24,7 +24,7 @@ class Contribuyente
 	{
 		try
 		{
-			$this->pdo = Conexion::StartUp();     
+			$this->pdo = Conexion_contribuyente::StartUp();     
 		}
 		catch(Exception $e)
 		{

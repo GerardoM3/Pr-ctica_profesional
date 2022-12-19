@@ -1,5 +1,5 @@
 <?php
-class Conexion
+class Conexion_contribuyente
 //modificar
 {
     public static function StartUp()

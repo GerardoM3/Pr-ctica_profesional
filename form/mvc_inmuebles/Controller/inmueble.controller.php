@@ -9,7 +9,7 @@ class InmuebleController{
         $this->model = new Inmueble();
     }
     
-    public function Index(){
+    public function Index_inmueble(){
         require_once 'mvc_inmuebles/View/header.php';
         require_once 'mvc_inmuebles/View/inmueble.php';
         require_once 'mvc_inmuebles/View/footer.php';
@@ -41,27 +41,35 @@ class InmuebleController{
         $alm->este_longitud = $_REQUEST['este_longitud'];
         $alm->oeste_longitud = $_REQUEST['oeste_longitud'];
         $alm->sur_longitud = $_REQUEST['sur_longitud'];
+        foreach ($this->model->obtener_IDCaracteristica() as $r1) {
+            $alm->id_caracteristica = $r1->id_caracteristica;
+        }
+        foreach ($this->model->obtener_IDDimension() as $r2) {
+            $alm->id_dimension = $r2->id_dimension;
+        }
 
         // SI ID PERSONA ES MAYOR QUE CERO (0) INDICA QUE ES UNA ACTUALIZACIÓN DE ESA TUPLA EN LA TABLA PERSONA, SINO SIGNIFICA QUE ES UN NUEVO REGISTRO
 
-        $alm->id_inmueble > 0 
+        /*$alm->id_inmueble > 0 
            ? $this->model->Actualizar($alm)
-           : $this->model->Registrar($alm);
+           : $this->model->Registrar($alm);*/
 
        //EL CÓDIGO ANTERIOR ES EQUIVALENTE A UTILIZAR CONDICIONALES IF, TAL COMO SE MUESTRA EN EL COMENTARIO A CONTINUACIÓN:
 
-        /*if ($alm->idpersona > 0 ) {
+        if ($alm->id_inmueble > 0 ) {
             $this->model->Actualizar($alm);
         }
         else{
-           $this->model->Registrar($alm); 
-        }*/
+           $this->model->Registrar_caracteristica($alm); 
+           $this->model->Registrar_dimension($alm);
+           $this->model->Registrar_inmueble($alm);
+        }
         
-        header('Location: inmuebles.php');
+        header('Location: inmuebles.php?c=Inmueble');
     }
     
     public function Eliminar(){
         $this->model->Eliminar($_REQUEST['id_inmueble']);
-        header('Location: inmuebles.php');
+        header('Location: inmuebles.php?c=Inmueble');
     }
 }

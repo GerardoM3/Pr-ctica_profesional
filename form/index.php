@@ -91,7 +91,7 @@
 <?php
 	
 	if(!isset($_REQUEST['c']) || $_REQUEST['c'] == "Contribuyente"){
-		require_once 'mvc_contribuyente/Model/conexion.php';
+		require_once 'mvc_contribuyente/Model/conexion_contribuyente.php';
 		$controller = 'contribuyente';
 
 		//terminar de modificar
@@ -102,13 +102,13 @@
 		    require_once "mvc_contribuyente/Controller/$controller.controller.php";
 		    $controller = ucwords($controller) . 'Controller';
 		    $controller = new $controller;
-		    $controller->Index();    
+		    $controller->Index_contribuyente();    
 		}
 		else
 		{
 		    // buscamos el controlador que queremos cargar
 		    $controller = strtolower($_REQUEST['c']);
-		    $accion = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index';
+		    $accion = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index_contribuyente';
 		    
 		    // Instanciamos el controlador
 		    require_once "mvc_contribuyente/Controller/$controller.controller.php";
@@ -119,7 +119,7 @@
 		    call_user_func( array( $controller, $accion ) );
 		}
 	}else if($_REQUEST['c'] == "Inmueble"){
-		require_once 'mvc_inmuebles/Model/conexion.php';
+		require_once 'mvc_inmuebles/Model/conexion_inmueble.php';
 		$controller = 'inmueble';
 
 		// Con esta sección hacemos el Controlador del Frontend
@@ -128,13 +128,13 @@
 		    require_once "mvc_inmuebles/Controller/$controller.controller.php";
 		    $controller = ucwords($controller) . 'Controller';
 		    $controller = new $controller;
-		    $controller->Index();    
+		    $controller->Index_inmueble();    
 		}
 		else
 		{
 		    // buscamos el controlador que queremos cargar
 		    $controller = strtolower($_REQUEST['c']);
-		    $accion = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index';
+		    $accion = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index_inmueble';
 		    
 		    // Instanciamos el controlador
 		    require_once "mvc_inmuebles/Controller/$controller.controller.php";
@@ -145,7 +145,7 @@
 		    call_user_func( array( $controller, $accion ) );
 		}
 	}else if($_REQUEST['c'] == "Servicio"){
-		require_once 'mvc_servicios_alcaldia/Model/conexion.php';
+		require_once 'mvc_servicios_alcaldia/Model/conexion_servicios.php';
 		$controller = 'servicio';
 
 		if (!isset($_REQUEST['c'])) {

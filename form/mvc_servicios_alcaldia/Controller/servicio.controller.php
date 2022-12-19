@@ -52,13 +52,13 @@ class ServicioController{
 			$this->model->Registrar($alm);
 		}*/
 
-		header('Location: servicios_alcaldia.php');
+		header('Location: servicios_alcaldia.php?c=Servicio');
 
 	}
 
 	public function Eliminar(){
 		$this->model->Eliminar($_REQUEST['cod1'], $_REQUEST['cod2'], $_REQUEST['cod3'], $_REQUEST['cod4']);
-		header('Location: servicios_alcaldia.php');
+		header('Location: servicios_alcaldia.php?c=Servicio');
 	}
 }
 ?>

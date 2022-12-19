@@ -31,7 +31,7 @@ class Inmueble
     {
         try
         {
-            $this->pdo = Conexion::StartUp();     
+            $this->pdo = Conexion_inmueble::StartUp();     
         }
         catch(Exception $e)
         {
@@ -45,7 +45,12 @@ class Inmueble
         {
             $result = array();
 
-            $stm = $this->pdo->prepare("SELECT * FROM inmueble NATURAL JOIN meta_municipio NATURAL JOIN meta_departamento NATURAL JOIN meta_caracteristica_inmueble NATURAL JOIN meta_dimension_inmueble NATURAL JOIN contribuyente WHERE estado_inmueble = 1;");
+            $stm = $this->pdo->prepare("SELECT * FROM inmueble
+INNER JOIN meta_municipio ON inmueble.cod_municipio = meta_municipio.cod_municipio 
+INNER JOIN meta_departamento ON inmueble.cod_departamento = meta_departamento.cod_departamento 
+INNER JOIN meta_caracteristica_inmueble ON inmueble.id_caracteristica = meta_caracteristica_inmueble.id_caracteristica 
+INNER JOIN meta_dimension_inmueble ON inmueble.id_dimension = meta_dimension_inmueble.id_dimension 
+INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHERE estado_inmueble = 1;");
             $stm->execute();
 
             return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -168,12 +173,15 @@ class Inmueble
             die($e->getMessage());
         }
     }
-    
 
-    public function Registrar($data)
+    /*  ┌────┬───────────────────────────────────────────────────────────┬────┐  */
+    /*  |****|   Primero se registra las características y guarda ID.    |****|  */
+    /*  └────┴───────────────────────────────────────────────────────────┴────┘  */
+
+    public function Registrar_caracteristica($data)
     {
-        try 
-        {
+        try {
+            /*  CREAR UNA FUNCIÓN PARA INSERTAR UNA CARACTERÍSTICA DEL INMUEBLE*/
             $this->pdo->beginTransaction();
 
             $sql = "CALL insertar_caracteristica(?);";
@@ -183,6 +191,22 @@ class Inmueble
                     $data->descripcion_inmueble
                 )
             );
+            $res1 = $this->pdo->commit();
+        } catch (Exception $e) {
+            $this->pdo->rollback();
+            die($e->getMessage());
+        }
+    }
+
+    /*  ┌────┬───────────────────────────────────────────────────────┬────┐  */
+    /*  |****|   Segundo se registra las dimensiones y guarda ID.    |****|  */
+    /*  └────┴───────────────────────────────────────────────────────┴────┘  */
+
+    public function Registrar_dimension($data)
+    {
+        try {
+            /*  CREAR UNA FUNCIÓN PARA INSERTAR LAS DIMENSIONES DEL INMUEBLE  */
+            $this->pdo->beginTransaction();
 
             $sql = "CALL insertar_dimension(?, ?, ?, ?);";
 
@@ -194,10 +218,60 @@ class Inmueble
                     $data->sur_longitud
                 )
             );
+            $res1 = $this->pdo->commit();
+        } catch (Exception $e) {
+            $this->pdo->rollback();
+            die($e->getMessage());
+        }
+    }
 
-            $this->id_caracteristica = $this->pdo->prepare("SELECT id_caracteristica FROM meta_caracteristica_inmueble ORDER BY id_caracteristica DESC LIMIT 1;")->execute();
+    /*  ┌────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬────┐  */
+    /*  |****|   Obtener el identificador de la característica  recién creada para colocarlo en el nuevo registro del inmueble.    |****|  */
+    /*  └────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴────┘  */
 
-            $this->id_dimension = $this->pdo->prepare("SELECT id_dimension FROM meta_dimension_inmueble ORDER BY id_dimension DESC LIMIT 1;")->execute();
+    public function obtener_IDCaracteristica()
+    {
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT id_caracteristica FROM meta_caracteristica_inmueble ORDER BY id_caracteristica DESC LIMIT 1;");
+            $stm->execute();
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /*  ┌────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────┬────┐  */
+    /*  |****|   Obtener el identificador de la dimensión recién creada para colocarlo en el nuevo registro del inmueble.    |****|  */
+    /*  └────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────┴────┘  */
+
+    public function obtener_IDDimension()
+    {
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT id_dimension FROM meta_dimension_inmueble ORDER BY id_dimension DESC LIMIT 1;");
+            $stm->execute();
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /*  ┌────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬────┐  */
+    /*  |****|   Finalmente registrar el inmueble con los datos de las otras dos tablas (característica y dimensión) registrados anteriormente.    |****|  */
+    /*  └────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴────┘  */
+
+    public function Registrar_inmueble($data)
+    {
+        try 
+        {
+
+            /*  CREAR UNA FUNCIÓN PARA INSERTAR UN INMUEBLE, MANDANDO A LLAMAR LOS ID'S DE LA DIMENSION Y CARACTERÍSTICA DEL MISMO  */
+            $this->pdo->beginTransaction();
 
             $sql = "INSERT INTO `inmueble` (cod_departamento, cod_municipio, comunidad_inmueble, direccion_inmueble, correlativo,id_caracteristica, id_dimension) VALUES (?, ?, ?, ?, ?, ?, ?)";
 

@@ -20,7 +20,7 @@ class Servicio_Alcaldia
 	function __CONSTRUCT()
 	{
 		try {
-			$this->pdo = Conexion::StartUp();
+			$this->pdo = Conexion_servicios::StartUp();
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}

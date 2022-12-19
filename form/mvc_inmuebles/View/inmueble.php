@@ -24,9 +24,9 @@
             <td><?php echo $r->id_inmueble; ?></td>
             <td><?php echo $r->id_contribuyente; ?></td>
             <td><?php echo $r->nombre_contribuyente; ?></td>
-            <td><?php echo $r->colonia_inmueble.", ".$r->direccion_inmueble.", ".$r->municipio.", ".$r->departamento; ?></td>
+            <td><?php echo $r->comunidad_inmueble.", ".$r->direccion_inmueble.", ".$r->municipio.", ".$r->departamento; ?></td>
             <td><?php echo $r->descripcion_inmueble; ?></td>
-            <td><?php echo $r->norte_logitud.", ".$r->este_logitud.", ".$r->oeste_logitud.", ".$r->sur_logitud; ?></td>
+            <td><?php echo $r->norte_longitud.", ".$r->este_longitud.", ".$r->oeste_longitud.", ".$r->sur_longitud; ?></td>
             <td>
                     <i class="glyphicon glyphicon-edit"><a href="?c=Inmueble&a=Crud&id_inmueble=<?php echo $r->id_inmueble; ?>"> Editar</a></i>
                 </td>

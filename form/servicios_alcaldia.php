@@ -1,7 +1,7 @@
 
 <?php
 require_once 'index.php';
-require_once 'mvc_servicios_alcaldia/Model/conexion.php';
+require_once 'mvc_servicios_alcaldia/Model/conexion_servicios.php';
 $controller = 'servicio';
 
 if (!isset($_REQUEST['c'])) {
