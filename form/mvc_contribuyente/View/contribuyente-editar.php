@@ -27,11 +27,6 @@
     </div>
 
     <div class="form-group">
-        <label>NIT del contribuyente</label>
-        <input type="text" name="nit_contribuyente" value="<?php echo $alm->nit_contribuyente; ?>" class="form-control" placeholder="Ingrese NIT del contribuyente" data-validacion-tipo="requerido|min:3" />
-    </div>
-
-    <div class="form-group">
         <label>Teléfono del contribuyente</label>
         <input type="text" name="telefono_contribuyente" value="<?php echo $alm->telefono_contribuyente; ?>" class="form-control" placeholder="Ingrese teléfono del contribuyente" data-validacion-tipo="requerido|min:3" />
     </div>

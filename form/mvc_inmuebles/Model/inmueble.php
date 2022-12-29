@@ -1,4 +1,16 @@
 <?php
+
+/*  ┌────┬─────────────────────────────────────────────────────────────────────────┬────┐  */
+/*  |****|   NOTA: En este archivo contiene funciones que deben ser eliminadas.    |****|  */
+/*  |****|   En los comentarios está especificados las líneas a eliminar.          |****|  */
+/*  |****|                                                                         |****|  */
+/*  |****|   Las funciones a eliminar sólo aplica para el MVC de inmueble.         |****|  */
+/*  └────┴─────────────────────────────────────────────────────────────────────────┴────┘  */
+
+
+/*
+Clase Inmueble (Objeto) con sus variables (sus Atributos).
+*/
 class Inmueble
 {
     private $pdo;
@@ -24,7 +36,6 @@ class Inmueble
     public $apellido_contribuyente;
     public $direccion_contribuyente;
     public $dui_contribuyente;
-    public $nit_contribuyente;
     public $telefono_contribuyente;
 
     public function __CONSTRUCT()
@@ -38,6 +49,17 @@ class Inmueble
             die($e->getMessage());
         }
     }
+
+    /*
+    LISTAR TODOS LOS DATOS DE LA TABLA INMUEBLE Y DATOS DE OTRAS TABLAS ASOCIADOS A INMUEBLE
+
+    Función simple que contiene las siguientes instrucciones dentro de él:
+    Declara una línea con una instrucción de consulta SQL, mostrando todos los datos de la tabla inmueble con todos los datos las tablas 
+    siguientes: meta_municipio (tabla a eliminar, sólo esa línea -NO TODA LA FUNCION-), meta_departamento (tabla a eliminar, sólo esa 
+    línea -NO TODA LA FUNCION-), meta_catacteristica_inmueble, meta_dimension_inmueble y contribuyente. Todos estos datos donde el estado del 
+    inmueble sea activa (igual a 1).
+    Finalmente ejecuta la instrucción de consulta SQL.
+    */
 
     public function Listar()
     {
@@ -61,6 +83,14 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
         }
     }
 
+    /*
+    LISTAR TODOS LOS DATOS DE LA TABLA MUNICIPIO (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
+
+    Función simple que contienen las siguientes instrucciones dentro de él:
+    Declara una línea con una intrucción de consulta SQL, mostrando todos los datos que en la tabla meta_municipio.
+    Finalmente ejecuta la instrucción de consulta SQL.
+    */
+
     public function Listar_Muni()
     {
         try {
@@ -74,6 +104,18 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
             die($e->getMessage());
         }
     }
+
+    /*
+    LISTAR EL MUNICIPIO DONDE SE UBICA EL INMUEBLE (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
+
+    Función que recoge el id del inmueble como parámetro para obtener los datos relacionados a ese identificador.
+    La función lo que hace es declarar una línea con una instrucción de consulta SQL, mostrando todos los datos que hay en la tabla inmueble, 
+    junto con todos los datos de la tabla meta_municipio, donde el identificador del inmueble sea igual al valor del parametro de la función.
+    Finalmente ejecuta la instrucción de consulta SQL.
+
+    NOTA: Aunque esta función manda a llamar todos los datos de todas las tablas especificadas en la instrucción de consulta SQL, en la vista sólo
+    se manda a traer los datos de las columnas que se necesiten.
+    */
 
     public function Listar_Muni2($id_inmueble)
     {
@@ -89,6 +131,14 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
         }
     }
 
+    /*
+    LISTAR TODOS LOS DATOS DE LA TABLA DEPARTAMENTO (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
+
+    Función simple que contienen las siguientes instrucciones dentro de él:
+    Declara una línea con una intrucción de consulta SQL, mostrando todos los datos que en la tabla meta_departamento.
+    Finalmente ejecuta la instrucción de consulta SQL.
+    */
+
     public function Listar_Departamentos()
     {
         try {
@@ -103,6 +153,18 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
         }
     }
 
+    /*
+    LISTAR EL DEPARTAMENTO DONDE SE UBICA EL INMUEBLE (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
+
+    Función que recoge el id del inmueble como parámetro para obtener los datos relacionados a ese identificador.
+    La función lo que hace es declarar una línea con una instrucción de consulta SQL, mostrando todos los datos que hay en la tabla inmueble, 
+    junto con todos los datos de la tabla meta_departamento, donde el identificador del inmueble sea igual al valor del parametro de la función.
+    Finalmente ejecuta la instrucción de consulta SQL.
+
+    NOTA: Aunque esta función manda a llamar todos los datos de todas las tablas especificadas en la instrucción de consulta SQL, en la vista sólo
+    se manda a traer los datos de las columnas que se necesiten.
+    */
+
     public function Listar_Departamento($id_inmueble)
     {
         try {
@@ -116,6 +178,17 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
             die($e->getMessage());
         }
     }
+
+    /*
+    GETTING (OBTENIENDO) DATOS DE LA TABLA INMUEBLES
+
+    Función que recoge el id del inmueble como parametro para obtener los datos relacionados a ese identificador.
+    La función lo que hace es declarar una línea con una intrucción de consulta SQL, mostrando todos los datos que hay en la tabla inmueble, 
+    junto con todos los datos de las tablas meta_municipio, meta_departamento, meta_caracteristica_inmueble, meta_dimension y contribuyente.
+    Todos estos datos donde el identificador del inmueble sea igual al valor del parámetro de la función, y todos los datos que su estado de 
+    inmueble sea activo (igual a 1).
+    Finalmente ejecuta la instrucción de consulta SQL.
+    */
 
     public function getting($id_inmueble)
     {
@@ -132,6 +205,14 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
             die($e->getMessage());
         }
     }
+
+    /*
+    ELIMINAR INMUEBLE
+
+    Función que recoge el id del inmueble como parametro para obtener los datos relacionados a ese identificador.
+    La función lo que hace es declarar una línea con una instrucción SQL, que manda a llamar un procedimiento almacenado programado previamente en MySQL,
+    y luego ejecuta la instrucción.
+    */
 
     public function Eliminar($id_inmueble)
     {
@@ -174,6 +255,24 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
         }
     }
 
+    /*
+    Las siguientes líneas a partir de aquí son funciones para insertar datos a la 
+    tabla inmueble y todos los datos de su dimensión y característica asociada al inmueble.
+
+    ┌────┬───────────────────────────────────────────────────────────┬────┐
+    |****|   OJO.                                                    |****|
+    |****|                                                           |****|
+    |****|   En esta parte no se necesita modificar las funciones ni |****|
+    |****|   eliminar nada. Sólo en la función ~Registrar_inmueble~  |****|
+    |****|   hay que modificar la instrucción SQL y el array elimin- |****|
+    |****|   ando los atributos cod_municipio y cod_departamento.    |****|
+    |****|                                                           |****|
+    |****|   Tener cuidado con las comas, que no hay de más ni que   |****|
+    |****|   falte.                                                  |****|
+    └────┴───────────────────────────────────────────────────────────┴────┘
+
+    */
+
     /*  ┌────┬───────────────────────────────────────────────────────────┬────┐  */
     /*  |****|   Primero se registra las características y guarda ID.    |****|  */
     /*  └────┴───────────────────────────────────────────────────────────┴────┘  */
@@ -184,6 +283,9 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
             /*  CREAR UNA FUNCIÓN PARA INSERTAR UNA CARACTERÍSTICA DEL INMUEBLE*/
             $this->pdo->beginTransaction();
 
+            /*
+            Instrucción SQL, llamando un procedimiento almacenado para insertar característica del inmueble
+            */
             $sql = "CALL insertar_caracteristica(?);";
 
             $this->pdo->prepare($sql)->execute(
@@ -208,6 +310,9 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
             /*  CREAR UNA FUNCIÓN PARA INSERTAR LAS DIMENSIONES DEL INMUEBLE  */
             $this->pdo->beginTransaction();
 
+            /*
+            Instrucción SQL, llamando un procedimiento almacenado para insertar dimensión del inmueble
+            */
             $sql = "CALL insertar_dimension(?, ?, ?, ?);";
 
             $this->pdo->prepare($sql)->execute(

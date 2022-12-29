@@ -1,4 +1,6 @@
 <?php
+
+/* Importando todos los recursos que hay en Modelo. */
 require_once 'mvc_inmuebles/Model/inmueble.php';
 
 class InmuebleController{
@@ -9,12 +11,19 @@ class InmuebleController{
         $this->model = new Inmueble();
     }
     
+    /*
+    Función para mostrar las vistas de index del inmueble, su cabecera y su pie de página.
+    */
     public function Index_inmueble(){
         require_once 'mvc_inmuebles/View/header.php';
         require_once 'mvc_inmuebles/View/inmueble.php';
         require_once 'mvc_inmuebles/View/footer.php';
     }
     
+    /*
+    Función para mostrar las vistas de index del inmueble (versión para modificar, formulario), su cabecera
+    y su pie de página
+    */
     public function Crud(){
         $alm = new Inmueble();
         
@@ -26,6 +35,13 @@ class InmuebleController{
         require_once 'mvc_inmuebles/View/inmueble-editar.php';
         require_once 'mvc_inmuebles/View/footer.php';
     }
+
+    /*
+    Función que Registra o Modifica los datos.
+
+    [~Eliminar las líneas cod_municipio y cod_departamento cuidando siempre la puntuación, en este caso, punto y coma.~]
+
+    */
     
     public function Guardar(){
         $alm = new Inmueble();
@@ -68,6 +84,9 @@ class InmuebleController{
         header('Location: inmuebles.php?c=Inmueble');
     }
     
+    /*
+    Función para eliminar el registro según el identificador del inmueble
+    */
     public function Eliminar(){
         $this->model->Eliminar($_REQUEST['id_inmueble']);
         header('Location: inmuebles.php?c=Inmueble');

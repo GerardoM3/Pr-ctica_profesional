@@ -37,7 +37,6 @@ class ContribuyenteController{
         $alm->direccion_contribuyente = $_REQUEST['direccion_contribuyente'];
         $alm->dui_contribuyente = $_REQUEST['dui_contribuyente'];
         $alm->telefono_contribuyente = $_REQUEST['telefono_contribuyente'];
-        $alm->nit_contribuyente = $_REQUEST['nit_contribuyente'];
         $alm->comunidad_contribuyente = $_REQUEST['comunidad_contribuyente'];
         $alm->cod_municipio = $_REQUEST['cod_municipio'];
         $alm->cod_departamento = $_REQUEST['cod_departamento'];
