@@ -1,10 +1,10 @@
 <h1 class="page-header">
-    <?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $alm->nombre_contribuyente." ".$alm->apellido_contribuyente : 'Nuevo Registro'; ?>
+    <?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $alm->nombre_contribuyente.' '.$alm->apellido_contribuyente : 'Nuevo Registro'; ?>
 </h1>
 
 <ol class="breadcrumb">
   <li><a href="?c=Contribuyente">Contribuyentes</a></li>
-  <li class="active"><?php echo $alm->id_contribuyente !=null && $alm->correlativo != null ? $alm->nombre_contribuyente." ".$alm->apellido_contribuyente : 'Nuevo Registro'; ?></li>
+  <li class="active"><?php echo $alm->id_contribuyente !=null && $alm->correlativo != null ? $alm->nombre_contribuyente.' '.$alm->apellido_contribuyente : 'Nuevo Registro'; ?></li>
 </ol>
 
 <form action="?c=Contribuyente&a=Guardar" method="post" enctype="multipart/form-data">

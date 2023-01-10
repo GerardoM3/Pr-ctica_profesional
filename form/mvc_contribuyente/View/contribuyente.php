@@ -1,8 +1,27 @@
 <h1 class="page-header">Contribuyentes</h1>
 
+<?php 
+$agregar = 'Haz click para agregar un nuevo ';
+$edit_help = utf8_encode('Haz click aquí para editar los datos de ');
+$delete_help = utf8_encode('Haz click aquí para eliminar');
+
+
+//data-desc="
+
+//"
+//data-desc="
+
+//"
+//data-desc="
+//"
+ ?>
+
+<?php //echo utf8_decode($edit_help) . $r->nombre_contribuyente . ' ' . $r->apellido_contribuyente; ?>
+<?php //echo utf8_decode($delete_help); ?>
+<?php //echo $agregar .  'contribuyente'?>
 
 <div class="well well-sm text-right">
-    <a class="btn btn-primary" href="?c=Contribuyente&a=Crud">Agregar Contribuyente</a>
+    <a  class="btn btn-primary" href="?c=Contribuyente&a=Crud">Agregar Contribuyente</a>
 </div>
 
 <table class="table table-striped">
@@ -27,10 +46,10 @@
             <td><?php echo $r->dui_contribuyente; ?></td>
             <td><?php echo $r->telefono_contribuyente; ?></td>
             <td>
-                    <i class="glyphicon glyphicon-edit"><a href="?c=Contribuyente&a=Crud&id_contribuyente=<?php echo $r->id_contribuyente; ?>&correlativo=<?php echo $r->correlativo;?>"> Editar</a></i>
+                    <i class="glyphicon glyphicon-edit"><a  href="?c=Contribuyente&a=Crud&id_contribuyente=<?php echo $r->id_contribuyente; ?>&correlativo=<?php echo $r->correlativo;?>"> Editar</a></i>
                 </td>
                 <td>
-                    <i class="glyphicon glyphicon-remove"><a href="?c=Contribuyente&a=Eliminar&id_contribuyente=<?php echo $r->id_contribuyente; ?>&correlativo=<?php echo $r->correlativo;?>"> Eliminar</a></i>
+                    <i class="glyphicon glyphicon-remove"><a  href="?c=Contribuyente&a=Eliminar&id_contribuyente=<?php echo $r->id_contribuyente; ?>&correlativo=<?php echo $r->correlativo;?>"> Eliminar</a></i>
                 </td>
             </tr>
     <?php endforeach; ?>
