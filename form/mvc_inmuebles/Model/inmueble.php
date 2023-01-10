@@ -59,6 +59,7 @@ class Inmueble
     línea -NO TODA LA FUNCION-), meta_catacteristica_inmueble, meta_dimension_inmueble y contribuyente. Todos estos datos donde el estado del 
     inmueble sea activa (igual a 1).
     Finalmente ejecuta la instrucción de consulta SQL.
+    Listo
     */
 
     public function Listar()
@@ -68,7 +69,7 @@ class Inmueble
             $result = array();
 
             $stm = $this->pdo->prepare("SELECT * FROM inmueble
-INNER JOIN meta_municipio ON inmueble.cod_municipio = meta_municipio.cod_municipio 
+
 INNER JOIN meta_departamento ON inmueble.cod_departamento = meta_departamento.cod_departamento 
 INNER JOIN meta_caracteristica_inmueble ON inmueble.id_caracteristica = meta_caracteristica_inmueble.id_caracteristica 
 INNER JOIN meta_dimension_inmueble ON inmueble.id_dimension = meta_dimension_inmueble.id_dimension 
@@ -89,21 +90,10 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
     Función simple que contienen las siguientes instrucciones dentro de él:
     Declara una línea con una intrucción de consulta SQL, mostrando todos los datos que en la tabla meta_municipio.
     Finalmente ejecuta la instrucción de consulta SQL.
+    listo
     */
 
-    public function Listar_Muni()
-    {
-        try {
-            $result = array();
-
-            $stm = $this->pdo->prepare("SELECT * FROM meta_municipio;");
-            $stm->execute();
-
-            return $stm->fetchAll(PDO::FETCH_OBJ);
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
+    
 
     /*
     LISTAR EL MUNICIPIO DONDE SE UBICA EL INMUEBLE (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
@@ -115,21 +105,10 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
 
     NOTA: Aunque esta función manda a llamar todos los datos de todas las tablas especificadas en la instrucción de consulta SQL, en la vista sólo
     se manda a traer los datos de las columnas que se necesiten.
+    Listo
     */
 
-    public function Listar_Muni2($id_inmueble)
-    {
-        try {
-            $result = array();
-
-            $stm = $this->pdo->prepare("SELECT * FROM inmueble NATURAL JOIN meta_municipio WHERE id_inmueble = ?;");
-            $stm->execute(array($id_inmueble));
-
-            return $stm->fetchAll(PDO::FETCH_OBJ);
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
+   
 
     /*
     LISTAR TODOS LOS DATOS DE LA TABLA DEPARTAMENTO (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
@@ -137,21 +116,10 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
     Función simple que contienen las siguientes instrucciones dentro de él:
     Declara una línea con una intrucción de consulta SQL, mostrando todos los datos que en la tabla meta_departamento.
     Finalmente ejecuta la instrucción de consulta SQL.
+    Listo
     */
 
-    public function Listar_Departamentos()
-    {
-        try {
-            $result = array();
-
-            $stm = $this->pdo->prepare("SELECT * FROM meta_departamento;");
-            $stm->execute();
-
-            return $stm->fetchAll(PDO::FETCH_OBJ);
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
+   
 
     /*
     LISTAR EL DEPARTAMENTO DONDE SE UBICA EL INMUEBLE (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
@@ -163,21 +131,10 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
 
     NOTA: Aunque esta función manda a llamar todos los datos de todas las tablas especificadas en la instrucción de consulta SQL, en la vista sólo
     se manda a traer los datos de las columnas que se necesiten.
+    Listo
     */
 
-    public function Listar_Departamento($id_inmueble)
-    {
-        try {
-            $result = array();
-
-            $stm = $this->pdo->prepare("SELECT * FROM inmueble NATURAL JOIN meta_departamento WHERE id_inmueble = ?;");
-            $stm->execute(array($id_inmueble));
-
-            return $stm->fetchAll(PDO::FETCH_OBJ);
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
+   
 
     /*
     GETTING (OBTENIENDO) DATOS DE LA TABLA INMUEBLES
@@ -195,7 +152,7 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
         try 
         {
             $stm = $this->pdo
-                      ->prepare("SELECT * FROM inmueble NATURAL JOIN meta_municipio NATURAL JOIN meta_departamento NATURAL JOIN meta_caracteristica_inmueble NATURAL JOIN meta_dimension_inmueble NATURAL JOIN contribuyente WHERE estado_inmueble = 1 AND WHERE id_inmueble = ?;");
+                      ->prepare("SELECT * FROM inmueble  NATURAL JOIN meta_caracteristica_inmueble NATURAL JOIN meta_dimension_inmueble NATURAL JOIN contribuyente WHERE estado_inmueble = 1 AND WHERE id_inmueble = ?;");
                       
 
             $stm->execute(array($id_inmueble));
@@ -378,12 +335,11 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
             /*  CREAR UNA FUNCIÓN PARA INSERTAR UN INMUEBLE, MANDANDO A LLAMAR LOS ID'S DE LA DIMENSION Y CARACTERÍSTICA DEL MISMO  */
             $this->pdo->beginTransaction();
 
-            $sql = "INSERT INTO `inmueble` (cod_departamento, cod_municipio, comunidad_inmueble, direccion_inmueble, correlativo,id_caracteristica, id_dimension) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO `inmueble` (comunidad_inmueble, direccion_inmueble, correlativo,id_caracteristica, id_dimension) VALUES ( ?, ?, ?, ?, ?)";
 
             $this->pdo->prepare($sql)->execute(
                     array(
-                        $data->cod_departamento, 
-                        $data->cod_municipio,
+                       
                         $data->comunidad_inmueble,
                         $data->direccion_inmueble,
                         $data->correlativo,
