@@ -70,7 +70,6 @@ class Inmueble
 
             $stm = $this->pdo->prepare("SELECT * FROM inmueble
 
-INNER JOIN meta_departamento ON inmueble.cod_departamento = meta_departamento.cod_departamento 
 INNER JOIN meta_caracteristica_inmueble ON inmueble.id_caracteristica = meta_caracteristica_inmueble.id_caracteristica 
 INNER JOIN meta_dimension_inmueble ON inmueble.id_dimension = meta_dimension_inmueble.id_dimension 
 INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHERE estado_inmueble = 1;");

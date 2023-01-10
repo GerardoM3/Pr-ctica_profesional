@@ -6,6 +6,7 @@ class Sector_Estado
 
 	public $cod_sector;
 	public $sector_estado;
+	public $estado_sector;
 
 	public function __CONSTRUCT()
 	{
