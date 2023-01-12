@@ -44,24 +44,10 @@
     </div>
 
     <div class="dropdown">
-        <div>
-            <label>Municipio</label>
-            <select name="cod_municipio" id="cod_municipio" style="display: block;">
-                <?php foreach ($this->model->Listar_Muni2($alm->id_contribuyente, $alm->correlativo) as $rM): ?>
-                    <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->cod_municipio : 'Seleccione un municipio'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->municipio : 'Seleccione un municipio'; ?></option>
-                <?php endforeach ?>
-
-                <option value="">Seleccione un municipio</option>
-
-                <?php foreach ($this->model->Listar_Muni() as $r): ?>
-                    <option name="cod_municipio" value="<?php echo $r->cod_municipio?>"><?php echo $r->municipio?></option>
-                <?php endforeach ?>
-            </select>
-        </div>
 
         <div>
             <label>Departamento</label>
-            <select name="cod_departamento" id="cod_departamento" style="display: block;">
+            <select class="select-departamento" name="cod_departamento" id="cod_departamento" style="display: block;">
 
                 <?php foreach ($this->model->Listar_Departamento($alm->id_contribuyente, $alm->correlativo) as $rD): ?>
                     <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rD->cod_departamento : 'Seleccione un departamento'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rD->departamento : 'Seleccione un departamento'; ?></option>
@@ -73,6 +59,43 @@
 
                     <option value="<?php echo $r->cod_departamento?>"><?php echo $r->departamento?></option>
                 <?php endforeach ?>
+            </select>
+        </div>
+
+        
+
+        <label class="id_departamento"></label>
+
+        <script type="text/javascript">
+
+            const selectElement = document.querySelector('.select-departamento');
+
+            selectElement.addEventListener('change', (event)=>{
+                var resultado = document.querySelector('.id_departamento');
+                var html = document.querySelector('.select-municipio');
+                var depart = event.target.value;
+                resultado.textContent = depart;
+
+                $(document).write(depart);
+            });
+        </script>
+
+        <div>
+            <label>Municipio</label>
+            <select class="select-municipio" name="cod_municipio" id="cod_municipio" style="display: block;">
+
+
+                <?php foreach ($this->model->Listar_Muni2($alm->id_contribuyente, $alm->correlativo) as $rM): ?>
+                    <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->cod_municipio : 'Seleccione un municipio'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->municipio : 'Seleccione un municipio'; ?></option>
+                <?php endforeach ?>
+
+                <option value="">Seleccione un municipio</option>
+                
+                <?php foreach ($this->model->Listar_Muni() as $r): ?>
+                    <option name="cod_municipio" value="<?php echo $r->cod_municipio?>"><?php echo $r->municipio?></option>
+                <?php endforeach ?>
+
+
             </select>
         </div>
     </div>

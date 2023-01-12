@@ -71,7 +71,7 @@ class Contribuyente
 			$result = array();
 
 			$stm = $this->pdo->prepare("SELECT * FROM meta_municipio;");
-			$stm->execute();
+			$stm->execute(array());
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) {

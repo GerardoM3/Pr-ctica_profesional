@@ -31,7 +31,6 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
             <th>Nombre completo del contribuyente</th>
             <th>Dirección completa del contribuyente</th>
             <th>DUI</th>
-            <th>NIT</th>
             <th>Teléfono contribuyente</th>
             <th><!--Botón de editar--></th>
             <th><!--Botón de eliminar--></th>
