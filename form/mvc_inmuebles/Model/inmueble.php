@@ -21,6 +21,7 @@ class Inmueble
     public $cod_municipio;
     public $municipio;
     public $comunidad_inmueble;
+    public $zona_comunidad_inmueble;
     public $direccion_inmueble;
     public $caracteristica_inmueble;
     public $id_caracteristica;
@@ -150,8 +151,7 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
     {
         try 
         {
-            $stm = $this->pdo
-                      ->prepare("SELECT * FROM inmueble  NATURAL JOIN meta_caracteristica_inmueble NATURAL JOIN meta_dimension_inmueble NATURAL JOIN contribuyente WHERE estado_inmueble = 1 AND WHERE id_inmueble = ?;");
+            $stm = $this->pdo->prepare("SELECT * FROM inmueble  NATURAL JOIN meta_caracteristica_inmueble NATURAL JOIN meta_dimension_inmueble NATURAL JOIN contribuyente WHERE estado_inmueble = 1 AND id_inmueble = ?;");
                       
 
             $stm->execute(array($id_inmueble));
@@ -334,12 +334,13 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
             /*  CREAR UNA FUNCIÓN PARA INSERTAR UN INMUEBLE, MANDANDO A LLAMAR LOS ID'S DE LA DIMENSION Y CARACTERÍSTICA DEL MISMO  */
             $this->pdo->beginTransaction();
 
-            $sql = "INSERT INTO `inmueble` (comunidad_inmueble, direccion_inmueble, correlativo,id_caracteristica, id_dimension) VALUES ( ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO `inmueble` (comunidad_inmueble, zona_comunidad_inmueble, direccion_inmueble, correlativo,id_caracteristica, id_dimension) VALUES ( ?, ?, ?, ?, ?, ?)";
 
             $this->pdo->prepare($sql)->execute(
                     array(
                        
                         $data->comunidad_inmueble,
+                        $data->zona_comunidad_inmueble,
                         $data->direccion_inmueble,
                         $data->correlativo,
                         $data->id_caracteristica,

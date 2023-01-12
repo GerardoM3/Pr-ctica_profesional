@@ -7,7 +7,7 @@
   <li class="active"><?php echo $alm->cod_sector != null  ? $alm->sector_estado : 'Nuevo Registro'; ?></li>
 </ol>
 
-<form action="?c=Sector&a=Guardar" method="post" enctype="multipart/form-data">
+<form action="?c=Sector&a=Guardar_Sector" method="post" enctype="multipart/form-data">
 
     
     <div class="form-group">

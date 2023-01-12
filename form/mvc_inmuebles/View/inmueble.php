@@ -24,7 +24,15 @@
             <td><?php echo $r->id_inmueble; ?></td>
             <td><?php echo $r->id_contribuyente; ?></td>
             <td><?php echo $r->nombre_contribuyente; ?></td>
-            <td><?php echo $r->comunidad_inmueble.", ".$r->direccion_inmueble; ?></td>
+            <td>
+                <?php 
+                if($r->zona_comunidad_inmueble != null){
+                    echo $r->comunidad_inmueble.", " . $r->zona_comunidad_inmueble . ", " . $r->direccion_inmueble;
+                }else{
+                    echo $r->comunidad_inmueble.", ".$r->direccion_inmueble;
+                }
+                ?>
+            </td>
             <td><?php echo $r->descripcion_inmueble; ?></td>
             <td><?php echo $r->norte_longitud.", ".$r->este_longitud.", ".$r->oeste_longitud.", ".$r->sur_longitud; ?></td>
             <td>

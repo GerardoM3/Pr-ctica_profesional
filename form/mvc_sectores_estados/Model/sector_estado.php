@@ -33,8 +33,9 @@ class Sector_Estado
 	public function getting($cod_sector){
 		try {
 			$stm = $this->pdo->prepare("SELECT * FROM meta_sector_estado WHERE cod_sector = ?;");
-			$stm->execute($cod_sector);
-			return $stm->fetchAll(PDO::FETCH_OBJ);
+			$stm->execute(array($cod_sector));
+
+			return $stm->fetch(PDO::FETCH_OBJ);
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
@@ -43,7 +44,7 @@ class Sector_Estado
 	public function Eliminar($cod_sector){
 		try {
 			$stm = $this->pdo->prepare("CALL eliminar_sector(?);");
-			$stm->execute($cod_sector);
+			$stm->execute(array($cod_sector));
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}

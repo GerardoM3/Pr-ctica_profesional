@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="assets/js/jquery-ui/jquery-ui.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
+	<style>
+		
+	</style>
+
+	
 </head>
     <body>
         

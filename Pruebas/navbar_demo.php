@@ -116,5 +116,27 @@
 		<input type="text" name="campo-user" class="campo-user"/>
 	</form>
 	</div>
+<br><br>
+	<script>
+function habilitaCompras(campoCantidad)
+{
+	var estadoActual = document.getElementById(campoCantidad)
+
+	if(estadoActual.disabled)
+	{
+		estadoActual.disabled=false;
+	}
+	else
+	{
+		estadoActual.disabled=true;
+	}
+}
+</script>
+
+<input type="checkbox" name="producto" onclick="habilitaCompras('cantidad')" />
+
+<br/>
+
+<input type="number" name="cantidad" id="cantidad" min="1" max="99" step="1" size="1" disabled="true" />
 </body>
 </html>

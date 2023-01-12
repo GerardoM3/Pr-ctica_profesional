@@ -49,8 +49,7 @@ class InmuebleController{
         $alm->id_inmueble = $_REQUEST['id_inmueble'];
         $alm->correlativo = $_REQUEST['correlativo'];
         $alm->comunidad_inmueble = $_REQUEST['comunidad_inmueble'];
-        $alm->cod_municipio = $_REQUEST['cod_municipio'];
-        $alm->cod_departamento = $_REQUEST['cod_departamento'];
+        $alm->zona_comunidad_inmueble = $_REQUEST['zona_comunidad_inmueble'];
         $alm->direccion_inmueble = $_REQUEST['direccion_inmueble'];
         $alm->descripcion_inmueble = $_REQUEST['descripcion_inmueble'];
         $alm->norte_longitud = $_REQUEST['norte_longitud'];
