@@ -76,6 +76,8 @@
                 var depart = event.target.value;
                 resultado.textContent = depart;
 
+                
+
                 $(document).write(depart);
             });
         </script>
