@@ -1,3 +1,10 @@
+<?php
+	require ('conexion.php');
+	
+	$query = "SELECT cod_departamento, departamento FROM meta_departamento ORDER BY departamento";
+	$resultado=$mysqli->query($query);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,7 +26,7 @@
 
                 $("#select-departamento option:selected").each(function () {
                     cod_departamento = $(this).val();
-                    $.post("/getMunicipio.php", {cod_departamento: cod_departamento}, function(data){
+                    $.post("mvc_contribuyente/View/includes/getMunicipio.php", {cod_departamento: cod_departamento}, function(data){
                         $("#select-muni").html(data);
                     });
                 });

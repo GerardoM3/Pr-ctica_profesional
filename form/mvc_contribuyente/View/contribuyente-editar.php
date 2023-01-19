@@ -57,10 +57,9 @@
 
                 <option value="">Seleccione un departamento</option>
                 
-                <?php foreach ($this->model->Listar_Departamentos() as $r): ?>
-
-                    <option value="<?php echo $r->cod_departamento?>"><?php echo $r->departamento?></option>
-                <?php endforeach ?>
+                <?php while($row = $resultado->fetch_assoc()) { ?>
+					<option value="<?php echo $row['cod_departamento']; ?>"><?php echo $row['departamento']; ?></option>
+				<?php } ?>
             </select>
         </div>
 
@@ -88,7 +87,9 @@
         <div>
             <label>Municipio</label>
             <select class="select-muni" name="cod_municipio" id="select-muni" style="display: block;">
-
+            <?php foreach ($this->model->Listar_Muni2($alm->id_contribuyente, $alm->correlativo) as $rM): ?>
+                <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->cod_municipio : 'Seleccione un municipio'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->municipio : 'Seleccione un municipio'; ?></option>
+            <?php endforeach; ?>
 
             </select>
 
