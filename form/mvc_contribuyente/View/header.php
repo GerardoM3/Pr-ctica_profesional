@@ -11,6 +11,22 @@
     <link rel="stylesheet" href="assets/js/jquery-ui/jquery-ui.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
 
+    <script language="javascript" src="assets/js/jquery-3.1.1.min.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function(){
+            $("#select-departamento").change(function(){
+
+                $("#select-departamento option:selected").each(function () {
+                    cod_departamento = $(this).val();
+                    $.post("/getMunicipio.php", {cod_departamento: cod_departamento}, function(data){
+                        $("#select-muni").html(data);
+                    });
+                });
+            })
+        });
+    </script>
+
     <style type="text/css">
     a[data-desc]{
         position: relative;
@@ -32,6 +48,8 @@
         z-index: 1;
     }
 </style>
+
+
 </head>
     <body>
         

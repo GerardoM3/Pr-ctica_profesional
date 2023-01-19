@@ -45,17 +45,17 @@ $variable2 = "Este es el dato 2";
             right: 5%;
             width: 35%;
             height: 35%;
-            background: blue;
+            background: #FF5454;
             border-radius: 25px;
-            box-shadow: 10px 10px 5px black;
+            box-shadow: 10px 10px 30px 1px black;
         }
 
         .cabecera-modal, .footer-modal{
             position:absolute;
             width:100%;
         }
-
         .cabecera-modal{
+            color: #AA0000;
             margin-top:0;
             padding-top:0;
             top: 0;
@@ -69,7 +69,7 @@ $variable2 = "Este es el dato 2";
         .cuerpo-modal{
             position:absolute;
             top:24%;
-            padding:0;
+            padding:1em;
             display:block;
             align-content: center;
             color:white;
@@ -116,7 +116,7 @@ $variable2 = "Este es el dato 2";
 
     <div class="modal-eliminar" id="modal-eliminar">
         <div class="cabecera-modal">
-            <h2>Mensaje de eliminación</h2>
+            <h2 style="padding: 5px;">Mensaje de eliminación</h2>
         </div>
         <div class="cuerpo-modal">
             <h3>¿Está seguro que desea eliminar los siguientes datos?</h3>

@@ -63,4 +63,14 @@ class ContribuyenteController{
         $this->model->Eliminar($_REQUEST['id_contribuyente'], $_REQUEST['correlativo']);
         header('Location: contribuyente.php?c=Contribuyente');
     }
+
+    public function create(){
+        if(Input::hasPost('contribuyente')){
+
+        }
+    }
+
+    public function getMunicipios(){
+        $this->cod_departamento = Input::post('cod_departamento');
+    }
 }

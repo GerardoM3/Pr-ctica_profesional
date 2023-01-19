@@ -7,7 +7,7 @@
   <li class="active"><?php echo $alm->id_contribuyente !=null && $alm->correlativo != null ? $alm->nombre_contribuyente.' '.$alm->apellido_contribuyente : 'Nuevo Registro'; ?></li>
 </ol>
 
-<form action="?c=Contribuyente&a=Guardar" method="post" enctype="multipart/form-data">
+<form action="?c=Contribuyente&a=Guardar" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="id_contribuyente" value="<?php echo $alm->id_contribuyente; ?>" />
     <input type="hidden" name="correlativo" value="<?php echo $alm->correlativo; ?>" />
     
@@ -45,9 +45,11 @@
 
     <div class="dropdown">
 
+        
+
         <div>
             <label>Departamento</label>
-            <select class="select-departamento" name="cod_departamento" id="cod_departamento" style="display: block;">
+            <select class="select-departamento" name="cod_departamento" id="select-departamento" style="display: block;">
 
                 <?php foreach ($this->model->Listar_Departamento($alm->id_contribuyente, $alm->correlativo) as $rD): ?>
                     <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rD->cod_departamento : 'Seleccione un departamento'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rD->departamento : 'Seleccione un departamento'; ?></option>
@@ -66,39 +68,31 @@
 
         <label class="id_departamento"></label>
 
+        <!--
+            Mostrar el cod_departamento a tiempo real del departamento seleccionado
+        -->
         <script type="text/javascript">
+            var depa = document.getElementById("select-departamento");
 
-            const selectElement = document.querySelector('.select-departamento');
+            depa.addEventListener('change', (e)=>{
+                var mostrar = document.querySelector('.id_departamento');
+                var resultado = e.target.value;
 
-            selectElement.addEventListener('change', (event)=>{
-                var resultado = document.querySelector('.id_departamento');
-                var html = document.querySelector('.select-municipio');
-                var depart = event.target.value;
-                resultado.textContent = depart;
-
+                mostrar.textContent = resultado;
                 
-
-                $(document).write(depart);
             });
         </script>
 
+        
+
         <div>
             <label>Municipio</label>
-            <select class="select-municipio" name="cod_municipio" id="cod_municipio" style="display: block;">
-
-
-                <?php foreach ($this->model->Listar_Muni2($alm->id_contribuyente, $alm->correlativo) as $rM): ?>
-                    <option value="<?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->cod_municipio : 'Seleccione un municipio'; ?>"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $rM->municipio : 'Seleccione un municipio'; ?></option>
-                <?php endforeach ?>
-
-                <option value="">Seleccione un municipio</option>
-                
-                <?php foreach ($this->model->Listar_Muni() as $r): ?>
-                    <option name="cod_municipio" value="<?php echo $r->cod_municipio?>"><?php echo $r->municipio?></option>
-                <?php endforeach ?>
+            <select class="select-muni" name="cod_municipio" id="select-muni" style="display: block;">
 
 
             </select>
+
+            
         </div>
     </div>
     
@@ -109,6 +103,8 @@
         <button class="btn btn-success"><?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? 'Actualizar registro' : 'Agregar Registro'; ?></button>
     </div>
 </form>
+
+
 
 <script>
     $(document).ready(function(){

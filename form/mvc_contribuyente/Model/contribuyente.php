@@ -65,13 +65,13 @@ class Contribuyente
 		}
 	}
 
-	public function Listar_Muni()
+	public function Listar_Muni($cod_departamento)
 	{
 		try {
 			$result = array();
 
-			$stm = $this->pdo->prepare("SELECT * FROM meta_municipio;");
-			$stm->execute(array());
+			$stm = $this->pdo->prepare("SELECT * FROM meta_municipio WHERE cod_departamento = ?;");
+			$stm->execute(array($cod_departamento));
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) {
