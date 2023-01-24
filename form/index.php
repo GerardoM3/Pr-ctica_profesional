@@ -59,7 +59,7 @@
 				INMUEBLES
 			</a>
 			<a href="index.php?c=Servicio" class="option-block">
-				SERVIVIOS DE ALCALDIA
+				SERVICIOS DE ALCALDIA
 			</a>
 			<a href="index.php?c=Sector" class="option-block">
 				SECTORES / TIPOS / ESTADOS
