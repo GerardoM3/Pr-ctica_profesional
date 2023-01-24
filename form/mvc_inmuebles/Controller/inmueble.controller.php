@@ -27,10 +27,10 @@ class InmuebleController{
     public function Crud(){
         $alm = new Inmueble();
         
-        if(isset($_REQUEST['id_inmueble'])){
+        if( isset($_REQUEST['id_inmueble'])){
             $alm = $this->model->getting($_REQUEST['id_inmueble']);
+
         }
-        
         require_once 'mvc_inmuebles/View/header.php';
         require_once 'mvc_inmuebles/View/inmueble-editar.php';
         require_once 'mvc_inmuebles/View/footer.php';
@@ -45,9 +45,13 @@ class InmuebleController{
     
     public function Guardar(){
         $alm = new Inmueble();
+
+
         
         $alm->id_inmueble = $_REQUEST['id_inmueble'];
         $alm->correlativo = $_REQUEST['correlativo'];
+        $alm->id_caracteristica = $_REQUEST['id_caracteristica'];
+        $alm->id_dimension = $_REQUEST['id_dimension'];
         $alm->comunidad_inmueble = $_REQUEST['comunidad_inmueble'];
         $alm->zona_comunidad_inmueble = $_REQUEST['zona_comunidad_inmueble'];
         $alm->direccion_inmueble = $_REQUEST['direccion_inmueble'];
@@ -56,12 +60,8 @@ class InmuebleController{
         $alm->este_longitud = $_REQUEST['este_longitud'];
         $alm->oeste_longitud = $_REQUEST['oeste_longitud'];
         $alm->sur_longitud = $_REQUEST['sur_longitud'];
-        foreach ($this->model->obtener_IDCaracteristica() as $r1) {
-            $alm->id_caracteristica = $r1->id_caracteristica;
-        }
-        foreach ($this->model->obtener_IDDimension() as $r2) {
-            $alm->id_dimension = $r2->id_dimension;
-        }
+        
+        
 
         // SI ID PERSONA ES MAYOR QUE CERO (0) INDICA QUE ES UNA ACTUALIZACIÓN DE ESA TUPLA EN LA TABLA PERSONA, SINO SIGNIFICA QUE ES UN NUEVO REGISTRO
 
@@ -72,15 +72,23 @@ class InmuebleController{
        //EL CÓDIGO ANTERIOR ES EQUIVALENTE A UTILIZAR CONDICIONALES IF, TAL COMO SE MUESTRA EN EL COMENTARIO A CONTINUACIÓN:
 
         if ($alm->id_inmueble > 0 ) {
-            $this->model->Actualizar($alm);
+            $this->model->actualizarDimension($alm);
+            $this->model->actualizarCaracteristica($alm);
+            $this->model->actualizarInmueble($alm);
         }
         else{
            $this->model->Registrar_caracteristica($alm); 
            $this->model->Registrar_dimension($alm);
+           foreach ($this->model->obtener_IDCaracteristica() as $r1) {
+                $alm->id_caracteristica = $r1->id_caracteristica;
+            }
+            foreach ($this->model->obtener_IDDimension() as $r2) {
+                $alm->id_dimension = $r2->id_dimension;
+            }
            $this->model->Registrar_inmueble($alm);
         }
         
-        header('Location: inmuebles.php?c=Inmueble');
+        header('Location: index.php?c=Inmueble');
     }
     
     /*
@@ -88,6 +96,6 @@ class InmuebleController{
     */
     public function Eliminar(){
         $this->model->Eliminar($_REQUEST['id_inmueble']);
-        header('Location: inmuebles.php?c=Inmueble');
+        header('Location: index.php?c=Inmueble');
     }
 }

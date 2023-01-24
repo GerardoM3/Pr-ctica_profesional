@@ -38,7 +38,7 @@ class SectorController{
 		? $this->model->Actualizar($alm) 
 		: $this->model->Registrsr($alm);
 
-		header('Location: sector_estado.php?c=Sector');
+		header('Location: index.php?c=Sector');
 	}
 
 	public function Eliminar(){

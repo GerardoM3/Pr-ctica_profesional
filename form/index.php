@@ -3,85 +3,65 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Barra de navegación</title>
+	<title>Alcaldía Municipal San Rafael Obrajuelo</title>
 	<style type="text/css">
+
+		*{
+			background-color: lightblue;
+			color: black;
+		}
+
 		/* Sección de contenedor principal */
 		.container-main{
 			width: 100%;
-			background-color: transparent;
-			float: left;
-			display: inline-block;
+			height: 110px;
+			background-color: #BEBEBE;
+			display: inline-grid;
 			position: relative;
+			text-align: center;
+			align-items: center;
 		}
 		/* Sección de navegación principal */
 		.container-nav{
-			margin: 1rem;
-			width: 75%;
+			position: relative;
+			margin: 0;
 			background-color: transparent;
-			float: right;
-			text-align: center;
 		}
 
 		/*  */
 		.option-block{
+			color: black;
 			padding: 6px;
 			display: inline-block;
 			margin:  2px;
-			border-radius:10px;
-			background-color: lightblue;
-			
+			border-radius:8px;
+			background-color: #4D8EE7;
+			transition-property: background-color, color;
+			transition-duration: .4s;
 		}
-		.option-block:hover .suboption-block{
-			display: block;
+		.option-block:hover{
+			color: white;
+			text-decoration: none;
+			background-color: blue;
 
 		}
-		.suboption-block{
-			display: none;
-		}
-
-		.suboption-block:hover .suboption-block2{
-			display: block;
-		}
-
-		.suboption-block2{
-			display: none;
-		}
-
-		.primary-form{
-			display: inline-block;
-			position: absolute;
-		}
-
-		.campo-user{
-			border-right: none;
-			border-left: none;
-			border-top: none;
-			border-bottom-color: red;
-			background-color: lightblue;
-			border-radius: 2px;
-		}
-		.campo-user:focus{
-			outline: none;
-			border-color: green;
-			background-color: lightgreen;
-		}
+		
 	</style>
 </head>
 <body>
-    <background-color: lightblue;>
 	<div class="container-main">
 		<div class="container-nav">
-			<a href="contribuyente.php?c=Contribuyente" class="option-block">
+			<a href="index.php?c=Contribuyente" class="option-block">
 				CONTRIBUYENTE
 			</a>
     
-            <a href="inmuebles.php?c=Inmueble" class="option-block">
+            <a href="index.php?c=Inmueble" class="option-block">
 				INMUEBLES
 			</a>
-			<a href="servicios_alcaldia.php?c=Servicio" class="option-block">
+			<a href="index.php?c=Servicio" class="option-block">
 				SERVIVIOS DE ALCALDIA
 			</a>
-			<a href="sector_estado.php?c=Sector" class="option-block">
+			<a href="index.php?c=Sector" class="option-block">
 				SECTORES / TIPOS / ESTADOS
 			</a>
 		</div>

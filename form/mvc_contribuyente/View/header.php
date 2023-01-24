@@ -54,6 +54,13 @@
         background: lightblue;
         z-index: 1;
     }
+
+    body{
+        background: blue;
+    }
+    .well{
+            background: #BEBEBE;
+        }
 </style>
 
 

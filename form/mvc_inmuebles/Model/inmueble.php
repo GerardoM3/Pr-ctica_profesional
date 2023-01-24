@@ -23,10 +23,8 @@ class Inmueble
     public $comunidad_inmueble;
     public $zona_comunidad_inmueble;
     public $direccion_inmueble;
-    public $caracteristica_inmueble;
     public $id_caracteristica;
     public $descripcion_inmueble;
-    public $dimension_inmueble;
     public $id_dimension;
     public $norte_longitud;
     public $este_longitud;
@@ -85,58 +83,6 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
     }
 
     /*
-    LISTAR TODOS LOS DATOS DE LA TABLA MUNICIPIO (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
-
-    Función simple que contienen las siguientes instrucciones dentro de él:
-    Declara una línea con una intrucción de consulta SQL, mostrando todos los datos que en la tabla meta_municipio.
-    Finalmente ejecuta la instrucción de consulta SQL.
-    listo
-    */
-
-    
-
-    /*
-    LISTAR EL MUNICIPIO DONDE SE UBICA EL INMUEBLE (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
-
-    Función que recoge el id del inmueble como parámetro para obtener los datos relacionados a ese identificador.
-    La función lo que hace es declarar una línea con una instrucción de consulta SQL, mostrando todos los datos que hay en la tabla inmueble, 
-    junto con todos los datos de la tabla meta_municipio, donde el identificador del inmueble sea igual al valor del parametro de la función.
-    Finalmente ejecuta la instrucción de consulta SQL.
-
-    NOTA: Aunque esta función manda a llamar todos los datos de todas las tablas especificadas en la instrucción de consulta SQL, en la vista sólo
-    se manda a traer los datos de las columnas que se necesiten.
-    Listo
-    */
-
-   
-
-    /*
-    LISTAR TODOS LOS DATOS DE LA TABLA DEPARTAMENTO (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
-
-    Función simple que contienen las siguientes instrucciones dentro de él:
-    Declara una línea con una intrucción de consulta SQL, mostrando todos los datos que en la tabla meta_departamento.
-    Finalmente ejecuta la instrucción de consulta SQL.
-    Listo
-    */
-
-   
-
-    /*
-    LISTAR EL DEPARTAMENTO DONDE SE UBICA EL INMUEBLE (ESTA FUNCIÓN DEBE DE SER ELIMINADA, REQUERIDO)
-
-    Función que recoge el id del inmueble como parámetro para obtener los datos relacionados a ese identificador.
-    La función lo que hace es declarar una línea con una instrucción de consulta SQL, mostrando todos los datos que hay en la tabla inmueble, 
-    junto con todos los datos de la tabla meta_departamento, donde el identificador del inmueble sea igual al valor del parametro de la función.
-    Finalmente ejecuta la instrucción de consulta SQL.
-
-    NOTA: Aunque esta función manda a llamar todos los datos de todas las tablas especificadas en la instrucción de consulta SQL, en la vista sólo
-    se manda a traer los datos de las columnas que se necesiten.
-    Listo
-    */
-
-   
-
-    /*
     GETTING (OBTENIENDO) DATOS DE LA TABLA INMUEBLES
 
     Función que recoge el id del inmueble como parametro para obtener los datos relacionados a ese identificador.
@@ -184,27 +130,32 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
         }
     }
 
-    public function Actualizar($data)
+    
+
+    public function actualizarDimension($data){
+        try {
+            $sql = "UPDATE meta_dimension_inmueble SET norte_longitud = ?, este_longitud = ?, oeste_longitud = ?, sur_longitud = ? WHERE id_dimension = ?;";
+            $this->pdo->prepare($sql)->execute(array($data->norte_longitud, $data->este_longitud, $data->oeste_longitud, $data->sur_longitud, $data->id_dimension));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function actualizarCaracteristica($data){
+        try {
+            $sql2 = "UPDATE meta_caracteristica_inmueble SET descripcion_inmueble = ? WHERE id_caracteristica = ?;";
+            $this->pdo->prepare($sql2)->execute(array($data->descripcion_inmueble, $data->id_caracteristica));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function actualizarInmueble($data)
     {
         try 
         {
-            $sql = "UPDATE inmueble SET 
-                        norte_longitud     = ?,
-                        este_longitud        = ?,
-                        oeste_longitud            = ?, 
-                        sur_longitud = ?
-                    WHERE id_inmueble = ?";
-
-            $this->pdo->prepare($sql)
-                 ->execute(
-                    array(
-                        $data->norte_longitud, 
-                        $data->este_longitud,
-                        $data->oeste_longitud,
-                        $data->sur_longitud,
-                        $data->id_inmueble,
-                    )
-                );
+            $sql3 = "UPDATE inmueble SET comunidad_inmueble = ?, zona_comunidad_inmueble = ?, direccion_inmueble = ? WHERE id_inmueble = ?";
+            $this->pdo->prepare($sql3)->execute(array($data->comunidad_inmueble, $data->zona_comunidad_inmueble, $data->direccion_inmueble, $data->id_inmueble));
         } catch (Exception $e) 
         {
             die($e->getMessage());
@@ -352,6 +303,19 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
         } catch (Exception $e) 
         {
             $this->pdo->rollback();
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerCorrelativo($correlativo){
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT correlativo FROM contribuyente WHERE correlativo = ?;");
+            $stm->execute(array($correlativo));
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
             die($e->getMessage());
         }
     }

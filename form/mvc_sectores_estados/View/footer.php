@@ -2,7 +2,7 @@
                 <div class="col-xs-12">
                     </hr>
                     <footer class="text-center well">
-                        <p>Alcaldía de San Rafael Obrajuelo, La Paz. 2022&copy;</a></p>
+                        <p>Alcaldía Municipal San Rafael Obrajuelo, La Paz. 2022&copy;</a></p>
                     </footer>
                 </div>
             </div>

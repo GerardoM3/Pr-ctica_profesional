@@ -18,6 +18,17 @@ class Contribuyente
     public $dui_contribuyente;
     public $telefono_contribuyente;
     public $estado_contribuyente;
+    public $id_inmueble;
+	public $comunidad_inmueble;
+	public $zona_comunidad_inmueble;
+	public $direccion_inmueble;
+	public $id_caracteristica;
+	public $descripcion_inmueble;
+	public $id_dimension;
+	public $norte_longitud;
+	public $este_longitud;
+	public $oeste_longitud;
+	public $sur_longitud;
 
 	public function __CONSTRUCT()
 	{
@@ -31,7 +42,7 @@ class Contribuyente
 		}
 	}
 
-	public function Listar()
+	/*public function Listar()
 	{
 		try
 		{
@@ -46,7 +57,7 @@ class Contribuyente
 		{
 			die($e->getMessage());
 		}
-	}
+	}*/
 
 	public function Listar2()
 	{
@@ -212,5 +223,190 @@ class Contribuyente
 			die($e->getMessage());
 		}
 	}
+
+    public function actualizarDimension($data){
+        try {
+            $sql = "UPDATE meta_dimension_inmueble SET norte_longitud = ?, este_longitud = ?, oeste_longitud = ?, sur_longitud = ? WHERE id_dimension = ?;";
+            $this->pdo->prepare($sql)->execute(array($data->norte_longitud, $data->este_longitud, $data->oeste_longitud, $data->sur_longitud, $data->id_dimension));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function actualizarCaracteristica($data){
+        try {
+            $sql2 = "UPDATE meta_caracteristica_inmueble SET descripcion_inmueble = ? WHERE id_caracteristica = ?;";
+            $this->pdo->prepare($sql2)->execute(array($data->descripcion_inmueble, $data->id_caracteristica));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function actualizarInmueble($data)
+    {
+        try 
+        {
+            $sql3 = "UPDATE inmueble SET comunidad_inmueble = ?, zona_comunidad_inmueble = ?, direccion_inmueble = ? WHERE id_inmueble = ?";
+            $this->pdo->prepare($sql3)->execute(array($data->comunidad_inmueble, $data->zona_comunidad_inmueble, $data->direccion_inmueble, $data->id_inmueble));
+        } catch (Exception $e) 
+        {
+            die($e->getMessage());
+        }
+    }
+
+    /*Sección de registro de inmueble*/
+
+    public function Registrar_caracteristica($data)
+    {
+        try {
+            /*  CREAR UNA FUNCIÓN PARA INSERTAR UNA CARACTERÍSTICA DEL INMUEBLE*/
+            $this->pdo->beginTransaction();
+
+            /*
+            Instrucción SQL, llamando un procedimiento almacenado para insertar característica del inmueble
+            */
+            $sql = "CALL insertar_caracteristica(?);";
+
+            $this->pdo->prepare($sql)->execute(
+                array(
+                    $data->descripcion_inmueble
+                )
+            );
+            $res1 = $this->pdo->commit();
+        } catch (Exception $e) {
+            $this->pdo->rollback();
+            die($e->getMessage());
+        }
+    }
+
+    public function Registrar_dimension($data)
+    {
+        try {
+            /*  CREAR UNA FUNCIÓN PARA INSERTAR LAS DIMENSIONES DEL INMUEBLE  */
+            $this->pdo->beginTransaction();
+
+            /*
+            Instrucción SQL, llamando un procedimiento almacenado para insertar dimensión del inmueble
+            */
+            $sql = "CALL insertar_dimension(?, ?, ?, ?);";
+
+            $this->pdo->prepare($sql)->execute(
+                array(
+                    $data->norte_longitud,
+                    $data->este_longitud,
+                    $data->oeste_longitud,
+                    $data->sur_longitud
+                )
+            );
+            $res1 = $this->pdo->commit();
+        } catch (Exception $e) {
+            $this->pdo->rollback();
+            die($e->getMessage());
+        }
+    }
+
+    public function obtener_IDCaracteristica()
+    {
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT id_caracteristica FROM meta_caracteristica_inmueble ORDER BY id_caracteristica DESC LIMIT 1;");
+            $stm->execute();
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtener_IDDimension()
+    {
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT id_dimension FROM meta_dimension_inmueble ORDER BY id_dimension DESC LIMIT 1;");
+            $stm->execute();
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function Registrar_inmueble($data)
+    {
+        try 
+        {
+
+            /*  CREAR UNA FUNCIÓN PARA INSERTAR UN INMUEBLE, MANDANDO A LLAMAR LOS ID'S DE LA DIMENSION Y CARACTERÍSTICA DEL MISMO  */
+            $this->pdo->beginTransaction();
+
+            $sql = "INSERT INTO `inmueble` (comunidad_inmueble, zona_comunidad_inmueble, direccion_inmueble, correlativo,id_caracteristica, id_dimension) VALUES ( ?, ?, ?, ?, ?, ?)";
+
+            $this->pdo->prepare($sql)->execute(
+                    array(
+                       
+                        $data->comunidad_inmueble,
+                        $data->zona_comunidad_inmueble,
+                        $data->direccion_inmueble,
+                        $data->correlativo,
+                        $data->id_caracteristica,
+                        $data->id_dimension
+                    )
+                );
+
+            $res1 = $this->pdo->commit();
+        } catch (Exception $e) 
+        {
+            $this->pdo->rollback();
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerCorrelativo($correlativo){
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT correlativo FROM contribuyente WHERE correlativo = ?;");
+            $stm->execute(array($correlativo));
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerCorrelativo2(){
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT correlativo FROM contribuyente ORDER BY correlativo DESC Limit 1;");
+            $stm->execute(array());
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /*public function Listar()
+    {
+        try
+        {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT * FROM inmueble 
+			INNER JOIN meta_caracteristica_inmueble ON inmueble.id_caracteristica = meta_caracteristica_inmueble.id_caracteristica 
+			INNER JOIN meta_dimension_inmueble ON inmueble.id_dimension = meta_dimension_inmueble.id_dimension 
+			INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHERE estado_inmueble = 1;");
+            $stm->execute();
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }*/
 }
 ?>

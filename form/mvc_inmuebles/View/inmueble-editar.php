@@ -9,12 +9,15 @@
 
 <form action="?c=Inmueble&a=Guardar" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id_inmueble" value="<?php echo $alm->id_inmueble; ?>" />
+    <input type="hidden" name="id_caracteristica" value="<?php echo $alm->id_caracteristica; ?>" />
+    <input type="hidden" name="id_dimension" value="<?php echo $alm->id_dimension; ?>">
     
     <div class="form-group">
         <label>Comunidad</label>
         <input type="text" name="comunidad_inmueble" value="<?php echo $alm->comunidad_inmueble; ?>" class="form-control" placeholder="Ingrese comunidad (barrio, colonia, caserío, cantón)" data-validacion-tipo="requerido|min:3" />
     </div>
 
+    <!--
     <script>
 
         function habilitarZona(campoZona){
@@ -26,11 +29,11 @@
 
     <div class="form-group">
         <input type="checkbox" id="cb_zona" name="cb_zona" class="check_zona_input" onclick="habilitarZona('zona_input')"/><label for="cb_zona">¿Existe zonas en la comunidad?</label>
-    </div>
+    </div>-->
 
     <div class="form-group" id="zona_comunidad_inmueble">
         <label>Zona</label>
-        <input type="text" id="zona_input" name="zona_input" value="<?php echo $alm->zona_comunidad_inmueble?>" class="form-control" placeholder="Ingrese la zona de la comunidad" disabled>
+        <input type="text" id="zona_input" name="zona_comunidad_inmueble" value="<?php echo $alm->zona_comunidad_inmueble?>" class="form-control" placeholder="Ingrese la zona de la comunidad">
         
     </div>
     
@@ -76,10 +79,4 @@
     </div>
 </form>
 
-<script>
-    $(document).ready(function(){
-        $("#frm-alumno").submit(function(){
-            return $(this).validate();
-        });
-    })
-</script>
+
