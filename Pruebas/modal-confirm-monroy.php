@@ -97,6 +97,7 @@ $variable2 = "Este es el dato 2";
             transition-duration: 1s;
         }
         .btn-modal:hover{
+            cursor: pointer;
             box-shadow: -1px -1px 5px black;
         }
     </style>
@@ -108,7 +109,8 @@ $variable2 = "Este es el dato 2";
     </div>
     <div class="content-main">
         <p style="margin:0;padding:0;">Dato 1: <?php echo $variable;?></p>
-        <button class="boton-eliminar" id="eliminar-dato-content-main">Eliminar</button>
+        <button class="boton-eliminar" id="eliminar-dato-content-main1">Eliminar</button>
+        <button class="boton-eliminar" id="eliminar-dato-content-main2">Eliminar 2</button>
     </div>
     <div class="footer-main">
         
@@ -146,7 +148,8 @@ $variable2 = "Este es el dato 2";
         var variable = "Soy el dato 1 de JavaScript";
         var variable2 = "Soy el dato 2 de JavaScript";
 
-        var eliminar_dato = document.getElementById('eliminar-dato-content-main');
+        var eliminar_dato = document.getElementById('eliminar-dato-content-main2');
+        var aceptar_eliminar = document.getElementById('aceptar');
         var cancelar_eliminar = document.getElementById('cancelar');
         var modal_eliminar = document.getElementById('modal-eliminar');
 
@@ -154,6 +157,9 @@ $variable2 = "Este es el dato 2";
             modal_eliminar.style.display = "block";
         });
         cancelar_eliminar.addEventListener('click', ()=>{
+            modal_eliminar.style.display = "none";
+        });
+        aceptar_eliminar.addEventListener('click', ()=>{
             modal_eliminar.style.display = "none";
         });
     </script>
