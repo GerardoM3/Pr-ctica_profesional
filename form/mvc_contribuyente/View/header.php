@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,10 +25,6 @@
                 });
             })
         });
-
-        function ejecutarConfirmacion(confirm){
-            return confirm;
-        }
     </script>
 
     <style type="text/css">

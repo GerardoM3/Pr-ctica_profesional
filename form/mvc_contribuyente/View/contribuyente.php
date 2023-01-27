@@ -62,8 +62,16 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
                             <h2 style="padding: 5px;">Mensaje de confirmación</h2>
                         </div>
                         <div class="cuerpo-modal">
-                            <h3>¿Está seguro que desea eliminar los siguientes datos?</h3>
-                            <p>Dato 1: <?php echo $r->nombre_contribuyente." ".$r->apellido_contribuyente; ?></p>
+                            <h3>¿Está seguro que desea eliminar el siguiente registro?</h3>
+                            <div style="display:inline-flex;">
+                                <div class="desc">Cuenta corriente: </div>
+                                <div class="result" style="color:black;"><u><?php echo $r->id_contribuyente."-".$r->correlativo; ?></u></div>
+                            </div>
+                            <br>
+                            <div style="display:inline-flex;">
+                                <div class="desc">Contribuyente: </div>
+                                <div class="result" style="color:black;"><u><?php echo $r->nombre_contribuyente." ".$r->apellido_contribuyente; ?></u></div>
+                            </div>
                         </div>
                         <div class="footer-modal">
                             <div style="margin-right:15%;">
@@ -90,7 +98,7 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
 
                     confirmar_<?php echo $i;?>.addEventListener('click', ()=>{
                         var acept_<?php echo $i;?> = document.getElementById('aceptar-<?php echo $i;?>');
-                        acept_<?php echo $i;?>.disabled = !acept_<?php echo $i;?>.disabled
+                        acept_<?php echo $i;?>.disabled = !acept_<?php echo $i;?>.disabled;
                     });
                 </script>
 
@@ -113,6 +121,7 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
                         modal_eliminar_<?php echo $i;?>.style.display = "none";
                         aceptar_eliminar_<?php echo $i;?>.disabled = true;
                         confirmar_<?php echo $i;?>.checked = false;
+
                         body.style.position = "inherit";
                         body.style.height = "auto";
                         body.style.overflow = "visible";
@@ -120,22 +129,17 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
 
                     aceptar_eliminar_<?php echo $i;?>.addEventListener('click', ()=>{
                             if(confirmar_<?php echo $i;?>.checked){
-                                aceptar_eliminar_<?php echo $i;?>.setAttribute('href', "?c=Contribuyente&a=Eliminar&id_contribuyente=<?php echo $r->id_contribuyente; ?>&correlativo=<?php echo $r->correlativo;?>");
+                                aceptar_eliminar_<?php echo $i;?>.setAttribute('href', `?c=Contribuyente&a=Eliminar&id_contribuyente=<?php echo $r->id_contribuyente;?>&correlativo=<?php echo $r->correlativo;?>`);
                                 modal_eliminar_<?php echo $i;?>.style.display = "none";
                                 aceptar_eliminar_<?php echo $i;?>.disabled = true;
                                 confirmar_<?php echo $i;?>.checked = false;
                             }
-
                             body.style.position = "inherit";
                             body.style.height = "auto";
                             body.style.overflow = "visible";
                         });
 
-                    window.addEventListener('click', (e)=>{
-                        if(e.target == modal_eliminar_<?php echo $i;?> || e.target == modal_eliminar_<?php echo $i;?>){
-                            modal_eliminar_<?php echo $i;?>.style.display = "none";
-                        }
-                    });
+                    
                 </script>
                 <!--
                     Fin de scripts JavaScript que ejecuta el modal
@@ -143,7 +147,7 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
             </td>
         </tr>
         
-    <?php $i++; endforeach; ?>
+    <?php $i++; endforeach;?>
     <!--<a href="?c=Contribuyente&a=Eliminar&id_contribuyente=<?php //echo $r->id_contribuyente; ?>&correlativo=<?php //echo $r->correlativo;?>"></a>-->
 
     </tbody>

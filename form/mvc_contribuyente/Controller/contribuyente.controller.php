@@ -126,6 +126,5 @@ class ContribuyenteController{
         $this->model->Eliminar($_REQUEST['id_contribuyente'], $_REQUEST['correlativo']);
         header('Location: index.php?c=Contribuyente');
     }
-
     
 }

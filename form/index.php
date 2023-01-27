@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,7 +62,7 @@
         	width: 100%;
         	height: 100%;
         	overflow: auto;
-        	background-color: rgba(0, 0, 0, 0.4);
+        	background-color: rgba(0, 0, 0, 0.6);
         }
         .modal-eliminar{
             margin:0;
@@ -95,7 +95,7 @@
 
         .cuerpo-modal{
             position:absolute;
-            top:24%;
+            top:15%;
             padding:1em;
             display:block;
             align-content: center;
@@ -118,11 +118,24 @@
         .btn-modal{
         	color: black;
             padding: 13px;
-            border-radius:10px;
+            border-radius:27px;
             border: 1px black solid;
             font-size: 20px;
             transition-property: box-shadow;
             transition-duration: 1s;
+        }
+        a.btn-modal{
+        	text-decoration: none;
+        	background: lightgrey;
+        }
+        a.btn-modal:hover,
+        a.btn-modal:focus,
+        a.btn-modal:link,
+        a.btn-modal:visited,
+        a.btn-modal:active{
+        	background-color: lightgrey;
+        	color: black;
+        	text-decoration: none;
         }
         .btn-modal:hover{
             cursor: pointer;
@@ -135,9 +148,6 @@
 
 		
 	</style>
-	<script type="text/javascript">
-
-	</script>
 </head>
 <body>
 	<div class="container-main">
@@ -257,4 +267,3 @@
 			call_user_func(array($controller, $accion));
 		}
 	}
-?>

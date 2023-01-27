@@ -43,7 +43,7 @@ class SectorController{
 
 	public function Eliminar(){
 		$this->model->Eliminar($_REQUEST['cod_sector']);
-		header('Location: sector_estado.php?c=Sector');
+		header('Location: index.php?c=Sector');
 	}
 }
 ?>
