@@ -1,9 +1,4 @@
-<?php
-	require ('conexion.php');
-	
-	$query = "SELECT cod_departamento, departamento FROM meta_departamento ORDER BY departamento";
-	$resultado=$mysqli->query($query);
-?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -32,33 +27,37 @@
                 });
             })
         });
+
+        function ejecutarConfirmacion(confirm){
+            return confirm;
+        }
     </script>
 
     <style type="text/css">
-    a[data-desc]{
-        position: relative;
-        cursor: help;
-    }
+        a[data-desc]{
+            position: relative;
+            cursor: help;
+        }
 
-    a[data-desc]:hover::after,
-    a[data-desc]:focus::after{
-        content: attr(data-desc);
-        position: absolute;
-        left: 0;
-        top: 30px;
-        color: black;
-        padding: 10px;
-        min-width: 200px;
-        border: 1px #aaaaaa solid;
-        border-radius: 10px;
-        background: lightblue;
-        z-index: 1;
-    }
+        a[data-desc]:hover::after,
+        a[data-desc]:focus::after{
+            content: attr(data-desc);
+            position: absolute;
+            left: 0;
+            top: 30px;
+            color: black;
+            padding: 10px;
+            min-width: 200px;
+            border: 1px #aaaaaa solid;
+            border-radius: 10px;
+            background: lightblue;
+            z-index: 1;
+        }
 
-    body{
-        background: blue;
-    }
-    .well{
+        body{
+            background: blue;
+        }
+        .well{
             background: #BEBEBE;
         }
 </style>

@@ -36,6 +36,10 @@ $variable2 = "Este es el dato 2";
             height: 300px;
             background: red;
         }
+
+        /*
+        Apertura de la sección CSS del modal
+        */
         .modal-eliminar{
             margin:0;
             padding:0;
@@ -100,6 +104,9 @@ $variable2 = "Este es el dato 2";
             cursor: pointer;
             box-shadow: -1px -1px 5px black;
         }
+        /*
+        Cierre de la sección CSS del modal
+        */
     </style>
 </head>
 <body>
@@ -115,6 +122,10 @@ $variable2 = "Este es el dato 2";
     <div class="footer-main">
         
     </div>
+
+    <!--
+        A partir de aquí hacia abajo es código HTML del modal personalizado
+    -->
 
     <div class="modal-eliminar" id="modal-eliminar">
         <div class="cabecera-modal">
@@ -133,6 +144,14 @@ $variable2 = "Este es el dato 2";
         </div>
     </div>
 
+    <!--
+        Hasta aquí termina el código HTML del modal personalizado
+    -->
+
+    <!--
+        Los Scripts JavaScript que ejecuta el modal
+    -->
+
     <script>
         var confirmar = document.getElementById('confirm');
 
@@ -145,8 +164,6 @@ $variable2 = "Este es el dato 2";
 
 
     <script>
-        var variable = "Soy el dato 1 de JavaScript";
-        var variable2 = "Soy el dato 2 de JavaScript";
 
         var eliminar_dato = document.getElementById('eliminar-dato-content-main2');
         var aceptar_eliminar = document.getElementById('aceptar');
@@ -158,10 +175,17 @@ $variable2 = "Este es el dato 2";
         });
         cancelar_eliminar.addEventListener('click', ()=>{
             modal_eliminar.style.display = "none";
+            aceptar_eliminar.disabled = true;
+            confirmar.checked = false;
         });
         aceptar_eliminar.addEventListener('click', ()=>{
             modal_eliminar.style.display = "none";
+            aceptar_eliminar.disabled = true;
+            confirmar.checked = false;
         });
     </script>
+    <!--
+        Fin de scripts JavaScript que ejecuta el modal
+    -->
 </body>
 </html>

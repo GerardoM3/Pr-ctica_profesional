@@ -6,9 +6,12 @@
 	<title>Alcaldía Municipal San Rafael Obrajuelo</title>
 	<style type="text/css">
 
-		*{
+		body{
 			background-color: lightblue;
 			color: black;
+		}
+		table{
+			color: white;
 		}
 
 		/* Sección de contenedor principal */
@@ -45,8 +48,96 @@
 			background-color: blue;
 
 		}
+
+		/*
+        Apertura de la sección CSS del modal
+        */
+        .modal{
+        	display: none;
+        	position: fixed;
+        	z-index: 1;
+        	padding-top: 100px;
+        	left: 0;
+        	top: 0;
+        	width: 100%;
+        	height: 100%;
+        	overflow: auto;
+        	background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-eliminar{
+            margin:0;
+            padding:0;
+            position:absolute;
+            top:5%;
+            right: 5%;
+            width: 35%;
+            height: 35%;
+            background: #DAD7D7;
+            border-radius: 25px;
+            box-shadow: 10px 10px 30px 1px black;
+        }
+
+        .cabecera-modal, .footer-modal{
+            position:absolute;
+            width:100%;
+        }
+        .cabecera-modal{
+            color: #FFFFFF;
+            margin-top:0;
+            padding-top:0;
+            top: 0;
+            left: 0;
+            height:24%;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            background: #FF5454;
+        }
+
+        .cuerpo-modal{
+            position:absolute;
+            top:24%;
+            padding:1em;
+            display:block;
+            align-content: center;
+            color:red;
+        }
+        .footer-modal{
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            bottom: 0;
+            height: 20%;
+            background: #FF5454;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        .boton-eliminar{
+            width: 200px;
+            height:60px;
+        }
+        .btn-modal{
+        	color: black;
+            padding: 13px;
+            border-radius:10px;
+            border: 1px black solid;
+            font-size: 20px;
+            transition-property: box-shadow;
+            transition-duration: 1s;
+        }
+        .btn-modal:hover{
+            cursor: pointer;
+            box-shadow: -1px -1px 5px black;
+        }
+        /*
+        Cierre de la sección CSS del modal
+        */
+
+
 		
 	</style>
+	<script type="text/javascript">
+
+	</script>
 </head>
 <body>
 	<div class="container-main">

@@ -1,3 +1,10 @@
+<?php
+    require ('conexion.php');
+    
+    $query = "SELECT cod_departamento, departamento FROM meta_departamento ORDER BY departamento";
+    $resultado=$mysqli->query($query);
+?>
+
 <h1 class="page-header">
     <?php echo $alm->id_contribuyente != null && $alm->correlativo != null ? $alm->nombre_contribuyente.' '.$alm->apellido_contribuyente : 'Nuevo Registro'; ?>
 </h1>
