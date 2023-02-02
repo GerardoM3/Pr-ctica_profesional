@@ -59,6 +59,16 @@ class Contribuyente
 		}
 	}*/
 
+	public function ListarInmuebleContri($correlativo){
+		try {
+			$stm = $this->pdo->prepare("SELECT * FROM inmueble NATURAL JOIN contribuyente NATURAL JOIN meta_caracteristica_inmueble NATURAL JOIN meta_dimension_inmueble WHERE correlativo = ? AND estado_inmueble = 1;");
+			$stm->execute(array($correlativo));
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+	}
+
 	public function Listar2()
 	{
 		try
@@ -136,7 +146,7 @@ class Contribuyente
 	{
 		try 
 		{
-			$stm = $this->pdo->prepare("SELECT * FROM contribuyente WHERE id_contribuyente = ? AND correlativo = ?");
+			$stm = $this->pdo->prepare("SELECT * FROM contribuyente NATURAL JOIN meta_departamento NATURAL JOIN meta_municipio WHERE id_contribuyente = ? AND correlativo = ?");
 			          
 
 			$stm->execute(array($id_contribuyente, $correlativo));

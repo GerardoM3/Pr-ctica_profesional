@@ -8,6 +8,17 @@ class ContribuyenteController{
     public function __CONSTRUCT(){
         $this->model = new Contribuyente();
     }
+
+    public function View(){
+        $alm = new Contribuyente();
+
+        if(isset($_REQUEST['id_contribuyente'], $_REQUEST['correlativo'])){
+            $alm = $this->model->getting($_REQUEST['id_contribuyente'], $_REQUEST['correlativo']);
+        }
+        require_once 'mvc_contribuyente/View/header.php';
+        require_once 'mvc_contribuyente/View/view-contri.php';
+        require_once 'mvc_contribuyente/View/footer.php';
+    }
     
     public function Index_contribuyente(){
         require_once 'mvc_contribuyente/View/header.php';

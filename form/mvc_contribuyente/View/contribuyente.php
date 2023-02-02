@@ -49,6 +49,11 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
             <td><?php echo $r->dui_contribuyente; ?></td>
             <td><?php echo $r->telefono_contribuyente; ?></td>
             <td>
+                <center>
+                    <a class="enlace-tabla" href="?c=Contribuyente&a=View&id_contribuyente=<?php echo $r->id_contribuyente; ?>&correlativo=<?php echo $r->correlativo; ?>">Vista general</a>
+                </center>
+            </td>
+            <td>
                 <i class="glyphicon glyphicon-edit"><a  href="?c=Contribuyente&a=Crud&id_contribuyente=<?php echo $r->id_contribuyente; ?>&correlativo=<?php echo $r->correlativo;?>"> Editar</a></i>
             </td>
             <td>

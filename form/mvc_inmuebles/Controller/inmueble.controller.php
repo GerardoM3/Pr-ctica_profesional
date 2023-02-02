@@ -88,7 +88,7 @@ class InmuebleController{
            $this->model->Registrar_inmueble($alm);
         }
         
-        header('Location: index.php?c=Inmueble');
+        header('Location:index.php?c=Inmueble');
     }
     
     /*
@@ -96,6 +96,6 @@ class InmuebleController{
     */
     public function Eliminar(){
         $this->model->Eliminar($_REQUEST['id_inmueble']);
-        header('Location: index.php?c=Inmueble');
+        header('Location:index.php?c=Inmueble');
     }
 }
