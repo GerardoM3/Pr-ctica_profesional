@@ -1,23 +1,3 @@
-   
-    <div class="container">
-	<div class="container-main">
-		<div class="container-nav">
-			<a href="index.php?c=Contribuyente" class="option-block">
-				CONTRIBUYENTE
-			</a>
-    
-            <a href="index.php?c=Inmueble" class="option-block">
-				INMUEBLES
-			</a>
-			<a href="index.php?c=Servicio" class="option-block">
-				SERVICIOS DE ALCALDIA
-			</a>
-			<a href="index.php?c=Sector" class="option-block">
-				SECTORES / TIPOS / ESTADOS
-			</a>
-		</div>
-		
-	</div>
 
 <?php
 	
