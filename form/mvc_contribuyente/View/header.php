@@ -190,7 +190,7 @@
 
         .enlace-tabla,
         .enlace-tabla:visited{
-            color: black;
+            color: yellow;
         }
         .enlace-tabla:hover, 
         .enlace-tabla:focus{
@@ -198,7 +198,7 @@
             color: red;
         }
         .enlace-tabla:active{
-            color: yellow;
+            color: black;
         }
 
         p{
@@ -210,6 +210,10 @@
         }
         footer>p{
             color: black;
+        }
+        i>a,
+        a{
+            color: yellow;
         }
 </style>
 
