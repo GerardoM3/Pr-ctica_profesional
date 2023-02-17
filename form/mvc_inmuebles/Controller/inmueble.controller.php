@@ -38,9 +38,6 @@ class InmuebleController{
 
     /*
     Función que Registra o Modifica los datos.
-
-    [~Eliminar las líneas cod_municipio y cod_departamento cuidando siempre la puntuación, en este caso, punto y coma.~]
-
     */
     
     public function Guardar(){
@@ -50,12 +47,12 @@ class InmuebleController{
         
         $alm->id_inmueble = $_REQUEST['id_inmueble'];
         $alm->correlativo = $_REQUEST['correlativo'];
-        $alm->id_caracteristica = $_REQUEST['id_caracteristica'];
+        $alm->cod_zona = $_REQUEST['cod_zona'];
+        $alm->cod_sector = $_REQUEST['cod_sector'];
         $alm->id_dimension = $_REQUEST['id_dimension'];
-        $alm->comunidad_inmueble = $_REQUEST['comunidad_inmueble'];
-        $alm->zona_comunidad_inmueble = $_REQUEST['zona_comunidad_inmueble'];
+        $alm->zona_inmueble = $_REQUEST['zona_inmueble'];
         $alm->direccion_inmueble = $_REQUEST['direccion_inmueble'];
-        $alm->descripcion_inmueble = $_REQUEST['descripcion_inmueble'];
+        $alm->sector_estado = $_REQUEST['sector_estado'];
         $alm->norte_longitud = $_REQUEST['norte_longitud'];
         $alm->este_longitud = $_REQUEST['este_longitud'];
         $alm->oeste_longitud = $_REQUEST['oeste_longitud'];
@@ -73,15 +70,10 @@ class InmuebleController{
 
         if ($alm->id_inmueble > 0 ) {
             $this->model->actualizarDimension($alm);
-            $this->model->actualizarCaracteristica($alm);
             $this->model->actualizarInmueble($alm);
         }
         else{
-           $this->model->Registrar_caracteristica($alm); 
            $this->model->Registrar_dimension($alm);
-           foreach ($this->model->obtener_IDCaracteristica() as $r1) {
-                $alm->id_caracteristica = $r1->id_caracteristica;
-            }
             foreach ($this->model->obtener_IDDimension() as $r2) {
                 $alm->id_dimension = $r2->id_dimension;
             }

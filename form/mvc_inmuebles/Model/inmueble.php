@@ -16,15 +16,11 @@ class Inmueble
     private $pdo;
     
     public $id_inmueble;
-    public $cod_departamento;
-    public $departamento;
-    public $cod_municipio;
-    public $municipio;
-    public $comunidad_inmueble;
-    public $zona_comunidad_inmueble;
+    public $cod_zona;
+    public $zona_inmueble;
     public $direccion_inmueble;
-    public $id_caracteristica;
-    public $descripcion_inmueble;
+    public $cod_sector;
+    public $sector_estado;
     public $id_dimension;
     public $norte_longitud;
     public $este_longitud;
@@ -54,8 +50,7 @@ class Inmueble
 
     Función simple que contiene las siguientes instrucciones dentro de él:
     Declara una línea con una instrucción de consulta SQL, mostrando todos los datos de la tabla inmueble con todos los datos las tablas 
-    siguientes: meta_municipio (tabla a eliminar, sólo esa línea -NO TODA LA FUNCION-), meta_departamento (tabla a eliminar, sólo esa 
-    línea -NO TODA LA FUNCION-), meta_catacteristica_inmueble, meta_dimension_inmueble y contribuyente. Todos estos datos donde el estado del 
+    siguientes: meta_catacteristica_inmueble, meta_dimension_inmueble y contribuyente. Todos estos datos donde el estado del 
     inmueble sea activa (igual a 1).
     Finalmente ejecuta la instrucción de consulta SQL.
     Listo
@@ -69,7 +64,8 @@ class Inmueble
 
             $stm = $this->pdo->prepare("SELECT * FROM inmueble
 
-INNER JOIN meta_caracteristica_inmueble ON inmueble.id_caracteristica = meta_caracteristica_inmueble.id_caracteristica 
+INNER JOIN meta_zona_inmueble ON inmueble.cod_zona = meta_zona_inmueble.cod_zona 
+INNER JOIN meta_sector_estado ON inmueble.cod_sector = meta_sector_estado.cod_sector
 INNER JOIN meta_dimension_inmueble ON inmueble.id_dimension = meta_dimension_inmueble.id_dimension 
 INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHERE estado_inmueble = 1;");
             $stm->execute();
@@ -87,7 +83,7 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
 
     Función que recoge el id del inmueble como parametro para obtener los datos relacionados a ese identificador.
     La función lo que hace es declarar una línea con una intrucción de consulta SQL, mostrando todos los datos que hay en la tabla inmueble, 
-    junto con todos los datos de las tablas meta_municipio, meta_departamento, meta_caracteristica_inmueble, meta_dimension y contribuyente.
+    junto con todos los datos de las tablas meta_caracteristica_inmueble, meta_dimension y contribuyente.
     Todos estos datos donde el identificador del inmueble sea igual al valor del parámetro de la función, y todos los datos que su estado de 
     inmueble sea activo (igual a 1).
     Finalmente ejecuta la instrucción de consulta SQL.
@@ -97,13 +93,53 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
     {
         try 
         {
-            $stm = $this->pdo->prepare("SELECT * FROM inmueble  NATURAL JOIN meta_caracteristica_inmueble NATURAL JOIN meta_dimension_inmueble NATURAL JOIN contribuyente WHERE estado_inmueble = 1 AND id_inmueble = ?;");
+            $stm = $this->pdo->prepare("SELECT * FROM inmueble  NATURAL JOIN meta_zona_inmueble NATURAL JOIN meta_sector_estado NATURAL JOIN meta_dimension_inmueble NATURAL JOIN contribuyente WHERE estado_inmueble = 1 AND id_inmueble = ?;");
                       
 
             $stm->execute(array($id_inmueble));
             return $stm->fetch(PDO::FETCH_OBJ);
         } catch (Exception $e) 
         {
+            die($e->getMessage());
+        }
+    }
+
+    public function listarZona(){
+        try{
+            $stm = $this->pdo->prepare("SELECT * FROM meta_zona_inmueble;");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        }catch (Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function listar_Zona($id_inmueble){
+        try{
+            $stm = $this->pdo->prepare("SELECT * FROM inmueble NATURAL JOIN meta_zona_inmueble WHERE id_inmueble = ?;");
+            $stm->execute(array($id_inmueble));
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        }catch (Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function listarSector(){
+        try{
+            $stm = $this->pdo->prepare("SELECT * FROM meta_sector_estado;");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        }catch (Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function listar_Sector($id_inmueble){
+        try{
+            $stm = $this->pdo->prepare("SELECT * FROM inmueble NATURAL JOIN meta_sector_estado WHERE id_inmueble = ?;");
+            $stm->execute(array($id_inmueble));
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        }catch (Exception $e){
             die($e->getMessage());
         }
     }
@@ -141,21 +177,12 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
         }
     }
 
-    public function actualizarCaracteristica($data){
-        try {
-            $sql2 = "UPDATE meta_caracteristica_inmueble SET descripcion_inmueble = ? WHERE id_caracteristica = ?;";
-            $this->pdo->prepare($sql2)->execute(array($data->descripcion_inmueble, $data->id_caracteristica));
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
     public function actualizarInmueble($data)
     {
         try 
         {
-            $sql3 = "UPDATE inmueble SET comunidad_inmueble = ?, zona_comunidad_inmueble = ?, direccion_inmueble = ? WHERE id_inmueble = ?";
-            $this->pdo->prepare($sql3)->execute(array($data->comunidad_inmueble, $data->zona_comunidad_inmueble, $data->direccion_inmueble, $data->id_inmueble));
+            $sql3 = "UPDATE inmueble SET cod_zona = ?, cod_sector = ?, direccion_inmueble = ? WHERE id_inmueble = ?";
+            $this->pdo->prepare($sql3)->execute(array($data->cod_zona, $data->cod_sector, $data->direccion_inmueble, $data->id_inmueble));
         } catch (Exception $e) 
         {
             die($e->getMessage());
@@ -166,46 +193,14 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
     Las siguientes líneas a partir de aquí son funciones para insertar datos a la 
     tabla inmueble y todos los datos de su dimensión y característica asociada al inmueble.
 
-    ┌────┬───────────────────────────────────────────────────────────┬────┐
-    |****|   OJO.                                                    |****|
-    |****|                                                           |****|
-    |****|   En esta parte no se necesita modificar las funciones ni |****|
-    |****|   eliminar nada. Sólo en la función ~Registrar_inmueble~  |****|
-    |****|   hay que modificar la instrucción SQL y el array elimin- |****|
-    |****|   ando los atributos cod_municipio y cod_departamento.    |****|
-    |****|                                                           |****|
-    |****|   Tener cuidado con las comas, que no hay de más ni que   |****|
-    |****|   falte.                                                  |****|
-    └────┴───────────────────────────────────────────────────────────┴────┘
-
     */
+
 
     /*  ┌────┬───────────────────────────────────────────────────────────┬────┐  */
     /*  |****|   Primero se registra las características y guarda ID.    |****|  */
     /*  └────┴───────────────────────────────────────────────────────────┴────┘  */
 
-    public function Registrar_caracteristica($data)
-    {
-        try {
-            /*  CREAR UNA FUNCIÓN PARA INSERTAR UNA CARACTERÍSTICA DEL INMUEBLE*/
-            $this->pdo->beginTransaction();
-
-            /*
-            Instrucción SQL, llamando un procedimiento almacenado para insertar característica del inmueble
-            */
-            $sql = "CALL insertar_caracteristica(?);";
-
-            $this->pdo->prepare($sql)->execute(
-                array(
-                    $data->descripcion_inmueble
-                )
-            );
-            $res1 = $this->pdo->commit();
-        } catch (Exception $e) {
-            $this->pdo->rollback();
-            die($e->getMessage());
-        }
-    }
+    /* FUNCIÓN DE REGISTRO DE CARACTERÍSTICA ELIMINADA */
 
     /*  ┌────┬───────────────────────────────────────────────────────┬────┐  */
     /*  |****|   Segundo se registra las dimensiones y guarda ID.    |****|  */
@@ -241,19 +236,6 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
     /*  |****|   Obtener el identificador de la característica  recién creada para colocarlo en el nuevo registro del inmueble.    |****|  */
     /*  └────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴────┘  */
 
-    public function obtener_IDCaracteristica()
-    {
-        try {
-            $result = array();
-
-            $stm = $this->pdo->prepare("SELECT id_caracteristica FROM meta_caracteristica_inmueble ORDER BY id_caracteristica DESC LIMIT 1;");
-            $stm->execute();
-
-            return $stm->fetchAll(PDO::FETCH_OBJ);
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
 
     /*  ┌────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────┬────┐  */
     /*  |****|   Obtener el identificador de la dimensión recién creada para colocarlo en el nuevo registro del inmueble.    |****|  */
@@ -285,13 +267,12 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
             /*  CREAR UNA FUNCIÓN PARA INSERTAR UN INMUEBLE, MANDANDO A LLAMAR LOS ID'S DE LA DIMENSION Y CARACTERÍSTICA DEL MISMO  */
             $this->pdo->beginTransaction();
 
-            $sql = "INSERT INTO `inmueble` (comunidad_inmueble, zona_comunidad_inmueble, direccion_inmueble, correlativo,id_caracteristica, id_dimension) VALUES ( ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO `inmueble` (cod_zona, direccion_inmueble, correlativo,id_caracteristica, id_dimension) VALUES (?, ?, ?, ?, ?)";
 
             $this->pdo->prepare($sql)->execute(
                     array(
                        
-                        $data->comunidad_inmueble,
-                        $data->zona_comunidad_inmueble,
+                        $data->cod_zona,
                         $data->direccion_inmueble,
                         $data->correlativo,
                         $data->id_caracteristica,

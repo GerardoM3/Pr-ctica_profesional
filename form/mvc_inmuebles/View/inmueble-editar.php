@@ -1,21 +1,16 @@
 <h1 class="page-header">
-    <?php echo $alm->id_inmueble != null ? $alm->descripcion_inmueble : 'Nuevo Registro'; ?>
+    <?php echo $alm->id_inmueble != null ? 'Inmueble de '.$alm->nombre_contribuyente : 'Nuevo Registro'; ?>
 </h1>
 
 <ol class="breadcrumb">
   <li><a href="?c=Inmueble">Inmuebles</a></li>
-  <li class="active"><?php echo $alm->id_inmueble != null ? $alm->descripcion_inmueble : 'Nuevo Registro'; ?></li>
+  <li class="active"><?php echo $alm->id_inmueble != null ? 'Inmueble de '.$alm->nombre_contribuyente : 'Nuevo Registro'; ?></li>
 </ol>
 
 <form action="?c=Inmueble&a=Guardar" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id_inmueble" value="<?php echo $alm->id_inmueble; ?>" />
-    <input type="hidden" name="id_caracteristica" value="<?php echo $alm->id_caracteristica; ?>" />
+    <input type="hidden" name="cod_sector" value="<?php echo $alm->cod_sector; ?>" />
     <input type="hidden" name="id_dimension" value="<?php echo $alm->id_dimension; ?>">
-    
-    <div class="form-group">
-        <label>Comunidad</label>
-        <input type="text" name="comunidad_inmueble" value="<?php echo $alm->comunidad_inmueble; ?>" class="form-control" placeholder="Ingrese comunidad (barrio, colonia, caserío, cantón)" data-validacion-tipo="requerido|min:3" />
-    </div>
 
     <!--
     <script>
@@ -33,7 +28,16 @@
 
     <div class="form-group" id="zona_comunidad_inmueble">
         <label>Zona</label>
-        <input type="text" id="zona_input" name="zona_comunidad_inmueble" value="<?php echo $alm->zona_comunidad_inmueble?>" class="form-control" placeholder="Ingrese la zona de la comunidad">
+        <select name="cod_zona" id="cod_zona">
+            <?php foreach($this->model->listar_Zona($alm->id_inmueble) as $rZona): ?>
+                <option value="<?php echo $alm->id_inmueble != null ? $rZona->cod_zona : 'Seleccione una zona';?>"><?php echo $alm->id_inmueble != null ? $rZona->zona_inmueble : 'Seleccione una zona';?></option>
+            <?php endforeach; ?>
+            <option value="">Seleccione una zona</option>
+            <?php foreach($this->model->listarZona() as $rZona): ?>
+                <option value="<?php echo $rZona->cod_zona;?>"><?php echo $rZona->zona_inmueble;?></option>
+            <?php endforeach; ?>
+        </select>
+        <!--<input type="text" id="zona_input" name="zona_comunidad_inmueble" value="<?php echo $alm->zona_comunidad_inmueble?>" class="form-control" placeholder="Ingrese la zona de la comunidad">-->
         
     </div>
     
@@ -48,9 +52,18 @@
     </div>
     
     <div class="form-group">
-        <label>Características del inmueble</label>
-        <input type="text" name="descripcion_inmueble" value="<?php echo $alm->descripcion_inmueble; ?>" class="form-control" placeholder="Ingrese las características del inmueble" data-validacion-tipo="requerido|min:3" />
-    </div>
+            <label>Características del inmueble</label>
+            <select name="cod_sector" id="selectCaracteristica" style="display:block;">
+                <?php foreach($this->model->listar_Sector($alm->id_inmueble) as $rSector): ?>
+                    <option value="<?php echo $alm->id_inmueble != null ? $rSector->cod_sector : 'Seleccione una zona';?>"><?php echo $alm->id_inmueble != null ? $rSector->sector_estado : 'Seleccione una zona';?></option>
+                <?php endforeach; ?>
+                <option value=""> Selecciona una característica</option>
+                <?php foreach($this->model->listarSector() as $rSector): ?>
+                    <option value="<?php echo $rSector->cod_sector;?>"><?php echo $rSector->sector_estado;?></option>
+                <?php endforeach; ?>
+            </select>
+            <!--<input type="text" name="sector_estado" class="form-control inmueble" id="6" placeholder="Ingrese las características del inmueble" data-validacion-tipo="requerido|min:3" />-->
+        </div>
     
     <div class="form-group">
         <label>Norte</label>

@@ -16,7 +16,7 @@ $i = 1;
 				<span>Nombre completo del contribuyente: </span><?php echo $alm->nombre_contribuyente . ' ' . $alm->apellido_contribuyente;?>
 			</p>
 			<p>
-				<span>Dirección completa del contribuyente: </span><?php echo $alm->comunidad_contribuyente.", ".$alm->direccion_contribuyente.", ".$alm->municipio.", ".$alm->departamento; ?>
+				<span>Dirección completa del contribuyente: </span><?php echo $alm->direccion_contribuyente; ?>
 			</p>
 			<p>
 				<span>DUI del contribuyente: </span><?php echo $alm->dui_contribuyente; ?>
@@ -65,15 +65,15 @@ $i = 1;
 						</td>
 						<td>
 							<?php 
-			                if($r->zona_comunidad_inmueble != null){
-			                    echo $r->comunidad_inmueble.", " . $r->zona_comunidad_inmueble . ", " . $r->direccion_inmueble;
+			                if($r->zona_inmueble != null){
+			                    echo $r->direccion_inmueble . ", Zona: " . $r->zona_inmueble . " (". $r->cod_zona.")";
 			                }else{
-			                    echo $r->comunidad_inmueble.", ".$r->direccion_inmueble;
+			                    echo $r->direccion_inmueble;
 			                }
 			                ?>
 						</td>
 						<td>
-							<?php echo $r->descripcion_inmueble; ?>
+							<?php echo $r->sector_estado; ?>
 						</td>
 						<td>
 							<?php echo $r->norte_longitud.", ".$r->este_longitud.", ".$r->oeste_longitud.", ".$r->sur_longitud; ?>

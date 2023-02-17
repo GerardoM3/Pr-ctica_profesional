@@ -22,7 +22,7 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
 
 <?php //echo utf8_decode($edit_help) . $r->nombre_contribuyente . ' ' . $r->apellido_contribuyente; ?>
 <?php //echo utf8_decode($delete_help); ?>
-<?php //echo $agregar .  'contribuyente'?>
+<?php //echo $agregar .  'contribuyente';?>
 
 <div class="well well-sm text-right">
     <a  class="btn btn-primary" href="?c=Contribuyente&a=Crud">Agregar Contribuyente</a>
@@ -45,7 +45,7 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
         <tr>
             <td><?php echo $r->id_contribuyente."-".$r->correlativo; ?></td>
             <td><?php echo $r->nombre_contribuyente. " " .$r->apellido_contribuyente; ?></td>
-            <td><?php echo $r->comunidad_contribuyente.", ".$r->direccion_contribuyente.", ".$r->municipio.", ".$r->departamento; ?></td>
+            <td><?php echo $r->direccion_contribuyente; ?></td>
             <td><?php echo $r->dui_contribuyente; ?></td>
             <td><?php echo $r->telefono_contribuyente; ?></td>
             <td>
