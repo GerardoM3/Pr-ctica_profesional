@@ -6,6 +6,7 @@
 	<title>Contribuyente</title>
 	<style type="text/css">
 	</style>
+    
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="assets/js/jquery-ui/jquery-ui.min.css" />
@@ -24,6 +25,8 @@
                     });
                 });
             })
+
+            
         });
     </script>
 
@@ -215,6 +218,54 @@
         a{
             color: yellow;
         }
+
+        .searchContri{
+            min-width: 60px;
+            width: 12%;
+            padding: 5px;
+            border-radius: 7px;
+            border: 3px solid grey;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            background-color: grey;
+            transition-property: border-radius width border border-top border-left border-right background-color;
+            transition-duration: 0.6s;
+        }
+        .searchContri:hover{
+            cursor: pointer;
+        }
+        .searchContri::placeholder{
+            color: white;
+            text-align: center;
+            transition-property: color ;
+            transition-duration: 0.6s;
+        }
+        .searchContri:focus::placeholder{
+            text-align: initial;
+            color: grey;
+        }
+        .searchContri:focus{
+            width: 60%;
+            outline: none;
+            border-radius: 0;
+            border: 3px solid darkblue;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            background-color: transparent;
+            cursor: text;
+        }
+        .table-service>tbody>tr:hover{
+            background-color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+        }
+        #sin_resultado{
+            font-size: 25px;
+            font-family: Times New Roman;
+            font-weight: 800;
+            color: goldenrod;
+        }
 </style>
 
 
@@ -234,6 +285,12 @@
                 </a>
                 <a href="index.php?c=Sector" class="option-block">
                     SECTORES / TIPOS / ESTADOS
+                </a>
+            </div>
+
+            <div>
+                <a href="index.php?c=Contribuyente&a=newContribuyente" class="option-block">
+                    Nuevo registro de contribuyente
                 </a>
             </div>
             

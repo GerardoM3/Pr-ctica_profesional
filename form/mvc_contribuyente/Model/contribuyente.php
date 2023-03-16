@@ -28,7 +28,7 @@ class Contribuyente
 	{
 		try
 		{
-			$this->pdo = Conexion_contribuyente::StartUp();     
+			$this->pdo = Conexion::StartUp();     
 		}
 		catch(Exception $e)
 		{
@@ -36,23 +36,7 @@ class Contribuyente
 		}
 	}
 
-	/*public function Listar()
-	{
-		try
-		{
-			$result = array();
-
-			$stm = $this->pdo->prepare("SELECT CONCAT(contribuyente.id_contribuyente, '-', contribuyente.correlativo) AS n_contribuyente, CONCAT(contribuyente.nombre_contribuyente, ' ', contribuyente.apellido_contribuyente) AS nombre_contribuyente, CONCAT(contribuyente.comunidad_contribuyente, ' ', contribuyente.direccion_contribuyente) AS direccion_contribuyente, meta_municipio.municipio, meta_departamento.departamento, contribuyente.dui_contribuyente, contribuyente.telefono_contribuyente FROM contribuyente INNER JOIN meta_municipio ON meta_municipio.cod_municipio = contribuyente.cod_municipio INNER JOIN meta_departamento ON meta_departamento.cod_departamento = contribuyente.cod_departamento WHERE contribuyente.estado_contribuyente = 1;");
-			$stm->execute();
-
-			return $stm->fetchAll(PDO::FETCH_OBJ);
-		}
-		catch(Exception $e)
-		{
-			die($e->getMessage());
-		}
-	}*/
-
+	/*public function Listar() {try {$result = array(); $stm = $this->pdo->prepare("SELECT CONCAT(contribuyente.id_contribuyente, '-', contribuyente.correlativo) AS n_contribuyente, CONCAT(contribuyente.nombre_contribuyente, ' ', contribuyente.apellido_contribuyente) AS nombre_contribuyente, CONCAT(contribuyente.comunidad_contribuyente, ' ', contribuyente.direccion_contribuyente) AS direccion_contribuyente, meta_municipio.municipio, meta_departamento.departamento, contribuyente.dui_contribuyente, contribuyente.telefono_contribuyente FROM contribuyente INNER JOIN meta_municipio ON meta_municipio.cod_municipio = contribuyente.cod_municipio INNER JOIN meta_departamento ON meta_departamento.cod_departamento = contribuyente.cod_departamento WHERE contribuyente.estado_contribuyente = 1;"); $stm->execute(); return $stm->fetchAll(PDO::FETCH_OBJ); } catch(Exception $e) {die($e->getMessage()); } }*/
 	public function ListarInmuebleContri($correlativo){
 		try {
 			$stm = $this->pdo->prepare("SELECT * FROM inmueble NATURAL JOIN contribuyente NATURAL JOIN meta_zona_inmueble NATURAL JOIN meta_sector_estado NATURAL JOIN meta_dimension_inmueble WHERE correlativo = ? AND estado_inmueble = 1;");
@@ -63,14 +47,31 @@ class Contribuyente
 		}
 	}
 
-	public function Listar2()
+    public function Listar()
+    {
+        try
+        {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT * FROM contribuyente WHERE estado_contribuyente = 1;");
+            $stm->execute();
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }
+
+	public function Listar2($condicion)
 	{
 		try
 		{
 			$result = array();
 
-			$stm = $this->pdo->prepare("SELECT * FROM contribuyente WHERE estado_contribuyente = 1;");
-			$stm->execute();
+			$stm = $this->pdo->prepare("SELECT * FROM contribuyente WHERE estado_contribuyente = 1 ? ;");
+			$stm->execute(array($condicion));
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
 		}

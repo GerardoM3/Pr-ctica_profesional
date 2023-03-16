@@ -20,13 +20,13 @@ class Servicio_Alcaldia
 	function __CONSTRUCT()
 	{
 		try {
-			$this->pdo = Conexion_servicios::StartUp();
+			$this->pdo = Conexion::StartUp();
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
 	}
 
-	public function Listar(){
+	public function Listar_servicios(){
 		try {
 			$result = array();
 

@@ -1,5 +1,5 @@
 <?php
-class Conexion_servicios
+class Conexion
 {
 	public static function StartUp()
 	{

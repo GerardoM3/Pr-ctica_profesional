@@ -23,7 +23,7 @@ $i = 1;
         </tr>
     </thead>
     <tbody>
-    <?php foreach($this->model->Listar() as $r): ?>
+    <?php foreach($this->model->Listar_inmueble() as $r): ?>
         <tr>
             <td><?php echo $r->id_inmueble; ?></td>
             <td><?php echo $r->id_contribuyente; ?></td>

@@ -1,5 +1,5 @@
 <?php
-class Conexion_inmueble
+class Conexion
 {
     public static function StartUp()
     {

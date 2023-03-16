@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach($this->model->Listar() as $r): ?>
+    <?php foreach($this->model->Listar_caracteristica() as $r): ?>
         <tr>
             <td><?php echo $r->cod_sector; ?></td>
             <td><?php echo $r->sector_estado; ?></td>

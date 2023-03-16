@@ -37,7 +37,7 @@ class Inmueble
     {
         try
         {
-            $this->pdo = Conexion_inmueble::StartUp();     
+            $this->pdo = Conexion::StartUp();     
         }
         catch(Exception $e)
         {
@@ -56,7 +56,7 @@ class Inmueble
     Listo
     */
 
-    public function Listar()
+    public function Listar_inmueble()
     {
         try
         {
@@ -267,7 +267,7 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
             /*  CREAR UNA FUNCIÓN PARA INSERTAR UN INMUEBLE, MANDANDO A LLAMAR LOS ID'S DE LA DIMENSION Y CARACTERÍSTICA DEL MISMO  */
             $this->pdo->beginTransaction();
 
-            $sql = "INSERT INTO `inmueble` (cod_zona, direccion_inmueble, correlativo,id_caracteristica, id_dimension) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO `inmueble` (cod_zona, direccion_inmueble, correlativo,cod_sector, id_dimension) VALUES (?, ?, ?, ?, ?)";
 
             $this->pdo->prepare($sql)->execute(
                     array(
@@ -275,7 +275,7 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
                         $data->cod_zona,
                         $data->direccion_inmueble,
                         $data->correlativo,
-                        $data->id_caracteristica,
+                        $data->cod_sector,
                         $data->id_dimension
                     )
                 );

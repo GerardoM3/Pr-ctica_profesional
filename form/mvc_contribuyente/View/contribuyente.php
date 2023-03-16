@@ -24,9 +24,46 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
 <?php //echo utf8_decode($delete_help); ?>
 <?php //echo $agregar .  'contribuyente';?>
 
-<div class="well well-sm text-right">
-    <a  class="btn btn-primary" href="?c=Contribuyente&a=Crud">Agregar Contribuyente</a>
+<div class="well well-sm" style="display:flex;justify-content: center;align-items: center;">
+    <form style="width:60%;">
+        <h6>Buscar por número de contribuyente, nombre o DUI</h6>
+        <input type="search" name="buscarContribuyente" class="searchContri" id="searchContri" placeholder="Buscar">
+        
+        
+    </form>
+    <div>
+        <a  class="btn btn-primary" href="?c=Contribuyente&a=Crud">Agregar Contribuyente</a>
+    </div>
+    
 </div>
+
+<script type="text/javascript">
+    var searchContri = document.getElementById('searchContri');
+    searchContri.addEventListener('blur', (e)=>{
+        e.target.value = '';
+    });
+    $('#searchContri').keyup(function(e){
+        $.ajax({
+            url: 'mvc_contribuyente/gets/getVar.php?var=' + e.target.value,
+            success: function(data){
+                $('#content-table').html(data);
+            }
+        })
+    });
+</script>
+
+<?php //echo "<script>"; ?>
+<?php //echo "buscarContri = document.getElementById('searchContri');"; ?>
+<?php //echo "buscaRadioNombre = document.getElementById('nom_contri');"; ?>
+<?php //echo "buscaRadioDUI = document.getElementById('dui_contri');"; ?>
+<?php //echo "buscarContri.addEventListener('keyup', (e)=>{"; ?>
+<?php //echo "console.log(e.textContent)"; ?>
+<?php //echo "/*if(buscaRadioNombre.checked){";  ?>
+<?php //$valorCampo = "e.target.value"; ?>
+<?php //$condition = "AND nombre_contribuyente LIKE `%" . $valorCampo . "%`"; ?>
+<?php //echo "}else if(buscaRadioDUI.checked){*/";  ?>
+<?php //echo "}});"; ?>
+<?php //echo "</script>"; ?>
 
 <table class="table table-bordered table-dark">
     <thead class="thead-dark">
@@ -40,8 +77,8 @@ $delete_help = utf8_encode('Haz click aquí para eliminar');
             <th><!--Botón de eliminar--></th>
         </tr>
     </thead>
-    <tbody>
-    <?php foreach($this->model->Listar2() as $r): ?>
+    <tbody id="content-table">
+    <?php foreach($this->model->Listar() as $r): ?>
         <tr>
             <td><?php echo $r->id_contribuyente."-".$r->correlativo; ?></td>
             <td><?php echo $r->nombre_contribuyente. " " .$r->apellido_contribuyente; ?></td>

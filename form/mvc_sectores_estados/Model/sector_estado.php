@@ -17,7 +17,7 @@ class Sector_Estado
 		}
 	}
 
-	public function Listar(){
+	public function Listar_caracteristica(){
 		try {
 			$result = array();
 

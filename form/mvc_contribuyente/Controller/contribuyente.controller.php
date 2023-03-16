@@ -1,12 +1,17 @@
 <?php
 require_once 'mvc_contribuyente/Model/contribuyente.php';
-//modificar 
+require_once 'mvc_servicios_alcaldia/Model/servicio_alcaldia.php';
+require_once 'mvc_inmuebles/Model/inmueble.php';
+
 class ContribuyenteController{
     
     private $model;
+    private $modelServicio;
     
     public function __CONSTRUCT(){
         $this->model = new Contribuyente();
+        $this->modelServicio = new Servicio_Alcaldia();
+        $this->modelInmueble = new Inmueble();
     }
 
     public function View(){
@@ -17,6 +22,12 @@ class ContribuyenteController{
         }
         require_once 'mvc_contribuyente/View/header.php';
         require_once 'mvc_contribuyente/View/view-contri.php';
+        require_once 'mvc_contribuyente/View/footer.php';
+    }
+
+    public function newContribuyente(){
+        require_once 'mvc_contribuyente/View/header.php';
+        require_once 'mvc_contribuyente/View/newContribuyente.php';
         require_once 'mvc_contribuyente/View/footer.php';
     }
     
@@ -36,6 +47,51 @@ class ContribuyenteController{
         require_once 'mvc_contribuyente/View/header.php';
         require_once 'mvc_contribuyente/View/contribuyente-editar.php';
         require_once 'mvc_contribuyente/View/footer.php';
+    }
+
+    /**/
+
+    public function guardaRegistro(){
+        //Instaciamos los objetos a utilizar para guardar registro del contribuyente 
+        $contri = new Contribuyente();
+        $inmueble = new Inmueble();
+        $servi = new Servicio_Alcaldia();
+
+        //Datos del contribuyente a guardar en primer lugar
+        $contri->nombre_contribuyente = $_REQUEST['nombre_contribuyente'];
+        $contri->apellido_contribuyente = $_REQUEST['apellido_contribuyente'];
+        $contri->direccion_contribuyente = $_REQUEST['direccion_contribuyente'];
+        $contri->dui_contribuyente = $_REQUEST['dui_contribuyente'];
+        $contri->telefono_contribuyente = $_REQUEST['telefono_contribuyente'];
+        //Aplicamos el registro del contribuyente, para poder usar el correlativo al agregar el inmueble
+
+        $this->model->Registrar($contri);
+
+        //Datos del inmueble a guardar en segundo lugar
+        foreach ($this->model->obtenerCorrelativo2() as $r) {
+            $inmueble->correlativo = $r->correlativo;
+        }
+        $inmueble->cod_zona = $_REQUEST['cod_zona'];
+        $inmueble->cod_sector = $_REQUEST['cod_sector'];
+        $inmueble->direccion_inmueble = $_REQUEST['direccion_inmueble'];
+        $inmueble->norte_longitud = $_REQUEST['norte_longitud'];
+        $inmueble->este_longitud = $_REQUEST['este_longitud'];
+        $inmueble->oeste_longitud = $_REQUEST['oeste_longitud'];
+        $inmueble->sur_longitud = $_REQUEST['sur_longitud'];
+        //Aplicamos el registro del inmueble
+
+        $this->modelInmueble->Registrar_dimension($inmueble);
+        foreach ($this->modelInmueble->obtener_IDDimension() as $rD) {
+            $inmueble->id_dimension = $rD->id_dimension;
+        }
+
+        $this->modelInmueble->Registrar_inmueble($inmueble);
+
+        /*Con los datos de las tablas contribuyente e inmueble, se procede a obtener el último ID del contribuyente (correlativo) y 
+        el último ID del inmueble para que sea almacenado en la tabla servicio_contribuyente*/
+
+
+        header('Location: index.php?c=Contribuyente');
     }
     
     public function Guardar(){
@@ -93,14 +149,7 @@ class ContribuyenteController{
             } 
             $this->model->Registrar_dimension($alm);
 
-            /* ___________________________________________________________________________________________________________________________________ */
-            /*|Posible modificación o eliminación de este foreach debido posible modificación o eliminación de la función obtener_IDCaracteristica|*/
-            /* ___________________________________________________________________________________________________________________________________ */
             
-            foreach ($this->model->obtener_IDCaracteristica() as $r1) {
-                $alm->id_caracteristica = $r1->id_caracteristica;
-            }
-
             foreach ($this->model->obtener_IDDimension() as $r2) {
                 $alm->id_dimension = $r2->id_dimension;
             }
@@ -110,10 +159,6 @@ class ContribuyenteController{
             $this->model->Registrar($alm);
 
             $this->model->Registrar_dimension($alm);
-
-            /* ___________________________________________________________________________________________________________________________________ */
-            /*|Posible modificación o eliminación de este foreach debido posible modificación o eliminación de la función obtener_IDCaracteristica|*/
-            /* ___________________________________________________________________________________________________________________________________ */
             
 
             foreach ($this->model->obtener_IDDimension() as $r2) {
