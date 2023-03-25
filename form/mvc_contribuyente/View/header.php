@@ -52,11 +52,11 @@
         }
 
         body{
-            background-color: blue;
+            background-color: gray;
             color: black;
         }
         table{
-            color: white;
+            color: black;
         }
 
         /* Sección de contenedor principal */
@@ -265,6 +265,10 @@
             font-family: Times New Roman;
             font-weight: 800;
             color: goldenrod;
+        }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button{
+            -webkit-appearance:none;
         }
 </style>
 

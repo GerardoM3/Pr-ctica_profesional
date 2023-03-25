@@ -1,2 +1,4 @@
 <?php
-echo "AND nombre_contribuyente LIKE '%".$_GET['var']."%';";
+$variavle = unserialize($_GET['var']);
+$variavle2 = urldecode($variavle);
+echo "El array es: ".$variavle2.".";

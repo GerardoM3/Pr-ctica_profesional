@@ -1,18 +1,20 @@
 <?php
-require 'conexion.php';
-
+//require 'conexion.php';
+$pdo = new PDO('mysql:host=localhost;dbname=catastro;charset=utf8', 'root', '');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //$mysqli = new mysqli("localhost", "root", "", "catastro");
 
 $conditionNombre = $_GET['var'];
-$sentencia = $mysqli->query("SELECT correlativo, id_contribuyente, CONCAT(id_contribuyente, '-', correlativo) AS cuenta_corr, nombre_contribuyente, apellido_contribuyente, direccion_contribuyente, dui_contribuyente, telefono_contribuyente FROM contribuyente WHERE estado_contribuyente = 1 HAVING cuenta_corr LIKE '%$conditionNombre%' OR nombre_contribuyente LIKE '%$conditionNombre%' OR apellido_contribuyente LIKE '%$conditionNombre%' OR dui_contribuyente LIKE '%$conditionNombre%';");
+$sentencia = $pdo->prepare("SELECT correlativo, id_contribuyente, CONCAT(id_contribuyente, '-', correlativo) AS cuenta_corr, nombre_contribuyente, apellido_contribuyente, direccion_contribuyente, dui_contribuyente, telefono_contribuyente FROM contribuyente WHERE estado_contribuyente = 1 HAVING cuenta_corr LIKE '%$conditionNombre%' OR nombre_contribuyente LIKE '%$conditionNombre%' OR apellido_contribuyente LIKE '%$conditionNombre%' OR dui_contribuyente LIKE '%$conditionNombre%';");
 //$sentencia->bind_param("i", $conditionNombre);
-//$sentencia->execute();
+$sentencia->execute();
 $html = "";
 $i = 1;
-$filas = $sentencia->num_rows;
+//$filas = $sentencia->num_rows;
+$filas = $sentencia->rowCount();
 //foreach ($this->model->Listar2($conditionNombre) as $rcn):
 if($filas > 0){
-	while ($rowResult = $sentencia->fetch_assoc()) {
+	while ($rowResult = $sentencia->fetch()) {
 		$html .= "<tr>";
 		$html .= "<td>". $rowResult['id_contribuyente'] ."-" . $rowResult['correlativo'] . "</td>";
 		$html .= "<td>". $rowResult['nombre_contribuyente'] ." " . $rowResult['apellido_contribuyente'] . "</td>";
