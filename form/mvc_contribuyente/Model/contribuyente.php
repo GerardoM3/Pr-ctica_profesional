@@ -336,4 +336,47 @@ class Contribuyente
         }
     }*/
 }
+
+class Servicios_Contribuyente extends Contribuyente
+{
+    public $id_servicio_contribuyente;
+    public $id_servicio_alcaldia;
+    public $norte_servicio;
+    public $este_servicio;
+    public $oeste_servicio;
+    public $sur_servicio;
+    public $total_pago_servicio;
+    public function __CONSTRUCT()
+	{
+		try
+		{
+			$this->pdo = Conexion::StartUp();
+		}
+		catch(Exception $e)
+		{
+			die($e->getMessage());
+		}
+	}
+
+    public function registrarServicioContribuyente($dataContri, $dataInmueble, $dataServicios, $north, $east, $west, $south, $total){
+        try {
+            $stm = $this->pdo->prepare("INSERT INTO servicio_contribuyente
+            (correlativo, id_inmueble, id_servicio_alcaldia, norte_servicio, este_servicio, oeste_servicio, sur_servicio, total_pago_servicio) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+            $stm->execute(array(
+                $dataContri,
+                $dataInmueble,
+                $dataServicios,
+                $north,
+                $east,
+                $west,
+                $south,
+                $total
+            ));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+}
+
 ?>

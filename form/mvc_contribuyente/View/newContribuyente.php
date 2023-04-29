@@ -1,3 +1,4 @@
+
 <h1 class="page-header">
 	Nuevo registro de contribuyente
 </h1>
@@ -76,32 +77,44 @@
 			</div>
 			<!--	Norte	-->
 			<div class="form-group" style="width:20%; display: inline-block; margin-left: 1%; margin-right:1%;">
-				<label>Norte</label>
+				<label for="norte_longitud">Norte <h6 style="display:inline-flex;">(metros)</h6></label>
 				<input type="number" id="norte_longitud" name="norte_longitud" class="form-control" maxlength="5">
 			</div>
 
 			<!--	Este	-->
 			<div class="form-group" style="width:20%; display: inline-block; margin-left: 1%; margin-right:1%;">
-				<label>Este</label>
+				<label for="este_longitud">Este <h6 style="display:inline-flex;">(metros)</h6></label>
 				<input type="number" id="este_longitud" name="este_longitud" class="form-control" maxlength="5">
 			</div>
 
 			<!--	Oeste	-->
 			<div class="form-group" style="width:20%; display: inline-block; margin-left: 1%; margin-right:1%;">
-				<label>Oeste</label>
+				<label for="oeste_longitud">Oeste <h6 style="display:inline-flex;">(metros)</h6></label>
 				<input type="number" id="oeste_longitud" name="oeste_longitud" class="form-control" maxlength="5">
 			</div>
 
 			<!--	Sur		-->
 			<div class="form-group" style="width:20%; display: inline-block; margin-left: 1%; margin-right:1%;">
-				<label>Sur</label>
+				<label for="sur_longitud">Sur <h6 style="display:inline-flex;">(metros)</h6></label>
 				<input type="number" id="sur_longitud" name="sur_longitud" class="form-control" maxlength="5">
 			</div>
 		</div>
 	</div>
+	<script>
+		var north_long = document.getElementById("norte_longitud");
+		var east_long = document.getElementById("este_longitud");
+		var west_long = document.getElementById("oeste_longitud");
+		var south_long = document.getElementById("sur_longitud");
+	</script>
 	<h2 class="page-header">
 		Servicios aplicados al inmueble
 	</h2>
+	<div class="nota_servicio_inmueble">
+		<span>
+			<h4><b>Nota:</b> Para aplicar el servicio a la dimensión o dimensiones del inmueble, primero debe de seleccionar el rango para cada medida</h4>
+		</span>
+	</div>
+	
 	<div class="servicio-data form-group" id="servicio-data">
 
 		<div class="search-section" id="search-section">
@@ -110,211 +123,158 @@
 				<table class="table table-bordered table-service" style="display: table; text-align: center; justify-items: top;">
 					<thead>
 						<tr>
-							<th><input type="checkbox" name="activoTodo" id="selectAll"><label for="selectAll">Seleccionar todo</label></th>
-							<th>Servicios</th>
-							<th>Valor</th>
-							<th>Aplicar a</th>
-							<th>Total</th>
+							<th style="padding: 2em;"><!--	Sección de selección	--></th>
+							<th style="vertical-align:middle;">Servicios</th>
+							<th style="vertical-align:middle;">Valor</th>
+							<th style="vertical-align:middle;">Aplicar a</th>
+							<th style="vertical-align:middle;">Total</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php $i=1; foreach($this->modelServicio->Listar_servicios() as $result): ?>
 						<tr>
-							<td rowspan="4" style="vertical-align: middle;"><center><input type="checkbox" name="chk" class="chequeo" id="<?php echo $result->id_servicio_alcaldia;?>"></center></td>
-							<td rowspan="4" style="vertical-align: middle;"><?php echo $result->descripcion_servicio; ?></td>
-							<td rowspan="4" style="vertical-align: middle;"><?php echo $result->tarifa_actual; ?></td>
-							<td><input type="checkbox" name="chk_norte" id="norte<?php echo $i;?>"> <label for="norte<?php echo $i;?>">Norte</label> <input type="range" class="rg_norte" name="rg_norte" min="1" max="" value="1" id="rg_norte<?php echo $i;?>"> <label for="rg_norte" id="rgl_norte<?php echo $i; ?>"></label></td>
-							
-							<td rowspan="4" style="vertical-align: middle;" id="resultado"></td>
+							<td rowspan="4" style="vertical-align: middle;">
+								<center>
+									<input type="checkbox" name="chk_<?php echo $i;?>" class="chequeo" id="chk_<?php echo $i;?>" style="transform: scale(3);">
+								</center>
+							</td>
+							<td rowspan="4" style="vertical-align: middle;" class="active_chk" id="active_chk_<?php echo $i;?>">
+								<?php echo $result->descripcion_servicio; ?>
+							</td>
+							<td rowspan="4" style="vertical-align: middle;" id="tarifa_actual_<?php echo $i;?>" name="tarifa_actual_<?php echo $i;?>">
+								<?php echo $result->tarifa_actual; ?>
+							</td>
+							<td>
+								<label for="rg_norte" id="rgl_norte<?php echo $i; ?>"></label> <input type="range" class="rg_norte" name="rg_norte_<?php echo $i;?>" min="1" max="" value="1" id="rg_norte<?php echo $i;?>">
+								<input type="checkbox" name="chk_norte<?php echo $i;?>" id="chk_norte<?php echo $i;?>" style="display:none;"> <label class="btn-aplicar" id="chk_label_norte_<?php echo $i;?>" for="chk_norte<?php echo $i;?>"><!--Norte--></label> 
+							</td>
+							<td rowspan="4" style="vertical-align: middle;" id="total_celda_<?php echo $i; ?>" >
+								
+							</td>
+							<input type="hidden" name="total_celda_<?php echo $i; ?>" id="celda_total_<?php echo $i;?>" value=""/>
 						</tr>
-						<tr><td><input type="checkbox" name="chk_este" id="este<?php echo $i;?>"> <label for="este<?php echo $i;?>">Este</label> <input type="range" class="rg_este" name="rg_este" min="1" max="" value="1" id="rg_este<?php echo $i;?>"> <label for="rg_este" id="rgl_este<?php echo $i; ?>"></label></td></tr>
-						<tr><td><input type="checkbox" name="chk_oeste" id="oeste<?php echo $i;?>"> <label for="oeste<?php echo $i;?>">Oeste</label> <input type="range" class="rg_oeste" name="rg_oeste" min="1" max="" value="1" id="rg_oeste<?php echo $i;?>"> <label for="rg_oeste" id="rgl_oeste<?php echo $i; ?>"></label></td></tr>
-						<tr><td><input type="checkbox" name="chk_sur" id="sur<?php echo $i;?>"> <label for="sur<?php echo $i;?>">Sur</label> <input type="range" class="rg_sur" name="rg_sur" min="1" max="" value="1" id="rg_sur<?php echo $i;?>"> <label for="rg_sur" id="rgl_sur<?php echo $i; ?>"></label></td></tr>
+						<tr>
+							<td>
+								<label for="rg_este" id="rgl_este<?php echo $i; ?>"></label> <input type="range" class="rg_este" name="rg_este_<?php echo $i;?>" min="1" max="" value="1" id="rg_este<?php echo $i;?>">
+								<input type="checkbox" name="chk_este<?php echo $i;?>" id="chk_este<?php echo $i;?>" style="display:none;"> <label class="btn-aplicar" id="chk_label_este_<?php echo $i;?>" for="chk_este<?php echo $i;?>"><!--Este--></label> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="rg_oeste" id="rgl_oeste<?php echo $i; ?>"></label> <input type="range" class="rg_oeste" name="rg_oeste_<?php echo $i;?>" min="1" max="" value="1" id="rg_oeste<?php echo $i;?>">
+								<input type="checkbox" name="chk_oeste<?php echo $i;?>" id="chk_oeste<?php echo $i;?>" style="display:none;"> <label class="btn-aplicar" id="chk_label_oeste_<?php echo $i;?>" for="chk_oeste<?php echo $i;?>"><!--Oeste--></label> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="rg_sur" id="rgl_sur<?php echo $i; ?>"></label> <input type="range" class="rg_sur" name="rg_sur_<?php echo $i;?>" min="1" max="" value="1" id="rg_sur<?php echo $i;?>">
+								<input type="checkbox" name="chk_sur<?php echo $i;?>" id="chk_sur<?php echo $i;?>" style="display:none;"> <label class="btn-aplicar" id="chk_label_sur_<?php echo $i;?>" for="chk_sur<?php echo $i;?>"><!--Sur--></label> 
+							</td>
+						</tr>
 
 						<script type="text/javascript">
-						var selectAll = document.getElementById("selectAll");
-						var north_long = document.getElementById("norte_longitud");
-						var east_long = document.getElementById("este_longitud");
-						var west_long = document.getElementById("oeste_longitud");
-						var south_long = document.getElementById("sur_longitud");
+							var active_chk_<?php echo $i;?> = document.getElementById('active_chk_<?php echo $i;?>');
+							var chk_<?php echo $i;?> = document.getElementById('chk_<?php echo $i;?>');
+							var tarifa_actual_<?php echo $i;?> = document.getElementById('tarifa_actual_<?php echo $i;?>');
 
-						var rg_norte<?php echo $i;?> = document.getElementById("rg_norte<?php echo $i;?>");
-						var rg_este<?php echo $i;?> = document.getElementById("rg_este<?php echo $i;?>");
-						var rg_oeste<?php echo $i;?> = document.getElementById("rg_oeste<?php echo $i;?>");
-						var rg_sur<?php echo $i;?> = document.getElementById("rg_sur<?php echo $i;?>");
+							var rg_norte<?php echo $i;?> = document.getElementById("rg_norte<?php echo $i;?>");
+							var rg_este<?php echo $i;?> = document.getElementById("rg_este<?php echo $i;?>");
+							var rg_oeste<?php echo $i;?> = document.getElementById("rg_oeste<?php echo $i;?>");
+							var rg_sur<?php echo $i;?> = document.getElementById("rg_sur<?php echo $i;?>");
 
-						var rgl_norte<?php echo $i;?> = document.getElementById("rgl_norte<?php echo $i;?>");
-						var rgl_este<?php echo $i;?> = document.getElementById("rgl_este<?php echo $i;?>");
-						var rgl_oeste<?php echo $i;?> = document.getElementById("rgl_oeste<?php echo $i;?>");
-						var rgl_sur<?php echo $i;?> = document.getElementById("rgl_sur<?php echo $i;?>");
+							var rgl_norte<?php echo $i;?> = document.getElementById("rgl_norte<?php echo $i;?>");
+							var rgl_este<?php echo $i;?> = document.getElementById("rgl_este<?php echo $i;?>");
+							var rgl_oeste<?php echo $i;?> = document.getElementById("rgl_oeste<?php echo $i;?>");
+							var rgl_sur<?php echo $i;?> = document.getElementById("rgl_sur<?php echo $i;?>");
 
-						var chk_norte = document.getElementsByName('chk_norte');
-						var chk_este = document.getElementsByName('chk_este');
-						var chk_oeste = document.getElementsByName('chk_oeste');
-						var chk_sur = document.getElementsByName('chk_sur');
+							var chk_norte<?php echo $i;?> = document.getElementById('chk_norte<?php echo $i;?>');
+							var chk_este<?php echo $i;?> = document.getElementById('chk_este<?php echo $i;?>');
+							var chk_oeste<?php echo $i;?> = document.getElementById('chk_oeste<?php echo $i;?>');
+							var chk_sur<?php echo $i;?> = document.getElementById('chk_sur<?php echo $i;?>');
+							var total_celda_<?php echo $i;?> = document.getElementById('total_celda_<?php echo $i;?>');
+							var celda_total_<?php echo $i;?> =document.getElementById('celda_total_<?php echo $i;?>');
 
-						var rg_norte = document.getElementsByName('rg_norte');
-						var rg_este = document.getElementsByName('rg_este');
-						var rg_oeste = document.getElementsByName('rg_oeste');
-						var rg_sur = document.getElementsByName('rg_sur');
-
-						var search_change = document.getElementById("search-servicio");
-
-						var ele = document.getElementsByName('chk');
-
-
-						north_long.addEventListener('keyup', (e)=>{
-							rg_norte<?php echo $i;?>.max = e.target.value;
-							rg_norte<?php echo $i;?>.value = e.target.value;
-							rgl_norte<?php echo $i;?>.textContent = rg_norte<?php echo $i;?>.value;
-							rg_norte<?php echo $i;?>.addEventListener('change', (e)=>{
-								rgl_norte<?php echo $i;?>.textContent = e.target.value;
+							north_long.addEventListener('keyup', (e)=>{
+								rg_norte<?php echo $i;?>.max = e.target.value;
 							});
-						});
-						east_long.addEventListener('keyup', (e)=>{
-							rg_este<?php echo $i;?>.max = e.target.value;
-							rg_este<?php echo $i;?>.value = e.target.value;
-							rgl_este<?php echo $i;?>.textContent = rg_este<?php echo $i;?>.value;
-							rg_este<?php echo $i;?>.addEventListener('change', (e)=>{
-								rgl_este<?php echo $i;?>.textContent = e.target.value;
+							east_long.addEventListener('keyup', (e)=>{
+								rg_este<?php echo $i;?>.max = e.target.value;
 							});
-						});
-						west_long.addEventListener('keyup', (e)=>{
-							rg_oeste<?php echo $i;?>.max = e.target.value;
-							rg_oeste<?php echo $i;?>.value = e.target.value;
-							rgl_oeste<?php echo $i;?>.textContent = rg_oeste<?php echo $i;?>.value;
-							rg_oeste<?php echo $i;?>.addEventListener('change', (e)=>{
-								rgl_oeste<?php echo $i;?>.textContent = e.target.value;
+							west_long.addEventListener('keyup', (e)=>{
+								rg_oeste<?php echo $i;?>.max = e.target.value;
 							});
-						});
-						south_long.addEventListener('keyup', (e)=>{
-							rg_sur<?php echo $i;?>.max = e.target.value;
-							rg_sur<?php echo $i;?>.value = e.target.value;
-							rgl_sur<?php echo $i;?>.textContent = rg_sur<?php echo $i;?>.value;
-							rg_sur<?php echo $i;?>.addEventListener('change', (e)=>{
-								rgl_sur<?php echo $i;?>.textContent = e.target.value;
+							south_long.addEventListener('keyup', (e)=>{
+								rg_sur<?php echo $i;?>.max = e.target.value;
 							});
-						});
 
-						function chequeo(){
-							for (var i = 0; i < ele.length; i++) {
-								chk_norte[i].disabled = true;
-								chk_este[i].disabled = true;
-								chk_oeste[i].disabled = true;
-								chk_sur[i].disabled = true;
-
-								rg_norte[i].disabled = true;
-								rg_este[i].disabled = true;
-								rg_oeste[i].disabled = true;
-								rg_sur[i].disabled = true;
-								if(ele[i].checked){
-									//console.log(ele[i].id);
-									console.log('Está habilitado');
-									chk_norte[i].disabled = false;
-									chk_este[i].disabled = false;
-									chk_oeste[i].disabled = false;
-									chk_sur[i].disabled = false;
-
-									rg_norte[i].disabled = false;
-									rg_este[i].disabled = false;
-									rg_oeste[i].disabled = false;
-									rg_sur[i].disabled = false;
-
-									/*rg_norte[i].value = ;
-									rg_este[i].value = ;
-									rg_oeste[i].value = ;
-									rg_sur[i].value = ;*/
-									/*$.ajax({
-										url: 'mvc_contribuyente/gets/getSelected.php?seleccion=' + ele[i].id + '&norte_long=' + north_long.value + '&este_long=' + east_long.value + '&oeste_long=' + west_long.value + '&sur_long=' + south_long.value,
-										success: function(data){
-											$('#selected-service').html(data);
-										}
-									})*/
-								}
-								/*if ((ele[i].type == 'checkbox') && (ele[i].checked == true)) {
-									console.log('Está habilitado');
-								}*/
-								/*else if (ele[i].checked == false){
-									console.log('Está inhabilitado');
-									chk_norte[i].disabled = true;
-									chk_este[i].disabled = true;
-									chk_oeste[i].disabled = true;
-									chk_sur[i].disabled = true;
-
-									rg_norte[i].disabled = true;
-									rg_este[i].disabled = true;
-									rg_oeste[i].disabled = true;
-									rg_sur[i].disabled = true;
-								}*/
+							if (chk_<?php echo $i;?>.checked) {
+								total_celda_<?php echo $i;?>.value = "0.00";
+								habilitar(rg_norte<?php echo $i;?>, rg_este<?php echo $i;?>, rg_oeste<?php echo $i;?>, rg_sur<?php echo $i;?>, rgl_norte<?php echo $i;?>, rgl_este<?php echo $i;?>, rgl_oeste<?php echo $i;?>, rgl_sur<?php echo $i;?>,chk_norte<?php echo $i;?>, chk_este<?php echo $i;?>, chk_oeste<?php echo $i;?>, chk_sur<?php echo $i;?>, document.getElementById('chk_label_norte_<?php echo $i;?>'), document.getElementById('chk_label_este_<?php echo $i;?>'), document.getElementById('chk_label_oeste_<?php echo $i;?>'), document.getElementById('chk_label_sur_<?php echo $i;?>'), total_celda_<?php echo $i;?>);
 								
+							}else{
+								deshabilitar(rg_norte<?php echo $i;?>, rg_este<?php echo $i;?>, rg_oeste<?php echo $i;?>, rg_sur<?php echo $i;?>, rgl_norte<?php echo $i;?>, rgl_este<?php echo $i;?>, rgl_oeste<?php echo $i;?>, rgl_sur<?php echo $i;?>, chk_norte<?php echo $i;?>, chk_este<?php echo $i;?>, chk_oeste<?php echo $i;?>, chk_sur<?php echo $i;?>, document.getElementById('chk_label_norte_<?php echo $i;?>'), document.getElementById('chk_label_este_<?php echo $i;?>'), document.getElementById('chk_label_oeste_<?php echo $i;?>'), document.getElementById('chk_label_sur_<?php echo $i;?>'), total_celda_<?php echo $i;?>);
 							}
-						}
 
-					</script>
+							active_chk_<?php echo $i;?>.addEventListener('click', ()=>{
+								chk_<?php echo $i;?>.checked = !chk_<?php echo $i;?>.checked;
+								if (chk_<?php echo $i;?>.checked) {
+									total_celda_<?php echo $i;?>.value = "0.00";
+									habilitar(rg_norte<?php echo $i;?>, rg_este<?php echo $i;?>, rg_oeste<?php echo $i;?>, rg_sur<?php echo $i;?>, rgl_norte<?php echo $i;?>, rgl_este<?php echo $i;?>, rgl_oeste<?php echo $i;?>, rgl_sur<?php echo $i;?>,chk_norte<?php echo $i;?>, chk_este<?php echo $i;?>, chk_oeste<?php echo $i;?>, chk_sur<?php echo $i;?>, document.getElementById('chk_label_norte_<?php echo $i;?>'), document.getElementById('chk_label_este_<?php echo $i;?>'), document.getElementById('chk_label_oeste_<?php echo $i;?>'), document.getElementById('chk_label_sur_<?php echo $i;?>'), total_celda_<?php echo $i;?>);
+
+								}else{
+									deshabilitar(rg_norte<?php echo $i;?>, rg_este<?php echo $i;?>, rg_oeste<?php echo $i;?>, rg_sur<?php echo $i;?>, rgl_norte<?php echo $i;?>, rgl_este<?php echo $i;?>, rgl_oeste<?php echo $i;?>, rgl_sur<?php echo $i;?>, chk_norte<?php echo $i;?>, chk_este<?php echo $i;?>, chk_oeste<?php echo $i;?>, chk_sur<?php echo $i;?>, document.getElementById('chk_label_norte_<?php echo $i;?>'), document.getElementById('chk_label_este_<?php echo $i;?>'), document.getElementById('chk_label_oeste_<?php echo $i;?>'), document.getElementById('chk_label_sur_<?php echo $i;?>'), total_celda_<?php echo $i;?>);
+								}
+							});
+							chk_<?php echo $i;?>.addEventListener('click', (chk_<?php echo $i;?>)=>{
+								if (chk_<?php echo $i;?>.target.checked) {
+									total_celda_<?php echo $i;?>.value = "0.00";
+									habilitar(rg_norte<?php echo $i;?>, rg_este<?php echo $i;?>, rg_oeste<?php echo $i;?>, rg_sur<?php echo $i;?>, rgl_norte<?php echo $i;?>, rgl_este<?php echo $i;?>, rgl_oeste<?php echo $i;?>, rgl_sur<?php echo $i;?>,chk_norte<?php echo $i;?>, chk_este<?php echo $i;?>, chk_oeste<?php echo $i;?>, chk_sur<?php echo $i;?>, document.getElementById('chk_label_norte_<?php echo $i;?>'), document.getElementById('chk_label_este_<?php echo $i;?>'), document.getElementById('chk_label_oeste_<?php echo $i;?>'), document.getElementById('chk_label_sur_<?php echo $i;?>'), total_celda_<?php echo $i;?>);
+								}else{
+									deshabilitar(rg_norte<?php echo $i;?>, rg_este<?php echo $i;?>, rg_oeste<?php echo $i;?>, rg_sur<?php echo $i;?>, rgl_norte<?php echo $i;?>, rgl_este<?php echo $i;?>, rgl_oeste<?php echo $i;?>, rgl_sur<?php echo $i;?>, chk_norte<?php echo $i;?>, chk_este<?php echo $i;?>, chk_oeste<?php echo $i;?>, chk_sur<?php echo $i;?>, document.getElementById('chk_label_norte_<?php echo $i;?>'), document.getElementById('chk_label_este_<?php echo $i;?>'), document.getElementById('chk_label_oeste_<?php echo $i;?>'), document.getElementById('chk_label_sur_<?php echo $i;?>'), total_celda_<?php echo $i;?>);
+								}
+							});
+
+							rg_norte<?php echo $i;?>.addEventListener('change',()=> rangos(rgl_norte<?php echo $i;?>, rg_norte<?php echo $i;?>, "Norte: "));
+							rg_este<?php echo $i;?>.addEventListener('change',()=> rangos(rgl_este<?php echo $i;?>, rg_este<?php echo $i;?>, "Este: "));
+							rg_oeste<?php echo $i;?>.addEventListener('change',()=> rangos(rgl_oeste<?php echo $i;?>, rg_oeste<?php echo $i;?>, "Oeste: "));
+							rg_sur<?php echo $i;?>.addEventListener('change', ()=> rangos(rgl_sur<?php echo $i;?>, rg_sur<?php echo $i;?>, "Sur: "));
+
+							chk_norte<?php echo $i;?>.addEventListener('change', ()=>{
+								cajas_chequeo(chk_norte<?php echo $i;?>, rg_norte<?php echo $i;?>, total_celda_<?php echo $i;?>, tarifa_actual_<?php echo $i;?>, document.getElementById('chk_label_norte_<?php echo $i;?>'))
+								total_celda_<?php echo $i;?>.textContent = Math.abs(parseFloat(total_celda_<?php echo $i;?>.textContent));
+								celda_total_<?php echo $i;?>.value = total_celda_<?php echo $i;?>.textContent;
+								
+							});
+							chk_este<?php echo $i;?>.addEventListener('change', ()=>{
+								cajas_chequeo(chk_este<?php echo $i;?>, rg_este<?php echo $i;?>, total_celda_<?php echo $i;?>, tarifa_actual_<?php echo $i;?>, document.getElementById('chk_label_este_<?php echo $i;?>'))
+								celda_total_<?php echo $i;?>.value = total_celda_<?php echo $i;?>.textContent;
+							});
+							chk_oeste<?php echo $i;?>.addEventListener('change', ()=>{
+								cajas_chequeo(chk_oeste<?php echo $i;?>, rg_oeste<?php echo $i;?>, total_celda_<?php echo $i;?>, tarifa_actual_<?php echo $i;?>, document.getElementById('chk_label_oeste_<?php echo $i;?>'))
+								celda_total_<?php echo $i;?>.value = total_celda_<?php echo $i;?>.textContent;
+							});
+							chk_sur<?php echo $i;?>.addEventListener('change', ()=>{
+								cajas_chequeo(chk_sur<?php echo $i;?>, rg_sur<?php echo $i;?>, total_celda_<?php echo $i;?>, tarifa_actual_<?php echo $i;?>, document.getElementById('chk_label_sur_<?php echo $i;?>'))
+								celda_total_<?php echo $i;?>.value = total_celda_<?php echo $i;?>.textContent;
+							});
+
+							
+
+							/*if (chk_<?php echo $i;?>.click() == true) {
+								
+							}*/
+							
+						</script>
 						
 						<?php $i++; endforeach; ?>
 					</tbody>
 				</table>
 			</div>
 			
-
-			<script type="text/javascript">
-				for (var i = 0; i < ele.length; i++) {
-					chk_norte[i].disabled = true;
-					chk_este[i].disabled = true;
-					chk_oeste[i].disabled = true;
-					chk_sur[i].disabled = true;
-
-					rg_norte[i].disabled = true;
-					rg_este[i].disabled = true;
-					rg_oeste[i].disabled = true;
-					rg_sur[i].disabled = true;
-				}
-
-				
-				selectAll.addEventListener("click", ()=>{
-					for (var i = 0; i < ele.length; i++) {
-						if(ele[i].type == 'checkbox'){
-							ele[i].checked = !ele[i].checked;
-							console.log(ele[i].id);
-						}
-					}
-				});
-				
-				
-
-				for (var i = 0; i < ele.length; i++) {
-					ele[i].addEventListener("change", chequeo);
-
-				}
-			</script>
-			
 		</div>
 		
 	</div>
-	<!--
-		Sección de servicios seleccionados
-	-->
-	<!--<h2 class="page-header">
-		Servicios seleccionados
-	</h2>
-
-	<div class="selected-section form-group">
-		<table class="table table-bordered" id="selected-service">
-			<thead>
-				
-			</thead>
-			<tbody>
-				<tr>
-					<td><center>Sin selección aún</center></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>-->
-
-	<!--
-		Fin de la sección de los servicios seleccionados
-	-->
+	
 	<div class="form-group registrar" id="registrar" style="display:flex; justify-content:center;">
 		<button class="btn btn-success" style="padding: .8em; font-size: 20px;">Agregar nuevo registro</button>
 	</div>

@@ -300,5 +300,19 @@ INNER JOIN contribuyente ON inmueble.correlativo = contribuyente.correlativo WHE
             die($e->getMessage());
         }
     }
+
+    public function obtener_IDInmueble()
+    {
+        try {
+            $result = array();
+
+            $stm = $this->pdo->prepare("SELECT id_inmueble FROM inmueble ORDER BY id_inmueble DESC LIMIT 1;");
+            $stm->execute();
+
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 }
 ?>

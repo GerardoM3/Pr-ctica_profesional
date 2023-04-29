@@ -4,6 +4,7 @@ class Servicio_Alcaldia
 	
 	private $pdo;
 
+	public $id_servicio_alcaldia;
 	public $cod1;
 	public $cod2;
 	public $cod3;
@@ -32,6 +33,17 @@ class Servicio_Alcaldia
 
 			$stm = $this->pdo->prepare("SELECT * FROM meta_servicios_alcaldia WHERE estado_servicios = 1;");
 			$stm->execute();
+
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+	}
+
+	public function obtenerServicio($position){
+		try {
+			$stm = $this->pdo->prepare("SELECT * FROM `meta_servicios_alcaldia` LIMIT $position, 1;");
+			$stm->execute(array());
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) {

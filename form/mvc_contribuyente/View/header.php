@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="assets/css/style.css" />
 
     <script language="javascript" src="assets/js/jquery-3.1.1.min.js"></script>
-
+    <script language="javascript" src="assets/js/funciones.js"></script>
+    
     <script language="javascript">
         $(document).ready(function(){
             $("#select-departamento").change(function(){
@@ -256,9 +257,12 @@
             background-color: transparent;
             cursor: text;
         }
-        .table-service>tbody>tr:hover{
+        .table-service>tbody>tr>td.active_chk:hover{
             background-color: rgba(255, 255, 255, 0.4);
             cursor: pointer;
+        }
+        .table-service>tbody>tr:hover{
+            cursor: default;
         }
         #sin_resultado{
             font-size: 25px;
@@ -269,6 +273,18 @@
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button{
             -webkit-appearance:none;
+        }
+        .btn-aplicar{
+            margin-top: 10px;
+            border: 1px solid black;
+            padding-left: 1.5em;
+            padding-right: 1.5em;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            border-radius: 10px;
+        }
+        .btn-aplicar:hover{
+            cursor: pointer;
         }
 </style>
 

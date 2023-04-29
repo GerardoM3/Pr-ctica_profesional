@@ -92,6 +92,11 @@ CREATE TABLE servicio_contribuyente(
     correlativo int(4) UNSIGNED ZEROFILL,
     id_inmueble int(3) UNSIGNED ZEROFILL,
     id_servicio_alcaldia varchar(12),
+    norte_servicio int NULL,
+    este_servicio int NULL,
+    oeste_servicio int NULL,
+    sur_servicio int NULL,
+    total_pago_servicio decimal(9,2) NOT NULL,
     FOREIGN KEY (correlativo) REFERENCES contribuyente(correlativo),
     FOREIGN KEY (id_inmueble) REFERENCES inmueble(id_inmueble),
     FOREIGN KEY (id_servicio_alcaldia) REFERENCES meta_servicios_alcaldia(id_servicio_alcaldia)
