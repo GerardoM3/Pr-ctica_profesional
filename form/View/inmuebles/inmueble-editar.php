@@ -1,59 +1,51 @@
-
 <h1 class="page-header">
-	Nuevo registro de contribuyente
+    <?php echo $inmueble->id_inmueble != null ? 'Inmueble de '.$inmueble->nombre_contribuyente : 'Nuevo Registro'; ?>
 </h1>
 
-<form action="?c=Contribuyente&a=guardaRegistro" method="POST" enctype="multipart/form-data">
-	<h2 class="page-header">
-		Datos del contribuyente
-	</h2>
-	<div class="contribuyente-data" id="contribuyente-data">
-		<!--			Nombres del contribuyente			-->
-		<div class="form-group">
-			<label>Nombres del contribuyente</label>
-			<input type="text" name="nombre_contribuyente" placeholder="Ingrese los nombres del contribuyente" class="form-control" style="width: 40%;" />
-		</div>
+<ol class="breadcrumb">
+  <li><a href="?c=Inmueble">Inmuebles</a></li>
+  <li class="active"><?php echo $inmueble->id_inmueble != null ? 'Inmueble de '.$inmueble->nombre_contribuyente : 'Nuevo Registro'; ?></li>
+</ol>
 
-		<!--			Apellidos del contribuyente			-->
-		<div class="form-group">
-			<label>Apellidos del contribuyente</label>
-			<input type="text" name="apellido_contribuyente" placeholder="Ingrese los apellidos del contribuyente" class="form-control" style="width: 40%;">
-		</div>
+<form action="?c=Inmueble&a=Guardar" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id_inmueble" value="<?php echo $inmueble->id_inmueble; ?>" />
+    <input type="hidden" name="cod_sector" value="<?php echo $inmueble->cod_sector; ?>" />
+    <input type="hidden" name="id_dimension" value="<?php echo $inmueble->id_dimension; ?>">
 
-		<!--				DUI del contribuyente			-->
-		<div class="form-group">
-			<label>DUI del contribuyente (CON GUIÓN)</label>
-			<input type="text" name="dui_contribuyente" placeholder="Ingrese DUI del contribuyente" class="form-control" maxlength="10" style="width:20%;">
-		</div>
+    <!--
+    <script>
 
-		<!--	Dirección de residencia del contribuyente	-->
-		<div class="form-group">
-			<label>Dirección de residencia del contribuyente (según DUI)</label>
-			<input type="text" name="direccion_contribuyente" placeholder="Ingrese la dirección de residencia del contribuyente según DUI" class="form-control" style="width:90% ;">
-		</div>
+        function habilitarZona(campoZona){
+            var estadoActual = document.getElementById(campoZona)
 
-		<!--	Teléfono de contacto del contribuyente		-->
-		<div class="form-group">
-			<label>Teléfono de contacto del contribuyente (con guión)</label>
-			<input type="text" name="telefono_contribuyente" placeholder="Teléfono del contribuyente" class="form-control" maxlength="9" style="width:18%;">
-		</div>
-	</div>
-	<h2 class="page-header">
-		Datos del inmueble
-	</h2>
-	<div class="inmueble-data" id="inmueble-data">
+            estadoActual.disabled = !estadoActual.disabled;
+        }
+    </script>
+
+    <div class="form-group">
+        <input type="checkbox" id="cb_zona" name="cb_zona" class="check_zona_input" onclick="habilitarZona('zona_input')"/><label for="cb_zona">¿Existe zonas en la comunidad?</label>
+    </div>-->
+
+    <div class="form-group">
+        <label>Propietario</label><h6 style="display: inline-block;position: relative;margin-left: 5px;">(correlativo)</h6>
+        <input type="text" name="correlativo" value="<?php echo $inmueble->correlativo??($contri->correlativo??null); ?>" class="form-control" placeholder="Ingrese número correlativo del propietario" data-validacion-tipo="requerido|min:3" style="width: 600px;" <?php echo $inmueble->correlativo != null ? 'readonly': ($contri->correlativo != null ? 'readonly': null);?> maxlength="4" required pattern="[0-9]{1,4}" title="Número entre el 1 al 9,999 (sin coma)"/>
+    </div>
+
+    <div class="inmueble-data" id="inmueble-data">
 		<!--	Dirección del inmueble	-->
 		<div class="form-group">
 			<label>Dirección del inmueble</label>
-			<input type="text" name="direccion_inmueble" placeholder="Ingrese la dirección del inmueble" class="form-control" style="width:90%;">
+			<input type="text" name="direccion_inmueble" placeholder="Ingrese la dirección del inmueble" class="form-control" style="width:90%;" value="<?php echo $inmueble->direccion_inmueble;?>" required>
 		</div>
 
 		<!--	Zona del inmueble	-->
-		<div class="form-group" style="width:49.5%; margin: 0; display: inline-block;">
+		<div class="form-group" id="zona_comunidad_inmueble" style="width:49.5%; margin: 0; display: inline-block;">
 			<label>Zona</label>
-			<select name="cod_zona" id="selectZona" style="display:block; appearance: auto;">
-                
-                <option value="0" selected>Seleccione una zona</option>
+			<select name="cod_zona" id="cod_zona" style="display:block;" required>
+				<?php foreach($this->model->listar_Zona($inmueble->id_inmueble) as $rZona): ?>
+					<option value="<?php echo $inmueble->id_inmueble != null ? $rZona->cod_zona : 'Seleccione una zona';?>"><?php echo $inmueble->id_inmueble != null ? $rZona->zona_inmueble : 'Seleccione una zona';?></option>
+				<?php endforeach; ?>
+                <option value="">Seleccione una zona</option>
                 <?php foreach($this->model->listarZona() as $rZona): ?>
                     <option value="<?php echo $rZona->cod_zona;?>"><?php echo $rZona->zona_inmueble;?></option>
                 <?php endforeach; ?>
@@ -63,8 +55,11 @@
 		<!--	Característica del inmueble	-->
 		<div class="form-group" style="width:49.5%; margin: 0; display: inline-block;">
 			<label>Característica del inmueble</label>
-			<select name="cod_sector" id="selectCaracteristica" style="display:block;">
-                <option value="0" selected> Selecciona una característica</option>
+			<select name="cod_sector" id="selectCaracteristica" style="display:block;" required>
+				<?php foreach($this->model->listar_Sector($inmueble->id_inmueble) as $rSector): ?>
+                    <option value="<?php echo $inmueble->id_inmueble != null ? $rSector->cod_sector : 'Seleccione una zona';?>"><?php echo $inmueble->id_inmueble != null ? $rSector->sector_estado : 'Seleccione una zona';?></option>
+                <?php endforeach; ?>
+                <option value=""> Selecciona una característica</option>
                 <?php foreach($this->model->listarSector() as $rSector): ?>
                     <option value="<?php echo $rSector->cod_sector;?>"><?php echo $rSector->sector_estado;?></option>
                 <?php endforeach; ?>
@@ -78,25 +73,37 @@
 			<!--	Norte	-->
 			<div class="form-group" style="width:20%; display: inline-block; margin-left: 1%; margin-right:1%;">
 				<label for="norte_longitud">Norte <h6 style="display:inline-flex;">(metros)</h6></label>
-				<input type="number" id="norte_longitud" name="norte_longitud" class="form-control" maxlength="5">
+				<div class="input-group">
+					<input type="text" id="norte_longitud" name="norte_longitud" class="form-control" maxlength="11" style="z-index: 0;" value="<?php echo $inmueble->norte_longitud;?>" required pattern="[0-9]{1,11}" title="Números enteros (sin comas)">
+					<span class="input-group-addon">m</span>
+				</div>
 			</div>
 
 			<!--	Este	-->
 			<div class="form-group" style="width:20%; display: inline-block; margin-left: 1%; margin-right:1%;">
 				<label for="este_longitud">Este <h6 style="display:inline-flex;">(metros)</h6></label>
-				<input type="number" id="este_longitud" name="este_longitud" class="form-control" maxlength="5">
+				<div class="input-group">
+					<input type="text" id="este_longitud" name="este_longitud" class="form-control" maxlength="11" style="z-index: 0;" value="<?php echo $inmueble->este_longitud;?>" required pattern="[0-9]{1,11}" title="Números enteros (sin comas)">
+					<span class="input-group-addon">m</span>
+				</div>
 			</div>
 
 			<!--	Oeste	-->
 			<div class="form-group" style="width:20%; display: inline-block; margin-left: 1%; margin-right:1%;">
 				<label for="oeste_longitud">Oeste <h6 style="display:inline-flex;">(metros)</h6></label>
-				<input type="number" id="oeste_longitud" name="oeste_longitud" class="form-control" maxlength="5">
+				<div class="input-group">
+					<input type="text" id="oeste_longitud" name="oeste_longitud" class="form-control" maxlength="11" style="z-index: 0;" value="<?php echo $inmueble->oeste_longitud;?>" required pattern="[0-9]{1,11}" title="Números enteros (sin comas)">
+					<span class="input-group-addon">m</span>
+				</div>
 			</div>
 
 			<!--	Sur		-->
 			<div class="form-group" style="width:20%; display: inline-block; margin-left: 1%; margin-right:1%;">
 				<label for="sur_longitud">Sur <h6 style="display:inline-flex;">(metros)</h6></label>
-				<input type="number" id="sur_longitud" name="sur_longitud" class="form-control" maxlength="5">
+				<div class="input-group">
+					<input type="text" id="sur_longitud" name="sur_longitud" class="form-control" maxlength="11" style="z-index: 0;" value="<?php echo $inmueble->sur_longitud;?>" required pattern="[0-9]{1,11}" title="Números enteros (sin comas)">
+					<span class="input-group-addon">m</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -111,7 +118,9 @@
 	</h2>
 	<div class="nota_servicio_inmueble">
 		<span>
-			<h4><b>Nota:</b> Para aplicar el servicio a la dimensión o dimensiones del inmueble, primero debe de seleccionar el rango para cada medida</h4>
+			<h4><b>Nota:</b> Para aplicar el servicio a una de sus dimensiones o a todas las dimensiones, para cada dimensión debe de seleccionar el rango de a cuántos metros 
+			desea aplicar la tarifa de dicho servicio. Cuando pulse el botón "Aplicar", el rango se deshabilitará quedando fijo el valor que haya seleccionado. 
+			Si desea cambiar el valor del rango, debe pulsar "No aplicar" para habilitar el rango.</h4>
 		</span>
 	</div>
 	
@@ -131,25 +140,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php $i=1; foreach($this->modelServicio->Listar_servicios() as $result): ?>
+						<?php $i=1; foreach($this->modelServi->Listar_servicios() as $result): ?>
 						<tr>
-							<td rowspan="4" style="vertical-align: middle;">
+							<td class="borde-inferior" rowspan="4" style="vertical-align: middle;">
 								<center>
 									<input type="checkbox" name="chk_<?php echo $i;?>" class="chequeo" id="chk_<?php echo $i;?>" style="transform: scale(3);">
 								</center>
 							</td>
-							<td rowspan="4" style="vertical-align: middle;" class="active_chk" id="active_chk_<?php echo $i;?>">
+
+							<td rowspan="4" style="vertical-align: middle;" class="active_chk borde-inferior" id="active_chk_<?php echo $i;?>">
 								<?php echo $result->descripcion_servicio; ?>
 							</td>
-							<td rowspan="4" style="vertical-align: middle;" id="tarifa_actual_<?php echo $i;?>" name="tarifa_actual_<?php echo $i;?>">
+							<td rowspan="4" style="vertical-align: middle;" class="borde-inferior" id="tarifa_actual_<?php echo $i;?>" name="tarifa_actual_<?php echo $i;?>">
 								<?php echo $result->tarifa_actual; ?>
 							</td>
+
 							<td>
-								<label for="rg_norte" id="rgl_norte<?php echo $i; ?>"></label> <input type="range" class="rg_norte" name="rg_norte_<?php echo $i;?>" min="1" max="" value="1" id="rg_norte<?php echo $i;?>">
+								<label for="rg_norte" id="rgl_norte<?php echo $i; ?>"></label> <input type="range" class="rg_norte" name="rg_norte_<?php echo $i;?>" min="1" max="" value="1" id="rg_norte<?php echo $i;?>" readonly/>
 								<input type="checkbox" name="chk_norte<?php echo $i;?>" id="chk_norte<?php echo $i;?>" style="display:none;"> <label class="btn-aplicar" id="chk_label_norte_<?php echo $i;?>" for="chk_norte<?php echo $i;?>"><!--Norte--></label> 
 							</td>
-							<td rowspan="4" style="vertical-align: middle;" id="total_celda_<?php echo $i; ?>" >
-								
+							<td rowspan="4" style="vertical-align: middle;" id="total_celda_<?php echo $i; ?>" class="total_celda borde-inferior">
 							</td>
 							<input type="hidden" name="total_celda_<?php echo $i; ?>" id="celda_total_<?php echo $i;?>" value=""/>
 						</tr>
@@ -166,7 +176,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td class="borde-inferior">
 								<label for="rg_sur" id="rgl_sur<?php echo $i; ?>"></label> <input type="range" class="rg_sur" name="rg_sur_<?php echo $i;?>" min="1" max="" value="1" id="rg_sur<?php echo $i;?>">
 								<input type="checkbox" name="chk_sur<?php echo $i;?>" id="chk_sur<?php echo $i;?>" style="display:none;"> <label class="btn-aplicar" id="chk_label_sur_<?php echo $i;?>" for="chk_sur<?php echo $i;?>"><!--Sur--></label> 
 							</td>
@@ -258,11 +268,23 @@
 								celda_total_<?php echo $i;?>.value = total_celda_<?php echo $i;?>.textContent;
 							});
 
-							
-
-							/*if (chk_<?php echo $i;?>.click() == true) {
+							window.addEventListener('load', ()=>{
+								var btn_agregar = document.getElementById('agregar_registro');
+								var form = document.getElementById('new_contribuyente_form');
 								
-							}*/
+								form.addEventListener('submit', (e)=>{
+									e.preventDefault();
+									if(chk_<?php echo $i;?>.checked){
+										if((chk_norte<?php echo $i;?>.checked == true) || (chk_este<?php echo $i;?>.checked == true) || (chk_oeste<?php echo $i;?>.checked == true) || (chk_sur<?php echo $i;?>.checked == true)){
+											predeterminado(rg_norte<?php echo $i;?>, rg_este<?php echo $i;?>, rg_oeste<?php echo $i;?>, rg_sur<?php echo $i;?>);
+											e.target.submit();
+										}else{
+										}
+									}else{
+										
+									}
+								});
+							});
 							
 						</script>
 						
@@ -274,9 +296,48 @@
 		</div>
 		
 	</div>
-	
-	<div class="form-group registrar" id="registrar" style="display:flex; justify-content:center;">
-		<button class="btn btn-success" style="padding: .8em; font-size: 20px;">Agregar nuevo registro</button>
+
+	<div>
+		<?php
+		include 'includes/modal.validar-servicio.php';
+		?>
+	</div>
+    
+    <hr />
+    
+    <div class="form-group registrar" id="registrar" style="display:flex; justify-content:center;">
+		<button class="btn btn-success" style="padding: .8em; font-size: 20px;" id="agregar_registro">Agregar nuevo registro</button>
 	</div>
 </form>
+	<script>
+		var cerrar = document.getElementById('cerrar');
+		var modal_validar_servicio = document.getElementById('modal-validar-servicio');
+		var body = document.getElementsByTagName("body")[0];
+		var form = document.getElementById('new_contribuyente_form');
+		var agregar_registro = document.getElementById('agregar_registro');
+
+		agregar_registro.addEventListener('click', ()=>{
+			if(form.willValidate){
+				modal_validar_servicio.style.display = "none";
+
+				body.style.position = "inherit";
+				body.style.height = "auto";
+				body.style.overflow = "visible";
+			}else{
+				modal_validar_servicio.style.display = "block";
+
+				body.style.position = "static";
+				body.style.height = "100%";
+				body.style.overflow = "hidden";
+			}
+		});
+		cerrar.addEventListener('click', ()=>{
+			modal_validar_servicio.style.display = "none";
+
+			body.style.position = "inherit";
+			body.style.height = "auto";
+			body.style.overflow = "visible";
+		});
+	</script>
+
 

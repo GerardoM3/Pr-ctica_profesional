@@ -19,10 +19,10 @@
     <form action="comprobar.php" method="post">
         <input type="checkbox" name="chk1" id="chk_1"> <label for="chk_1">Check 1</label><br>
         <dd>
-            <input type="checkbox" name="chk_norte_1" id="chk_norte_1"> <label for="chk_norte_1">Norte 1</label><input type="range" name="rg_norte_1" id="rg_norte_1" min="1" max="5" value=""><br>
-            <input type="checkbox" name="chk_este_1" id="chk_este_1"> <label for="chk_este_1">Este 1</label><input type="range" name="rg_este_1" id="rg_este_1" min="1" max="4" value=""><br>
-            <input type="checkbox" name="chk_oeste_1" id="chk_oeste_1"> <label for="chk_oeste_1">Oeste 1</label><input type="range" name="rg_oeste_1" id="rg_oeste_1" min="1" max="6" value=""><br>
-            <input type="checkbox" name="chk_sur_1" id="chk_sur_1"> <label for="chk_sur_1">Sur 1</label><input type="range" name="rg_sur_1" id="rg_sur_1" min="1" max="5" value=""><br>
+            <input type="checkbox" name="chk_norte_1" id="chk_norte_1"> <label for="chk_norte_1">Norte 1</label><input readonly type="range" name="rg_norte_1" id="rg_norte_1" min="1" max="5" value=""><br>
+            <input type="checkbox" name="chk_este_1" id="chk_este_1"> <label for="chk_este_1">Este 1</label><input readonly type="range" name="rg_este_1" id="rg_este_1" min="1" max="4" value=""><br>
+            <input type="checkbox" name="chk_oeste_1" id="chk_oeste_1"> <label for="chk_oeste_1">Oeste 1</label><input readonly type="range" name="rg_oeste_1" id="rg_oeste_1" min="1" max="6" value=""><br>
+            <input type="checkbox" name="chk_sur_1" id="chk_sur_1"> <label for="chk_sur_1">Sur 1</label><input readonly type="range" name="rg_sur_1" id="rg_sur_1" min="1" max="5" value=""><br>
         </dd>
         <input type="checkbox" name="chk2" id="chk_2"> <label for="chk_2">Check 2</label><br>
         <dd>

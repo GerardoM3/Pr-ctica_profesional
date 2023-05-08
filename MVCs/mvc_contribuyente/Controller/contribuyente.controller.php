@@ -163,23 +163,9 @@ class ContribuyenteController{
                 if(isset($_REQUEST['total_celda_'.$i])){
                     $temporal['total_celda_'.$i] = $_REQUEST['total_celda_'.$i];
                 }
-                
-                echo <<<text
-                Correlativo: $contri->correlativo.<br>
-                ID inmueble: $inmueble->id_inmueble.<br>
-                ID Servicio de Alcaldía: $servi->id_servicio_alcaldia.<br>
-                text;
-                echo "Norte ".$i.": ".$_REQUEST['rg_norte_'.$i]."<br>";
-                echo "Este ".$i.": ".$_REQUEST['rg_este_'.$i]."<br>";
-                echo "Oeste ".$i.": ".$_REQUEST['rg_oeste_'.$i]."<br>";
-                echo "Sur ".$i.": ".$_REQUEST['rg_sur_'.$i]."<br>";
-                echo "Total_pagar ".$i.": ".$temporal['total_celda_'.$i]."<br>";
+                //Registra los datos en la tabla `servicio_contribuyente`, los datos de las 3 tablas: `contribuyente`, `inmueble`, y asocia los servicios aplicados al inmueble de la tabla `meta_servicio_alcaldia`.
                 $this->modelServicioContri->registrarServicioContribuyente($contri->correlativo, $inmueble->id_inmueble, $servi->id_servicio_alcaldia, $temporal['norte_'.$i], $temporal['este_'.$i], $temporal['oeste_'.$i], $temporal['sur_'.$i], $temporal['total_celda_'.$i] );
             }
-            
-
-            
-
             /*El siguiente foreach
             foreach ($this->model->obtenerCorrelativo2() as $rCorrelativo) {
                 $contri->correlativo = $rCorrelativo->correlativo;

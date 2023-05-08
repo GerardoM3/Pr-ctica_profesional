@@ -11,8 +11,8 @@ CREATE TABLE meta_servicios_alcaldia(
     descripcion_servicio varchar(100) NOT NULL,
     descripcion_servicio_abreviado varchar(20) NULL,
     unidad_medida varchar(15) NULL,
-    tarifa_actual decimal(8,2) NULL,
-    tarifa_anterior decimal(8,2) NULL,
+    tarifa_actual decimal(8,2) NOT NULL,
+    tarifa_anterior decimal(8,2) NOT NULL,
     periodo_vigencia_tarifa int NOT NULL,
     tipo_concepto varchar(1) NOT NULL,
     tipo_cobro varchar(1) NOT NULL,
@@ -49,10 +49,10 @@ CREATE TABLE meta_zona_inmueble(
 
 CREATE TABLE meta_dimension_inmueble(
     id_dimension int PRIMARY KEY AUTO_INCREMENT,
-    norte_longitud int,
-    este_longitud int,
-    oeste_longitud int,
-    sur_longitud int
+    norte_longitud int NOT NULL,
+    este_longitud int NOT NULL,
+    oeste_longitud int NOT NULL,
+    sur_longitud int NOT NULL
 );
 
 CREATE TABLE meta_unidad_medida(
@@ -64,22 +64,22 @@ CREATE TABLE meta_unidad_medida(
 CREATE TABLE contribuyente(
     correlativo int(4) ZEROFILL PRIMARY KEY AUTO_INCREMENT,
     id_contribuyente varchar(6),
-    nombre_contribuyente varchar(30) NULL,
-    apellido_contribuyente varchar(30) NULL,
-    direccion_contribuyente varchar(125) NULL,
-    dui_contribuyente varchar(10) NULL,
-    telefono_contribuyente varchar(9),
+    nombre_contribuyente varchar(30) NOT NULL,
+    apellido_contribuyente varchar(30) NOT NULL,
+    direccion_contribuyente varchar(125) NOT NULL,
+    dui_contribuyente varchar(10) NOT NULL,
+    telefono_contribuyente varchar(9) NOT NULL,
     estado_contribuyente tinyint NOT NULL,
     INDEX (id_contribuyente)
 );
 
 CREATE TABLE inmueble(
     id_inmueble int(3) ZEROFILL PRIMARY KEY AUTO_INCREMENT,
-    cod_zona int(2) UNSIGNED ZEROFILL,
-    direccion_inmueble varchar(210) NULL,
-    cod_sector varchar(2),
-    id_dimension int,
-    correlativo int(4) UNSIGNED ZEROFILL,
+    cod_zona int(2) UNSIGNED ZEROFILL NOT NULL,
+    direccion_inmueble varchar(210) NOT NULL,
+    cod_sector varchar(2) NOT NULL,
+    id_dimension int NOT NULL,
+    correlativo int(4) UNSIGNED ZEROFILL NOT NULL,
     estado_inmueble tinyint NOT NULL,
     FOREIGN KEY (cod_zona) REFERENCES meta_zona_inmueble(cod_zona),
     FOREIGN KEY (cod_sector) REFERENCES meta_sector_estado(cod_sector),
@@ -97,6 +97,7 @@ CREATE TABLE servicio_contribuyente(
     oeste_servicio int NULL,
     sur_servicio int NULL,
     total_pago_servicio decimal(9,2) NOT NULL,
+    estado_servicio_contribuyente tinyint NOT NULL,
     FOREIGN KEY (correlativo) REFERENCES contribuyente(correlativo),
     FOREIGN KEY (id_inmueble) REFERENCES inmueble(id_inmueble),
     FOREIGN KEY (id_servicio_alcaldia) REFERENCES meta_servicios_alcaldia(id_servicio_alcaldia)
@@ -160,6 +161,15 @@ END;$$
 DELIMITER ;
 
 DELIMITER $$
+CREATE TRIGGER nuevo_servicio_contribuyente
+BEFORE INSERT ON servicio_contribuyente
+FOR EACH ROW
+BEGIN
+	SET NEW.estado_servicio_contribuyente = 1;
+END;$$
+DELIMITER ;
+
+DELIMITER $$
 CREATE TRIGGER nuevo_sector_alcaldia
 BEFORE INSERT ON meta_sector_estado
 FOR EACH ROW
@@ -193,6 +203,13 @@ DELIMITER $$
 CREATE PROCEDURE `eliminar_sector`(IN id_sector varchar(2))
 BEGIN
 	UPDATE meta_sector_estado SET estado_sector = 0 WHERE cod_sector = id_sector;
+END;$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `eliminar_servicio_contribuyente`(IN cod_servicio_contribuyente int(10))
+BEGIN
+	UPDATE servicio_contribuyente SET estado_servicio_contribuyente = 0 WHERE id_servicio_contribuyente = cod_servicio_contribuyente;
 END;$$
 DELIMITER ;
 
