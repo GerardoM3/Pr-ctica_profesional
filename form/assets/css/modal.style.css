@@ -40,8 +40,8 @@ Apertura de la sección CSS del modal
     border-top-right-radius: 25px;
     background: #FF5454;
 }
-#modal-validar-servicio>.cabecera-modal,
-#modal-validar-servicio>.footer-modal{
+#modal-validar-servicio>.modal-eliminar>.cabecera-modal,
+#modal-validar-servicio>.modal-eliminar>.footer-modal{
     background: #125bf7;
 }
 
@@ -68,11 +68,13 @@ Apertura de la sección CSS del modal
     height:60px;
 }
 .btn-modal{
+    text-align: center;
     color: black;
-    padding: 13px;
-    border-radius:27px;
+    padding: 11px;
+    border-radius:15px;
     border: 1px black solid;
-    font-size: 20px;
+    font-size: 18px;
+    width: 150px;
     transition-property: box-shadow;
     transition-duration: 1s;
 }
@@ -92,6 +94,34 @@ a.btn-modal:active{
 .btn-modal:hover{
     cursor: pointer;
     box-shadow: -1px -1px 5px black;
+}
+.footer-modal>div>label::before{
+    content: '';
+    margin-left: 12px;
+}
+
+@media (width <= 1200px) {
+    .modal-eliminar{
+        width: 46%;
+        height: 46%;
+    }
+    .btn-modal{
+        width: 120px;
+        padding: 8px;
+        font-size: 15px;
+    }
+}
+
+@media (width <= 1000px) {
+    .modal-eliminar{
+        width: 56%;
+        height: 56%;
+    }
+    .btn-modal{
+        width: 90px;
+        padding: 6px;
+        font-size: 12px;
+    }
 }
 /*
 Cierre de la sección CSS del modal

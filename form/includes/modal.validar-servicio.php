@@ -6,7 +6,7 @@ echo <<<text
     <div class="modal" id="modal-validar-servicio">
         <div class="modal-eliminar" >
             <div class="cabecera-modal">
-                <h2 style="padding: 5px;"><i class="glyphicon glyphicon-list">Mensaje de validación</i></h2>
+                <h2 style="padding: 5px;"><i class="glyphicon glyphicon-list"> Mensaje de validación</i></h2>
             </div>
             <div class="cuerpo-modal">
                 <h3>Por favor, seleccione al menos un servicio</h3><br>
