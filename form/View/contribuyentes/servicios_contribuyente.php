@@ -1,6 +1,11 @@
 <?php 
 $i = 1;
 ?>
+	<a href="?c=Contribuyente&a=generales_Contribuyente_Report&id_inmueble=<?php echo $inmueble->id_inmueble;?>&correlativo=<?php echo $contri->correlativo;?>" class="btn btn-info" style="float: right;">
+		<i>
+			Imprimir
+		</i>
+	</a>
 	<div class="btn btn-info btn-lg regresar" style="float: right;">
 		<i class="glyphicon glyphicon-arrow-left">
 			<script>var regresar = document.querySelector('.regresar'); regresar.addEventListener('click', ()=>{window.location.assign(document.referrer);});</script>

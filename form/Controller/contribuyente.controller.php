@@ -51,6 +51,21 @@ class ContribuyenteController{
         require_once 'View/contribuyentes/footer.php';
     }
 
+    public function generales_Contribuyente_Report(){
+        $inmueble = new Inmueble();
+        $contri = new Contribuyente();
+        $servi = new Servicio_Alcaldia();
+        $servi_contri = new Servicios_Contribuyente();
+
+        if(isset($_REQUEST['id_inmueble'])){
+            $inmueble = $this->modelInmueble->getting($_REQUEST['id_inmueble']);
+        }
+        if(isset($_REQUEST['correlativo'])){
+            $contri = $this->model->obtenerCorrelativo3($_REQUEST['correlativo']);
+        }
+        require_once 'includes/reports/generales_contribuyente_report.php';
+    }
+
     public function newContribuyente(){
         require_once 'View/contribuyentes/header.php';
         require_once 'View/contribuyentes/newContribuyente.php';
