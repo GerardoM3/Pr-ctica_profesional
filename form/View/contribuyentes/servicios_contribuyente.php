@@ -1,9 +1,9 @@
 <?php 
 $i = 1;
 ?>
-	<a href="?c=Contribuyente&a=generales_Contribuyente_Report&id_inmueble=<?php echo $inmueble->id_inmueble;?>&correlativo=<?php echo $contri->correlativo;?>" class="btn btn-info" style="float: right;">
-		<i>
-			Imprimir
+	<a href="?c=Contribuyente&a=generales_Contribuyente_Report&id_inmueble=<?php echo $inmueble->id_inmueble;?>&correlativo=<?php echo $contri->correlativo;?>" target="_blank" class="btn btn-info btn-lg" style="float: left;margin-top:1em;margin-left:1.2em;">
+		<i class="glyphicon glyphicon-print">
+			Generar reporte
 		</i>
 	</a>
 	<div class="btn btn-info btn-lg regresar" style="float: right;">
